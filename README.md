@@ -1,5 +1,10 @@
 ## Lancer le project
 
+**si vous n avez pas encore python3 et/ou pip lancez:**  
+```bash
+sudo apt install python3 python3-pip
+```
+
 ```bash
 virtualenv .env
 source .env/bin/activate
