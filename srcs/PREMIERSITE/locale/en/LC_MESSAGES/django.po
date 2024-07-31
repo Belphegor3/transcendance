@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-13 01:55+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: PREMIERSITE/settings.py:24
+msgid "French"
+msgstr ""
+
+#: PREMIERSITE/settings.py:25
+msgid "English"
+msgstr ""
+
+#: PREMIERSITE/templates/index.html:89
+msgid "Mon site web"
+msgstr "My web site"
+
+#: PREMIERSITE/templates/index.html:137
+msgid "Bonjour"
+msgstr "Hello"
+
+#: PREMIERSITE/templates/index.html:137
+msgid "bienvenue sur mon site"
+msgstr "welcome to my site"
+
+#: PREMIERSITE/templates/index.html:138
+msgid "Aujourd'hui nous sommes le"
+msgstr "Today we are "
+
+#: PREMIERSITE/templates/index.html:141
+msgid "Paramètres"
+msgstr "Parameters"
+
+#: PREMIERSITE/templates/index.html:143
+msgid "Volume"
+msgstr "Volume"
+
+#: PREMIERSITE/templates/index.html:144
+msgid "Langue"
+msgstr "Language"
+
+#: PREMIERSITE/templates/index.html:145 PREMIERSITE/templates/index.html:178
+msgid "A propos"
+msgstr "About"
+
+#: PREMIERSITE/templates/index.html:160
+msgid "Réglage du volume"
+msgstr "Volume"
+
+#: PREMIERSITE/templates/index.html:162
+msgid "Volume:"
+msgstr "Volume:"
+
+#: PREMIERSITE/templates/index.html:169
+msgid "Choix de la langue"
+msgstr "Choice of language"
+
+#: PREMIERSITE/templates/index.html:171 PREMIERSITE/templates/index.html:174
+#: PREMIERSITE/templates/index.html:190
+msgid "Français"
+msgstr "French"
+
+#: PREMIERSITE/templates/index.html:172 PREMIERSITE/templates/index.html:190
+msgid "Anglais"
+msgstr "English"
+
+#: PREMIERSITE/templates/index.html:174 PREMIERSITE/templates/index.html:191
+msgid "Langue actuelle :"
+msgstr "Current language :"
+
+#: PREMIERSITE/templates/index.html:179
+msgid "Login:"
+msgstr "Login:"
+
+#: PREMIERSITE/templates/index.html:180
+msgid "Transcendance fait par moi"
+msgstr "Transcendance made by me"
