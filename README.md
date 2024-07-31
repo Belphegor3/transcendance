@@ -4,7 +4,8 @@
 ```bash
 sudo apt install python3 python3-pip
 ```
-
+  
+Sinon ci dessous suffit:  
 ```bash
 virtualenv .env
 source .env/bin/activate
