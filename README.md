@@ -27,6 +27,17 @@ python3 srcs/manage.py runserver
 4.  - [Accueil Jeu](http://localhost:8000/game/)
     - [Lancement Jeu](http://localhost:8000/game/launch)
 
+## DOCUMENTATION
+
+| Liens vers les docs ||
+| ------------ | ------------------------------------------------------------------------------------------------- | 
+| [django](https://docs.djangoproject.com/en/5.0/contents/) |
+| [postgresql](https://www.postgresql.org/docs/current/) |
+| [bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) |
+| [python](https://docs.python.org/fr/3/#) |
+| [JavaScript](https://www.freecodecamp.org/news/the-complete-javascript-handbook-f26b2c71719c/#justjavascript) |
+
+
 ## COMMANDES UTILES
 
 - `python3 -m venv .env` permet de creer un environnement virutel dans le dossier .env
