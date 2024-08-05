@@ -30,6 +30,7 @@ python3 srcs/manage.py runserver
 ## DOCUMENTATION
 
 | Liens vers les docs |
+| - |
 | [django](https://docs.djangoproject.com/en/5.0/contents/) |
 | [postgresql](https://www.postgresql.org/docs/current/) |
 | [bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) |
