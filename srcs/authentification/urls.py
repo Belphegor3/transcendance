@@ -13,5 +13,4 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('redirect-signin/', views.redirect_view_signin, name='redirect_signin'),
     path('redirect-signup/', views.redirect_view_signup, name='redirect_signup'),
-
 ]

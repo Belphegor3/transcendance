@@ -11,7 +11,7 @@ virtualenv .env
 source .env/bin/activate
 pip install django
 pip install -r requirements.txt
-python3 manage.py runserver
+python3 srcs/manage.py runserver
 ```
 
 ## Liste des liens utilisables et qu il faudra implementer ou pas
@@ -41,7 +41,7 @@ python3 manage.py runserver
 - `python manage.py runserver` (pointe directement sur settings.py donc plus pratique que django-admin qui necessiterait de preciser quel settings.py)   pour lancer le server de developpement
 
 - `python manage.py startapp newapp` pour creer une nouvelle app/section genre pour creer une nouvelle interface  
-On va donc devoir ajouter **newapp** dans settings.py dans "INSTALLED_APPS" puis ajouter un nouveau chemin d URL dans "newapp/urls.py" dans "urlpatterns" sans oublier le "urls.py" principal  
+On va donc devoir ajouter **newapp** dans settings.py dans "INSTALLED_APPS" puis ajouter un nouveau chemin d URL dans "newapp/urls.py" dans "urlpatterns" sans oublier le "urls.py" principal de PREMIERSITE  
 Ensuite on doit creer notre nouvelle vue dans "newapp/views.py" et creer un nouveau template dans "newapp/templates/nom/index.html".  
 
 - `python srcs/manage.py makemessages -l fr`  
