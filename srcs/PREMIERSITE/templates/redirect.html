@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirection Multiple</title>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {% endcomment %}
+</head>
+<body>
+    <h1>Page de Redirection Multiple</h1>
+    <button onclick="window.location.href='{% url 'redirect_game' %}'">Rediriger vers URL game</button>
+    <button onclick="window.location.href='{% url 'redirect_profile' %}'">Rediriger vers URL user_profile</button>
+    <button onclick="window.location.href='{% url 'redirect_authentification' %}'">Rediriger vers URL authentification</button>
+</body>
+</html>

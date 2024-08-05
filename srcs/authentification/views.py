@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -7,17 +8,17 @@ from django.http import HttpResponse
     http://localhost:8000/authentification/
 """
 def index(request):
-    return HttpResponse("<h1>La connection</h1>")
+    # return HttpResponse("<h1>La connection</h1>")
+    return render(request, "auth.html")
 
+def signin_view(request):
+    return render(request, 'signin.html')
 
-"""
-    http://localhost:8000/authentification/signin/
-"""
-def signin(request):
-    return HttpResponse("<h1>Gerer la connection avec compte 42</h1>")
+def signup_view(request):
+    return render(request, 'signup.html')
 
-"""
-    http://localhost:8000/authentification/signup/
-"""
-def signup(request):
-    return HttpResponse("<h1>Gerer la creation de compte?</h1>")
+def redirect_view_signin(request):
+    return redirect('/signin/')
+
+def redirect_view_signup(request):
+    return redirect('/signup/')

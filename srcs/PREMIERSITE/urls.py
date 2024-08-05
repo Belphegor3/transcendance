@@ -19,6 +19,7 @@ from .views import *    #equivalent a from .views import * parce que meme sous d
 from django.conf.urls.i18n import set_language
 from django.conf.urls.static import static
 from django.conf import settings
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +28,9 @@ urlpatterns = [
     path('user_profile/', include("user_profile.urls")),
     path('authentification/', include("authentification.urls")),
     path('set_language/', set_language, name='set_language'),
+    path('redirect-game/', views.redirect_view_game, name='redirect_game'),
+    path('redirec-profile/', views.redirect_view_profile, name='redirect_profile'),
+    path('redirect-authentification/', views.redirect_view_authentification, name='redirect_authentification'),
 ]
 
 if settings.DEBUG:

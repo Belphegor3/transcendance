@@ -5,9 +5,13 @@
 from django.contrib import admin
 from django.urls import path
 from authentification.views import *    #equivalent a from .views import * parce que meme sous dossier
+from . import views
 
 urlpatterns = [
-    path('', index, name="auth-index"),
-    path('signin/', signin, name="auth-signin"),
-    path('signup/', signup, name="auth-signup"),
+    path('', index, name="authentification"),
+    path('signin/', views.signin_view, name='signin'),
+    path('signup/', views.signup_view, name='signup'),
+    path('redirect-signin/', views.redirect_view_signin, name='redirect_signin'),
+    path('redirect-signup/', views.redirect_view_signup, name='redirect_signup'),
+
 ]

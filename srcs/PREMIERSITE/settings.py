@@ -26,7 +26,7 @@ LANGUAGES = [
     ('en', _('English')),
 ]
 
-LANGUAGE_CODE = 'fr'
+LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
