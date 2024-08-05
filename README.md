@@ -9,6 +9,7 @@ Sinon ci dessous suffit:
 ```bash
 virtualenv .env
 source .env/bin/activate
+pip install --upgrade pip
 pip install django
 pip install -r requirements.txt
 python3 srcs/manage.py runserver
