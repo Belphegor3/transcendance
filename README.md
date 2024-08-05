@@ -36,6 +36,7 @@ python3 srcs/manage.py runserver
 | [bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) |
 | [python](https://docs.python.org/fr/3/#) |
 | [JavaScript](https://www.freecodecamp.org/news/the-complete-javascript-handbook-f26b2c71719c/#justjavascript) |
+| [map/filter/reduce](https://www.youtube.com/watch?v=r0xv0uZM5V4) |
 
 
 ## COMMANDES UTILES
