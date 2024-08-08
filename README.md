@@ -20,12 +20,9 @@ python3 srcs/manage.py runserver
 **On retrouve tout ca dans 'srcs/PREMIERSITE/urls.py qui est en gros la racine du projet tout passe par la**  
 
 1. [HOME](http://localhost:8000/)
-2.  - [Accueil Authentification](http://localhost:8000/authentification/)
-    - [Login](http://localhost:8000/authentification/signin/)
-    - [Creation_de_compte](http://localhost:8000/authentification/signup/)
-3. [Profile](http://localhost:8000/user_profile/)
-4.  - [Accueil Jeu](http://localhost:8000/game/)
-    - [Lancement Jeu](http://localhost:8000/game/launch)
+2.  - [Login](http://localhost:8000/signin/)
+    - [Creation_de_compte](http://localhost:8000/signup/)
+
 
 ## DOCUMENTATION
 
@@ -37,6 +34,7 @@ python3 srcs/manage.py runserver
 | [python](https://docs.python.org/fr/3/#) |
 | [JavaScript](https://www.freecodecamp.org/news/the-complete-javascript-handbook-f26b2c71719c/#justjavascript) |
 | [map/filter/reduce](https://www.youtube.com/watch?v=r0xv0uZM5V4) |
+| [how_to_fetch](https://www.youtube.com/watch?v=C8bKthavr6E) |
 
 
 ## COMMANDES UTILES
