@@ -1,19 +1,25 @@
 ## Lancer le project
 
-**si vous n avez pas encore python3 et/ou pip lancez:**  
 ```bash
-sudo apt install python3 python3-pip
-```
-  
-Sinon ci dessous suffit:  
-```bash
+sudo apt update
+sudo apt upgrade
+sudo apt install python3 -y
+sudo apt update
+sudo apt upgrade
+sudo apt install python3-pip -y
+sudo apt install virtualenv -y
+sudo apt-get install postgresql postgresql-contrib -y
 virtualenv .env
 source .env/bin/activate
 pip install --upgrade pip
 pip install django
 pip install -r requirements.txt
+pip install psycopg2-binary
 python3 srcs/manage.py runserver
 ```
+
+python srcs/manage.py makemigrations
+python srcs/manage.py migrate
 
 ## Liste des liens utilisables et qu il faudra implementer ou pas
 
@@ -59,6 +65,23 @@ Ensuite on doit creer notre nouvelle vue dans "newapp/views.py" et creer un nouv
 - `python srcs/manage.py makemessages -l en`  
 - `python srcs/manage.py compilemessages`  
 **Django n a qu un point d entree pour les URL dans settings.py ROOT_URLCONF**  
+
+## Utilisation PostgreSql  
+
+```sql
+CREATE DATABASE nom_base_de_donnees;                        # creer DB
+DROP DATABASE nom_base_de_donnees;                          # supprimer DB
+CREATE TABLE nom_table ();                                  # creer une table
+INSERT INTO nom_table (nom, age) VALUES ('Alice', 30);      # inserer des donnees
+SELECT * FROM nom_table;                                    # selectionner des donnees
+SELECT nom, poste FROM employes;                            # ici seules les colonnes nom et poste sont retournes a chaque ligne de la table
+UPDATE nom_table SET age = 31 WHERE nom = 'Alice';          # met a jour
+DELETE FROM nom_table WHERE nom = 'Bob';                    # supprimer des donnees
+BEGIN;                                                      # commence une transaction (sert a utiliser une liste de commandes)
+COMMIT;                                                     # fin de transaction
+ROLLBACK;                                                   # sert a annuler les modifications
+CREATE USER nom_utilisateur WITH PASSWORD 'mot_de_passe';   # creer un utilisateur
+```
 
 
 installer brew:  

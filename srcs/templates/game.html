@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu</title>
+</head>
+<body>
+    <button onclick="navigateTo('/home')">Retour à l'accueil</button>
+    <script>
+        function navigateTo(url) {
+            window.history.pushState({}, '', url);
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html;
+                })
+                .catch(error => console.warn('Erreur:', error));
+        }
+    </script>
+</body>
+</html>
