@@ -9,12 +9,15 @@ sudo apt upgrade
 sudo apt install python3-pip -y
 sudo apt install virtualenv -y
 sudo apt-get install postgresql postgresql-contrib -y
+sudo apt-get install libpq-dev python3-dev -y
 virtualenv .env
 source .env/bin/activate
 pip install --upgrade pip
 pip install django
 pip install -r requirements.txt
 pip install psycopg2-binary
+python3 srcs/manage.py makemigrations
+python3 srcs/manage.py migrate
 python3 srcs/manage.py runserver
 ```
 
@@ -68,6 +71,14 @@ Ensuite on doit creer notre nouvelle vue dans "newapp/views.py" et creer un nouv
 
 ## Utilisation PostgreSql  
 
+```bash
+sudo -i -u postgres
+```  
+puis  
+```bash
+psql
+```  
+
 ```sql
 CREATE DATABASE nom_base_de_donnees;                        # creer DB
 DROP DATABASE nom_base_de_donnees;                          # supprimer DB
@@ -81,7 +92,9 @@ BEGIN;                                                      # commence une trans
 COMMIT;                                                     # fin de transaction
 ROLLBACK;                                                   # sert a annuler les modifications
 CREATE USER nom_utilisateur WITH PASSWORD 'mot_de_passe';   # creer un utilisateur
-```
+GRANT ALL PRIVILEGES ON DATABASE trans TO postgres;         # donner les droits
+```  
+
 
 
 installer brew:  
