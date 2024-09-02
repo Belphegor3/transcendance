@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Non Trouvée - 404</title>
+    <style>
+        .container {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 40px;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'images/error404.jpg' %}" alt="404 Error">
+    </div>
+    <div class="footer">
+        <a href="{% url 'home' %}">Retour à l'accueil</a>
+    </div>
+</body>
+</html>
+

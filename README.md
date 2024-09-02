@@ -18,8 +18,10 @@ pip install -r requirements.txt
 pip install psycopg2-binary
 python3 srcs/manage.py makemigrations
 python3 srcs/manage.py migrate
-python3 srcs/manage.py runserver
+python3 srcs/manage.py runserver --insecure
 ```
+
+on a besoin d un '--insecure' pour run le server parce qu on a pas encore de vrai server web qui gere ca donc j arrive pas a afficher les images genre error404 sans le flag
 
 python srcs/manage.py makemigrations
 python srcs/manage.py migrate

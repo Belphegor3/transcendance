@@ -17,10 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf.urls import handler400, handler403, handler404, handler500
+
+handler400 = 'principale.views.custom_400'
+handler403 = 'principale.views.custom_403'
+handler404 = 'principale.views.custom_404'
+handler500 = 'principale.views.custom_500'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('authentification.urls')),  # Inclure les URLs de authentification
+    path('', include('authentification.urls')),
     path('home/', views.realhome, name='realhome'),
     path('game/', include('game.urls')),
 ]

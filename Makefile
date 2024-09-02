@@ -1,7 +1,7 @@
 SHELL := /bin/zsh
 
 all: setup activate installs
-	python3 srcs/manage.py runserver
+	python3 srcs/manage.py runserver --insecure
 
 noserv: setup activate installs
 	@echo "\x1b[1;31mbon ben le makefile fonctionne pas mais tout est installe alors run:\x1b[0m"
