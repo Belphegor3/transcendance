@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  nginx:
+    image: owasp/modsecurity-crs:4.6.0-nginx-alpine-202409030409  # Use latest stable version
+    ports:
+      - "80:80"
+      - "443:443"
+    # volumes:
+    #   - ./etc/modsecurity:/etc/modsecurity  # Optional volume for ModSecurity configuration
+
+  gunicorn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - nginx
+    networks:
+      - transcendence
+
+networks:
+  transcendence:
+    driver: bridge
