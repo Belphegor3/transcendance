@@ -8,13 +8,15 @@ COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
 # Install Gunicorn
-RUN pip install gunicorn
+RUN pip install gunicorn psycopg2-binary
 
-# Copy the Django project
-COPY srcs/principale /app/principale
+# Copy the Django project and applications
+COPY srcs/ /app/srcs
 
 # Expose the port for Gunicorn
 EXPOSE 8000
 
-# Command to run Gunicorn
-CMD ["gunicorn", "-b", ":8000", "principale.wsgi"]
+ENV PYTHONPATH="/app/srcs:$PYTHONPATH"
+
+# Command to run Gunicorn, adjust the path to match the working directory
+CMD ["gunicorn", "-c", "srcs/gunicorn/gunicorn_config.py"]

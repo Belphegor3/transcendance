@@ -7,8 +7,7 @@ services:
       - "80:80"
       - "443:443"
     # volumes:
-    #   - ./etc/modsecurity:/etc/modsecurity  # Optional volume for ModSecurity configuration
-
+    #   - 
   gunicorn:
     build:
       context: .
