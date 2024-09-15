@@ -1,10 +1,15 @@
+{% comment %} {% load static %} {% endcomment %}
 <html>
     <body>
     </body>
-    <script src="js/game.js"></script>
-    <script src="js/game.display.js"></script>
-    <script src="js/game.controle.js"></script>
-    <script src="js/game.keycode.js"></script>
+    {% comment %} <script src="{% static 'js/game.js' %}"></script>
+    <script src="{% static 'js/game.display.js' %}"></script>
+    <script src="{% static 'js/game.controle.js' %}"></script>
+    <script src="{% static 'js/game.keycode.js' %}"></script> {% endcomment %}
+    <script src="../static/js/game.js"></script>
+    <script src="../static/js/game.display.js"></script>
+    <script src="../static/js/game.controle.js"></script>
+    <script src="../static/js/game.keycode.js"></script>
     <script>
         (function (){
             let requestAnimId;

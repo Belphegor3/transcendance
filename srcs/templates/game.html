@@ -7,6 +7,9 @@
 </head>
 <body>
     <button onclick="navigateTo('/home')">Retour à l'accueil</button>
+    <button onclick="navigateTo('/game/custom_bot')">Affronter un bot</button>
+    <button onclick="navigateTo('/game/custom_versus')">1v1</button>
+    <button onclick="navigateTo('/game/tournament')">Participer a un tournoi</button>
     <script>
         function navigateTo(url) {
             window.history.pushState({}, '', url);
