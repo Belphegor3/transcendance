@@ -16,6 +16,8 @@ services:
       - transcendence
   postgres:
     image: bitnami/postgresql:16
+    environment:
+      POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD}
     networks:
       - transcendence
 

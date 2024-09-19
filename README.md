@@ -1,24 +1,20 @@
 ## Lancer le project
 
 ```bash
-sudo apt update
-sudo apt upgrade
-sudo apt install python3 -y
-sudo apt update
-sudo apt upgrade
-sudo apt install python3-pip -y
-sudo apt install virtualenv -y
-sudo apt-get install postgresql postgresql-contrib -y
-sudo apt-get install libpq-dev python3-dev -y
-virtualenv .env
-source .env/bin/activate
-pip install --upgrade pip
-pip install django
-pip install -r requirements.txt
-pip install psycopg2-binary
-# python3 srcs/manage.py makemigrations
-# python3 srcs/manage.py migrate
-python3 srcs/manage.py runserver --insecure
+# Create Secrets:
+cp sample.env .env
+
+# Launch project
+make
+
+# Logs:
+docker compose logs --follow
+
+# Stop:
+docker compose down -v
+
+# Reset docker
+docker system prune -af
 ```
 
 on a besoin d un '--insecure' pour run le server parce qu on a pas encore de vrai server web qui gere ca donc j arrive pas a afficher les images genre error404 sans le flag
