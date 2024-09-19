@@ -20,14 +20,43 @@
             text-align: center;
             width: 100%;
         }
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-buttons img {
+            cursor: pointer;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
+    <div class="language-buttons">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" onclick="setLanguage('es')">
+    </div>
     <div class="container">
-        <img src="{% static 'images/error500.jpg' %}" alt="500 Error">
+        <img src="{% static 'images/errors/error500.jpg' %}" alt="500 Error">
     </div>
     <div class="footer">
-        <a href="{% url 'home' %}">Retour à l'accueil</a>
+        <a id="retour" href="{% url 'home' %}">Back home</a>
     </div>
+    <script>
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["everywhere"];
+                    document.getElementById("retour").textContent = translation["retour"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
+        }
+    </script>
 </body>
 </html>

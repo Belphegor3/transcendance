@@ -1,14 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
+    <style>
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-buttons img {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenue</h1>
-    <button onclick="navigateTo('/signin/')">Se connecter</button>
-    <button onclick="navigateTo('/signup/')">S'inscrire</button>
+    <div class="language-buttons">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" onclick="setLanguage('es')">
+    </div>
+
+    <h1 id="welcome">Welcome</h1>
+    <button id="login" onclick="navigateTo('/signin/')">Sign in</button>
+    <button id="signup" onclick="navigateTo('/signup/')">Sign up</button>
 
     <script>
         function navigateTo(url) {
@@ -21,6 +39,23 @@
                 .catch(error => console.warn('Erreur:', error));
         }
 
+
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["home"];
+                    document.getElementById("welcome").textContent = translation["welcome"];
+                    document.getElementById("login").textContent = translation["login"];
+                    document.getElementById("signup").textContent = translation["signup"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
+        }
+
         window.onpopstate = function() {
             fetch(window.location.href)
                 .then(response => response.text())
@@ -31,4 +66,6 @@
     </script>
 </body>
 </html>
+
+
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,6 @@
 </head>
 <body>
     <button onclick="navigateTo('/game')">Jouer</button>
-    {% comment %} <button>Jouer</button> {% endcomment %}
     <script>
         function navigateTo(url) {
             window.history.pushState({}, '', url);
@@ -20,4 +19,63 @@
         }
     </script>
 </body>
+</html> {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <style>
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-buttons img {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-buttons">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" onclick="setLanguage('es')">
+    </div>
+
+    {% comment %} <button id="play" onclick="navigateTo('/game/')">Play</button> {% endcomment %}
+    <a id="play" href="{% url 'game' %}">Play</a>
+
+    <script>
+        function navigateTo(url) {
+            window.history.pushState({}, '', url);
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html;
+                })
+                .catch(error => console.warn('Erreur:', error));
+        }
+
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["realhome"];
+                    document.getElementById("play").textContent = translation["play"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
+        }
+
+    </script>
+</body>
 </html>
+

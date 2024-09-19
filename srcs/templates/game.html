@@ -1,12 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu</title>
+    <style>
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-buttons img {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="navigateTo('/home')">Retour à l'accueil</button>
+    <div class="language-buttons">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" onclick="setLanguage('es')">
+    </div>
+
+    {% comment %} <button id="retour" onclick="navigateTo('/home')">Back home</button> {% endcomment %}
+    <a id="retour" href="{% url 'realhome' %}">Back home</a>
+
     <script>
         function navigateTo(url) {
             window.history.pushState({}, '', url);
@@ -16,6 +36,20 @@
                     document.body.innerHTML = html;
                 })
                 .catch(error => console.warn('Erreur:', error));
+        }
+
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["everywhere"];
+                    document.getElementById("retour").textContent = translation["retour"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
         }
     </script>
 </body>
