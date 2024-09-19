@@ -19,6 +19,6 @@ RUN pip install --break-system-packages -r requirements.txt
 COPY . .
 
 ENTRYPOINT [ "python3" ]
-CMD [ "srcs/manage.py", "runserver", "0.0.0.0:8000" ]
+CMD [ "srcs/manage.py", "runserver", "0.0.0.0:8000", "--insecure" ]
 
 EXPOSE 8000
