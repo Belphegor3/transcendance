@@ -1,0 +1,24 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Containerfile
+    ports:
+      - "80:80"
+      - "443:443"
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Containerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - transcendence
+  postgres:
+    image: bitnami/postgresql:16
+    networks:
+      - transcendence
+
+networks:
+  transcendence:
+    external: false

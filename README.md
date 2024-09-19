@@ -16,8 +16,8 @@ pip install --upgrade pip
 pip install django
 pip install -r requirements.txt
 pip install psycopg2-binary
-python3 srcs/manage.py makemigrations
-python3 srcs/manage.py migrate
+# python3 srcs/manage.py makemigrations
+# python3 srcs/manage.py migrate
 python3 srcs/manage.py runserver --insecure
 ```
 
