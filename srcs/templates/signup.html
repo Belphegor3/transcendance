@@ -1,60 +1,38 @@
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S'inscrire</title>
-</head>
-<body>
-    <h1>S'inscrire</h1>
-    <form>
-        <input type="text" placeholder="Nom d'utilisateur">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Mot de passe">
-        <button type="submit">Inscription</button>
-    </form>
-    <button onclick="navigateTo('/')">Retour à l'accueil</button>
-
-    <script>
-        function navigateTo(url) {
-            window.history.pushState({}, '', url);
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    document.body.innerHTML = html;
-                })
-                .catch(error => console.warn('Erreur:', error));
-        }
-
-        window.onpopstate = function() {
-            fetch(window.location.href)
-                .then(response => response.text())
-                .then(html => {
-                    document.body.innerHTML = html;
-                });
-        };
-    </script>
-</body>
-</html> {% endcomment %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S'inscrire</title>
+    <style>
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-buttons img {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>S'inscrire</h1>
+    <div class="language-buttons">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" onclick="setLanguage('es')">
+    </div>
+    <h1 id="signup">S'inscrire</h1>
 
     <form method="POST" action="{% url 'signup' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Inscription</button>
+        <button id="registration" type="submit">Inscription</button>
     </form>
 
 
-    <button onclick="navigateTo('/')">Retour à l'accueil</button>
+    <button id="retour" onclick="navigateTo('/')">Retour à l'accueil</button>
 
     <script>
         document.getElementById('signupForm').addEventListener('submit', function(event) {
@@ -95,6 +73,27 @@
                     document.body.innerHTML = html;
                 });
         };
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["everywhere"];
+                    document.getElementById("retour").textContent = translation["retour"];
+                })
+                .then(data2 => {
+                    const translation2 = data2[lang]["register"];
+                    document.getElementById("signup").textContent = translation2["signup"];
+                    document.getElementById("username").textContent = translation2["username"];
+                    document.getElementById("email").textContent = translation2["email"];
+                    document.getElementById("pass").textContent = translation2["pass"];
+                    document.getElementById("registration").textContent = translation2["registration"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
+        }
     </script>
 </body>
 </html>

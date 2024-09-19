@@ -1,19 +1,69 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S'inscrire</title>
+    <style>
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .language-buttons img {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>S'inscrire</h1>
+    <div class="language-buttons">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" onclick="setLanguage('es')">
+    </div>
+    <h1 id="signup">S'inscrire</h1>
     <form method="POST" action="{% url 'realhome' %}">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Nom d'utilisateur">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Mot de passe">
-        <button type="submit">Inscription</button>
+        <input id="username" type="text" name="username" placeholder="Nom d'utilisateur">
+        <input id="email" type="email" name="email" placeholder="Email">
+        <input id="pass" type="password" name="password" placeholder="Mot de passe">
+        <button id="registration" type="submit">Inscription</button>
     </form>
-    <a href="{% url 'home' %}">Retour à l'accueil</a>
+    <a id="retour" href="{% url 'home' %}">Retour à l'accueil</a>
+    <script>
+        {% comment %} function navigateTo(url) {
+            window.history.pushState({}, '', url);
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html;
+                })
+                .catch(error => console.warn('Erreur:', error));
+        } {% endcomment %}
+
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["everywhere"];
+                    document.getElementById("retour").textContent = translation["retour"];
+                })
+                .then(data2 => {
+                    const translation = data2[lang]["register"];
+                    document.getElementById("signup").textContent = translation["signup"];
+                    document.getElementById("username").textContent = translation["username"];
+                    document.getElementById("email").textContent = translation["email"];
+                    document.getElementById("pass").textContent = translation["pass"];
+                    document.getElementById("registration").textContent = translation["registration"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
+        }
+    </script>
 </body>
 </html>
