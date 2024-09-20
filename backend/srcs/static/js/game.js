@@ -12,6 +12,7 @@ const game = {
     groundLayer : null,
     scoreLayer : null,
     playersBallLayer : null,
+    speedPlayerDeplacement : 5,
 
     ball : {
         width : 12,
@@ -24,13 +25,32 @@ const game = {
         radius : 6,
         directionX : 0.5,
         directionY : -0.5,
-        speed : 2,
+        speed : 1.5,
+
         start : function() {
             this.posX = game.groundWidth / 2;
             this.posY = game.groundHeight / 2;
             this.posRecX = this.posX - this.radius;
             this.posRecY = this.posY - this.radius;
             this.height = this.width = this.radius * 2;
+            this.speed = 1.5;
+            let randomDepart = game.geometry.randomDirection(0,4);
+            if (randomDepart <= 1){
+                this.directionX = 1 * this.speed;
+                this.directionY = 1 * this.speed;
+            }
+            else if (randomDepart <= 2){
+                this.directionX = 1 * this.speed;
+                this.directionY = -1 * this.speed;
+            }
+            else if (randomDepart <= 3){
+                this.directionX = -1 * this.speed;
+                this.directionY = 1 * this.speed;
+            }
+            else if (randomDepart <= 4){
+                this.directionX = -1 * this.speed;
+                this.directionY = -1 * this.speed;
+            }
         },
         move : function() {
             this.posX += this.directionX * this.speed;
@@ -132,26 +152,51 @@ const game = {
 
     movePlayers : function() {
         if (game.playerOne.goUp && game.playerOne.posY > 0){
-            game.playerOne.posY -= 5;
+            game.playerOne.posY -= this.speedPlayerDeplacement;
         }
         else if (game.playerOne.goDown && game.playerOne.posY < game.groundHeight - game.playerOne.height){
-            game.playerOne.posY += 5;
+            game.playerOne.posY += this.speedPlayerDeplacement;
         }
         if (game.playerTwo.goUp && game.playerTwo.posY > 0){
-            game.playerTwo.posY -= 5;
+            game.playerTwo.posY -= this.speedPlayerDeplacement;
         }
         else if (game.playerTwo.goDown && game.playerTwo.posY < game.groundHeight - game.playerTwo.height){
-            game.playerTwo.posY += 5;
+            game.playerTwo.posY += this.speedPlayerDeplacement;
         }
     },
 
     collideBallWithPlayersAndAction : function() {
+        let multiplicateurModifier = 1.1;
         if (this.ball.collide(game.playerOne)) {
-            game.ball.directionX = -game.ball.directionX;
+            this.ball.speed *= multiplicateurModifier;
+            let direc = this.resultCollideRacketVerticalOnBall(game.playerOne);
+            this.ball.directionX = direc[0];
+            this.ball.directionY = direc[1];
+            //game.ball.directionX = -game.ball.directionX;
         }
         if (this.ball.collide(game.playerTwo)) {
-            game.ball.directionX = -game.ball.directionX;
+            this.ball.speed *= multiplicateurModifier;
+            let direc = this.resultCollideRacketVerticalOnBall(game.playerTwo);
+            this.ball.directionX = direc[0];
+            this.ball.directionY = direc[1];
+            //game.ball.directionX = -game.ball.directionX;
         }
+    },
+
+    resultCollideRacketVerticalOnBall : function(anotherItem) {
+        let ctrBallX = anotherItem.posX + anotherItem.width / 2;
+        let ctrBallY = anotherItem.posY + anotherItem.height / 2;
+        let angle = (game.geometry.lineAngle(ctrBallX, ctrBallY, this.ball.posX, this.ball.posY) + 360) % 360;
+        if (80 <= angle && angle <= 90) {
+            angle = 80;
+        } else if (90 <= angle && angle <= 100) {
+        angle = 100;
+        } else if (260 <= angle && angle <= 270) {
+        angle = 260;
+        } else if (270 <= angle && angle <= 280) {
+        angle = 280;
+        }
+        return (game.geometry.pointTranslate(0, 0, angle, this.ball.speed))
     },
 
     initialPosition : function(){
@@ -166,14 +211,12 @@ const game = {
             this.scorePlayer2 += 1;
             game.initialPosition()
             game.displayScore(this.scorePlayer1, this.scorePlayer2);
-            game.ball.directionX = 1;
         }
         else if (this.ball.posRecX >= game.groundWidth - this.ball.width){
             this.clearLayer(this.scoreLayer);
             this.scorePlayer1 += 1;
             game.initialPosition();
             game.displayScore(this.scorePlayer1, this.scorePlayer2);
-            game.ball.directionX = -1;
         }
     },
 
