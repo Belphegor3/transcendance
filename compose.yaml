@@ -6,12 +6,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - transcendence
   backend:
     build:
       context: ./backend
       dockerfile: Containerfile
-    ports:
-      - "8000:8000"
     networks:
       - transcendence
   postgres:
