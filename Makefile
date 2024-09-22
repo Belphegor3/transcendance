@@ -1,4 +1,4 @@
-all: .env
+all:
 	docker compose up -d --build
 
 .PHONY:

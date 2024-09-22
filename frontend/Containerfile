@@ -1,19 +1,44 @@
-FROM debian:12-slim AS ssl-cert
+# FROM debian:12-slim AS ssl-cert
 
-# hadolint ignore=DL3008
-RUN apt-get update && apt-get install -y --no-install-recommends openssl \
-    && openssl req -new				\
-		-newkey rsa:4096			\
-		-x509						\
-		-sha256						\
-		-days 365					\
-		-nodes						\
-		-out /cert.crt	\
-		-keyout /cert.key	\
-		-subj "/C=FR/ST=France/L=Paris/O=42/CN=akefeder"
+# # hadolint ignore=DL3008
+# RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+#     && openssl req -new				\
+# 		-newkey rsa:4096			\
+# 		-x509						\
+# 		-sha256						\
+# 		-days 365					\
+# 		-nodes						\
+# 		-out /cert.crt	\
+# 		-keyout /cert.key	\
+# 		-subj "/C=FR/ST=France/L=Paris/O=42/CN=lfchouch"
 
-FROM nginxinc/nginx-unprivileged:1.27-alpine AS prod
+# FROM nginxinc/nginx-unprivileged:1.27-alpine AS prod
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=ssl-cert --chown=nginx:nginx /cert.* /etc/nginx/.
+# COPY --from=ssl-cert --chown=nginx:nginx /cert.* /etc/nginx/.
+
+
+FROM python:3.9-slim-bullseye
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file and install dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install -r /app/requirements.txt
+
+# Install Gunicorn and PostgreSQL binary support
+RUN pip install gunicorn psycopg2-binary
+
+# Copy the Django project and applications
+COPY srcs/ /app/srcs
+
+# Expose the port for Gunicorn
+EXPOSE 8000
+
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH="/app/srcs:$PYTHONPATH"
+
+# Command to run Gunicorn with the provided configuration
+CMD ["gunicorn", "-c", "srcs/gunicorn/gunicorn_config.py"]

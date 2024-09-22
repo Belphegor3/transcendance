@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,15 +33,6 @@
     </form>
     <a id="retour" href="{% url 'home' %}">Retour à l'accueil</a>
     <script>
-        {% comment %} function navigateTo(url) {
-            window.history.pushState({}, '', url);
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    document.body.innerHTML = html;
-                })
-                .catch(error => console.warn('Erreur:', error));
-        } {% endcomment %}
 
         function fetchTranslations(lang) {
             fetch("{% static 'json/translations.json' %}")
@@ -66,4 +57,85 @@
         }
     </script>
 </body>
+</html> {% endcomment %}
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+
+<body class="d-flex flex-column align-items-center justify-content-center vh-100 bg-light">
+
+    <div class="d-flex justify-content-end position-absolute" style="top: 10px; right: 10px;">
+        <img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" class="ml-2" onclick="setLanguage('en')">
+        <img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" class="ml-2" onclick="setLanguage('fr')">
+        <img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" class="ml-2" onclick="setLanguage('es')">
+    </div>
+
+
+    <div class="card shadow p-4 mb-4 bg-white rounded" style="width: 100%; max-width: 400px;">
+        <h1 id="signup" class="text-center mb-4">Sign up</h1>
+        
+        <form method="POST" action="{% url 'realhome' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <input id="username" type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
+            </div>
+            
+            <div class="form-group">
+                <input id="email" type="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
+            
+            <div class="form-group">
+                <input id="pass" type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+            </div>
+            
+            <button id="registration" type="submit" class="btn btn-primary btn-block">Registration</button>
+        </form>
+        
+        <a id="retour" href="{% url 'home' %}" class="d-block text-center mt-3">Back home</a>
+    </div>
+
+    <!-- Bootstrap JS & Dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function fetchTranslations(lang) {
+            fetch("{% static 'json/translations.json' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const translation = data[lang]["everywhere"];
+                    document.getElementById("retour").textContent = translation["retour"];
+                })
+                .then(data2 => {
+                    const translation = data2[lang]["register"];
+                    document.getElementById("signup").textContent = translation["signup"];
+                    document.getElementById("username").placeholder = translation["username"];
+                    document.getElementById("email").placeholder = translation["email"];
+                    document.getElementById("pass").placeholder = translation["pass"];
+                    document.getElementById("registration").textContent = translation["registration"];
+                })
+                .catch(error => console.error('Erreur lors du chargement des traductions:', error));
+        }
+
+        function setLanguage(lang) {
+            fetchTranslations(lang);
+        }
+    </script>
+</body>
+
 </html>

@@ -22,6 +22,12 @@ on a besoin d un '--insecure' pour run le server parce qu on a pas encore de vra
 python srcs/manage.py makemigrations
 python srcs/manage.py migrate
 
+
+L'élément <a> est sémantiquement utilisé pour la navigation. Son but est d'indiquer qu'un clic redirigera l'utilisateur vers une autre page ou ressource.  
+
+Un bouton est sémantiquement utilisé pour l'interaction, notamment pour des actions sur la page comme soumettre des données, déclencher des scripts, etc.  
+Il est plus approprié d'utiliser <button> pour des actions qui ne sont pas liées à la navigation.
+
 ## Liste des liens utilisables et qu il faudra implementer ou pas
 
 **On retrouve tout ca dans 'srcs/PREMIERSITE/urls.py qui est en gros la racine du projet tout passe par la**  

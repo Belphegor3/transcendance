@@ -26,6 +26,9 @@
 
     {% comment %} <button id="retour" onclick="navigateTo('/home')">Back home</button> {% endcomment %}
     <a id="retour" href="{% url 'realhome' %}">Back home</a>
+    {% comment %} <a href="{% url 'game/custom_vs' %}">1v1</a> {% endcomment %}
+    {% comment %} <button onclick="navigateTo('custom_vs')">1v1</button> {% endcomment %}
+    <a href="{% url 'custom_vs' %}">1v1</a>
 
     <script>
         function navigateTo(url) {
@@ -52,5 +55,6 @@
             fetchTranslations(lang);
         }
     </script>
+
 </body>
 </html>

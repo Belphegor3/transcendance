@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title text-center">Game options</h1>
+
+            <form id="pongOptions">
+                <div class="mb-3">
+                    <label for="gameMode" class="form-label">Game mode :</label>
+                    <select id="gameMode" class="form-select" onchange="togglePlayerName()">
+                        <option value="bot">Play against a bot</option>
+                        <option value="player">Play against another player</option>
+                    </select>
+                </div>
+                
+                <div id="playerNameGroup" class="mb-3 d-none">
+                    <label for="playerName" class="form-label">Nickname for the second player :</label>
+                    <input type="text" id="playerName" class="form-control" placeholder="Entrez le pseudo">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="gameBackground" class="form-label">Select a background :</label>
+                    <select id="gameBackground" class="form-select">
+                        <option value="back 1">Back 1</option>
+                        <option value="back 2">Back 2</option>
+                        <option value="back 3">Back 3</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="gamePoints" class="form-label">Points to win :</label>
+                    <select id="gamePoints" class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ballSize" class="form-label">Select a ball size :</label>
+                    <select id="ballSize" class="form-select">
+                        <option value="small">small</option>
+                        <option value="medium">medium</option>
+                        <option value="large">large</option>
+                    </select>
+                </div>
+                <button id="begin" onclick="navigateTo('/game/launch')" type="submit" class="btn btn-success w-100">Begin</button>
+                {% comment %} <a href="http://localhost:8000/game/launch">Commencer la partie</a> {% endcomment %}
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function navigateTo(url) {
+        window.history.pushState({}, '', url);
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.body.innerHTML = html;
+            })
+            .catch(error => console.warn('Erreur:', error));
+    }
+    function togglePlayerName() {
+        const gameMode = document.getElementById('gameMode').value;
+        const playerNameGroup = document.getElementById('playerNameGroup');
+        
+        if (gameMode === 'player') {
+            playerNameGroup.classList.remove('d-none');
+        } else {
+            playerNameGroup.classList.add('d-none');
+        }
+    }
+
+    const playerName = document.getElementById('playerName').value;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Gérer les clics sur les liens de navigation pour éviter le rechargement complet
+        document.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();  // Empêche le comportement par défaut de rechargement
+
+                // Utiliser l'API Fetch pour charger la nouvelle page
+                fetch(link.href)
+                    .then(function(response) {
+                        return response.text();  // Récupérer la réponse en texte (HTML)
+                    })
+                    .then(function(html) {
+                        // Remplacer le contenu principal avec celui de la nouvelle page
+                        let parser = new DOMParser();
+                        let doc = parser.parseFromString(html, 'text/html');
+                        document.querySelector('#main-content').innerHTML = doc.querySelector('#main-content').innerHTML;
+                        
+                        // Mettre à jour l'URL sans recharger la page
+                        window.history.pushState({}, '', link.href);
+                    })
+                    .catch(function(error) {
+                        console.error('Erreur lors du chargement de la page :', error);
+                    });
+            });
+        });
+    });
+
+    // Gérer la navigation avec les boutons précédent/suivant du navigateur
+    window.addEventListener('popstate', function() {
+        fetch(window.location.href)
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(html) {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(html, 'text/html');
+                document.querySelector('#main-content').innerHTML = doc.querySelector('#main-content').innerHTML;
+            });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
