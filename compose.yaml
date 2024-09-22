@@ -1,48 +1,16 @@
-# services:
-#   frontend:
-#     build:
-#       context: ./frontend
-#       dockerfile: Containerfile
-#     ports:
-#       - "80:80"
-#       - "443:443"
-#     networks:
-#       - transcendence
-#   backend:
-#     build:
-#       context: ./backend
-#       dockerfile: Containerfile
-#     networks:
-#       - transcendence
-#   postgres:
-#     image: bitnami/postgresql:16
-#     environment:
-#       POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD}
-#     networks:
-#       - transcendence
-
-# networks:
-#   transcendence:
-#     external: false
-
-version: '3'
-
 services:
   nginx:
-    image: owasp/modsecurity-crs:4.6.0-nginx-alpine-202409030409  # Use latest stable version
+    image: owasp/modsecurity-crs:4.6.0-nginx-alpine-202409030409
     ports:
       - "80:80"
       - "443:443"
-    # volumes:
-    #   - 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Containerfile
+    networks:
+      - transcendence
+
   gunicorn:
     build:
-      context: ./frontend
-      dockerfile: Containerfile
+      context: .
+      dockerfile: backend/gunicorn/Dockerfile
     ports:
       - "8000:8000"
     depends_on:

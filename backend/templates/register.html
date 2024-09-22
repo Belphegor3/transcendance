@@ -88,7 +88,7 @@
         <h1 id="signup" class="text-center mb-4">Sign up</h1>
         
         <form method="POST" action="{% url 'realhome' %}">
-            {% csrf_token %}
+            {% comment %} {% csrf_token %} {% endcomment %}
             
             <div class="form-group">
                 <input id="username" type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required>

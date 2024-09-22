@@ -3,8 +3,8 @@
 bind = "0.0.0.0:8000"
 
 #Seulement localhost
-bind = "127.0.0.1:8000"
+# bind = "127.0.0.1:8000"
 
 workers = 3
-wsgi_app = "srcs.principale.wsgi:application"
+wsgi_app = "backend.principale.wsgi:application"
 

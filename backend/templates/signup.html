@@ -16,7 +16,7 @@
     <h1 id="signup">Sign up</h1>
 
     <form method="POST" action="{% url 'signup' %}">
-        {% csrf_token %}
+        {% comment %} {% csrf_token %} {% endcomment %}
         {{ form.as_p }}
         <button id="registration" type="submit">Registration</button>
     </form>
