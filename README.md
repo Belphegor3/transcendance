@@ -19,8 +19,9 @@ docker system prune -af
 
 on a besoin d un '--insecure' pour run le server parce qu on a pas encore de vrai server web qui gere ca donc j arrive pas a afficher les images genre error404 sans le flag
 
-python srcs/manage.py makemigrations
-python srcs/manage.py migrate
+python backend/manage.py makemigrations
+python backend/manage.py migrate
+python backend/manage.py collectstatic
 
 
 L'élément <a> est sémantiquement utilisé pour la navigation. Son but est d'indiquer qu'un clic redirigera l'utilisateur vers une autre page ou ressource.  
