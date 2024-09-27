@@ -1,9 +1,4 @@
 function launchGame() {
-    const gameMode = sessionStorage.getItem('gameMode');
-    const playerName = sessionStorage.getItem('playerName');
-    const gameBackground = sessionStorage.getItem('gameBackground');
-    const gamePoints = sessionStorage.getItem('gamePoints');
-    const ballSize = sessionStorage.getItem('ballSize');
     let requestAnimId;
 
     let initiate = function() {

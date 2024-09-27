@@ -13,7 +13,7 @@
         <div class="card-body">
             <h1 class="card-title text-center">Game Options</h1>
 
-            <form id="pongOptions">
+            <form id="pongOptions" onsubmit="saveOptions(event)">
                 <div class="mb-3">
                     <label for="gameMode" class="form-label">Game Mode:</label>
                     <select id="gameMode" class="form-select" onchange="togglePlayerName()">
@@ -39,15 +39,11 @@
                 <div class="mb-3">
                     <label for="gamePoints" class="form-label">Points to win:</label>
                     <select id="gamePoints" class="form-select">
-                        <option>1</option>
-                        <option>1</option>
-                        <option>3</option>
-                        <option>3</option>
-                        <option>5</option>
-                        <option>5</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="7">7</option>
+                        <option value="9">9</option>
                     </select>
                 </div>
 
@@ -60,7 +56,7 @@
                     </select>
                 </div>
 
-                <a id="begin" class="btn btn-primary" onclick="navigateTo(event, '{% url 'launch' %}')">Begin</a>
+                <button type="submit" class="btn btn-primary">Begin</button>
             </form>
         </div>
     </div>
@@ -68,18 +64,45 @@
 
 <script>
     function togglePlayerName() {
-        const gameMode = document.getElementById('gameMode').value;
+        const gameMode = document.getElementById('gameMode');
         const secondPlayer = document.getElementById('secondPlayer');
         
-        if (gameMode === 'player') {
+        if (!gameMode || !secondPlayer) {
+            console.error('Elements not found in the DOM');
+            return;
+        }
+        
+        console.log('Selected game mode:', gameMode.value);
+        
+        if (gameMode.value === 'player') {
             secondPlayer.classList.remove('d-none');
         } else {
             secondPlayer.classList.add('d-none');
         }
     }
-</script>
 
-<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('gameMode').addEventListener('change', togglePlayerName);
+    });
+
+    function saveOptions(event) {
+        event.preventDefault();
+        
+        const gameMode = document.getElementById('gameMode').value;
+        const playerName = document.getElementById('playerName').value || 'Bot';
+        const gameBackground = document.getElementById('gameBackground').value;
+        const gamePoints = document.getElementById('gamePoints').value;
+        const ballSize = document.getElementById('ballSize').value;
+        
+        sessionStorage.setItem('gameMode', gameMode);
+        sessionStorage.setItem('playerName', playerName);
+        sessionStorage.setItem('gameBackground', gameBackground);
+        sessionStorage.setItem('gamePoints', gamePoints);
+        sessionStorage.setItem('ballSize', ballSize);
+
+        navigateTo(event, '/game/launch/');
+    }
+
     function navigateTo(event, url) {
         event.preventDefault();
         window.history.pushState({}, '', url);
