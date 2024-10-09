@@ -1,62 +1,57 @@
 {
     "en": {
         "home": {
-            "welcome": "Welcome",
-            "login": "Sign in",
-            "signup": "Sign up"
+            "sign-up": "Sign up",
+            "sign-in": "Sign in",
+            "sign-in-42": "Sign in with",
+            "login": "Username or email",
+            "password": "Password",
+            "dont_have_account": "Don't have an account?",
+            "forgot_password": "Forgot password?",
+            "login_feedback": "Please enter a valid login."
         },
         "realhome": {
             "play": "Play"
         },
         "everywhere": {
             "retour": "Back home"
-        },
-        "register": {
-            "signup": "Register",
-            "username": "Username",
-            "email": "Email address",
-            "pass": "Password",
-            "registration": "Registration"
         }
     },
     "fr": {
         "home": {
-            "welcome": "Bienvenue",
-            "login": "Se connecter",
-            "signup": "S'inscrire"
+            "sign-up": "S'inscire'",
+            "sign-in": "Se connecter",
+            "sign-in-42": "Se connecter avec",
+            "login": "Nom d'utilisateur ou email",
+            "password": "Mot de passe",
+            "dont_have_account": "Pas de compte?",
+            "forgot_password": "Mot de passe oublié?",
+            "login_feedback": "Veuillez rentrer un identifiant valide."
         },
         "realhome": {
             "play": "Jouer"
         },
         "everywhere": {
             "retour": "Retour a l'accueil"
-        },
-        "register": {
-            "signup": "S'inscrire",
-            "username": "Nom d'utilisateur",
-            "email": "Addresse email",
-            "pass": "Mot de passe",
-            "registration": "Inscription"
         }
+
     },
     "es": {
         "home": {
-            "welcome": "Bienvenido",
-            "login": "Iniciar sesión",
-            "signup": "Registrarse"
-        },
+			"sign-up": "Registrarse",
+			"sign-in": "Iniciar sesión",
+			"sign-in-42": "Iniciar sesión con",
+			"login": "Nombre de usuario o correo electrónico",
+			"password": "Contraseña",
+			"dont_have_account": "¿No tienes una cuenta?",
+			"forgot_password": "¿Olvidaste tu contraseña?",
+			"login_feedback": "Por favor, introduce un identificador válido."
+		},
         "realhome": {
             "play": "Jugar"
         },
         "everywhere": {
             "retour": "Volver a inicio"
-        },
-        "register": {
-            "signup": "Inscribirse",
-            "username": "Nombre de usuario",
-            "email": "Correo electrónico",
-            "pass": "Clave",
-            "registration": "Inscripción"
         }
     }
 }

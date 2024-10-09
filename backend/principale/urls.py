@@ -18,15 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 from django.conf.urls import handler400, handler403, handler404, handler500
+from django.conf.urls.i18n import i18n_patterns
 
 handler400 = 'principale.views.custom_400'
 handler403 = 'principale.views.custom_403'
 handler404 = 'principale.views.custom_404'
 handler500 = 'principale.views.custom_500'
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('authentification.urls')),
     path('home/', views.realhome, name='realhome'),
     path('game/', include('game.urls')),
-]
+)

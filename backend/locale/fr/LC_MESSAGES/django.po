@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Transcendence\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-09 11:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Lea Bisson <lbisson@student.42.fr>, 2024\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: principale/settings.py:138
+msgid "English"
+msgstr ""
+
+#: principale/settings.py:139
+msgid "Français"
+msgstr ""
+
+#: principale/settings.py:140
+msgid "Español"
+msgstr ""
+
+#: templates/home.html:20
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: templates/home.html:21 templates/home.html:28 templates/home.html:49
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: templates/home.html:30
+msgid "Username or email"
+msgstr "Nom d'utilisateur ou email"
+
+#: templates/home.html:32
+msgid "Please enter a valid login."
+msgstr "Veuillez entrer un identifiant valide."
+
+#: templates/home.html:37
+msgid "Password"
+msgstr "Mot de passe"
+
+#: templates/home.html:45
+msgid "Don't have an account?"
+msgstr "Pas encore de compte?"
+
+#: templates/home.html:46
+msgid "Forgot password?"
+msgstr "Mot de passe oublié?"
+
+#: templates/home.html:52
+msgid "Sign in with"
+msgstr "Se connecter avec"

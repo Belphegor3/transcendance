@@ -1,0 +1,44 @@
+body {
+    background-color: #f7f7f7; /* Couleur de fond */
+    font-family: 'Courier New', Courier, monospace; /* Police par défaut */
+}
+
+.login-container {
+    height: 100vh; /* Prend toute la hauteur de l'écran */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Nécessaire pour positionner le titre */
+}
+
+.card {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles pour le titre */
+.page-title {
+    font-weight: bold; /* Titre en gras */
+    font-size: 2rem; /* Ajuste la taille selon tes préférences */
+    position: absolute; /* Permet de le placer où tu veux */
+    top: 20px; /* Distance du haut */
+    left: 20px; /* Distance de gauche */
+    color: #000; /* Couleur du texte */
+}
+
+.btn-42 {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+.btn-42:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.logo-42 {
+    width: 30px;
+    margin-right: 10px;
+}
