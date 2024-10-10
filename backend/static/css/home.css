@@ -1,11 +1,6 @@
 #login-card {
-	height: calc(100vh - 56px); /* Adjust height based on navbar height */
-}
-
-.login-card {
 	width: 550px;
 }
-
 #forgot-password, #dont-have-account {
 	font-size: 13px;
 	color: rgb(13, 110, 253);

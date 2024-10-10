@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'JetBrains Mono Regular';
+    src: url('/static/fonts/JetBrainsMono-Regular.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Extra Bold';
+    src: url('/static/fonts/JetBrainsMono-ExtraBold.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	background-color: #f0f0f5;
+	font-family: 'JetBrains Mono Regular', monospace;
+}
+
+.navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9999;
+	box-shadow: rgba(0, 82, 224, 0.1) 0px 6px 12px 0px;
+	padding: 10px;
+}
+
+.navbar-brand {
+	font-family: 'JetBrains Mono Extra Bold', monospace;
+}
