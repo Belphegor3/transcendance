@@ -18,18 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: principale/settings.py:138
-msgid "English"
-msgstr ""
-
-#: principale/settings.py:139
-msgid "Français"
-msgstr ""
-
-#: principale/settings.py:140
-msgid "Español"
-msgstr ""
-
 #: templates/home.html:20
 msgid "Sign up"
 msgstr "S'inscrire"

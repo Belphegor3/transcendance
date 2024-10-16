@@ -1,64 +1,44 @@
+{% extends 'base.html' %}
+
 {% load static %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <title>Home</title>
-</head>
+{% block title %}
+    Home
+{% endblock %}
 
-<body>
-	<div class="navbar">
-		<span class="navbar-brand">Transcendence</span> 
-		<div>
-			<a id="sign-up" href="/signup/" class="btn btn-outline-primary me-2">{% trans 'Sign up' %}</a>
-	  	</div>
+{% block extra_styles %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+	<div id="login-card" class="card m-3">
+		<div class="card-body">
+			<h2 id="sign-in" class="card-title text-center">{% trans 'Sign in' %}</h2>
+
+			<div class="mb-3">
+				<input id="login" type="text" class="form-control" placeholder="{% trans 'Username or email' %}" required>
+			</div>
+			<div class="mb-3">
+				<input id="password" type="password" class="form-control" placeholder="{% trans 'Password' %}" required>
+			</div>
+
+			<div class="d-flex justify-content-between mb-3">
+				<a id="dont-have-account" style="cursor: pointer;" onclick="navigateTo(event, '{% url 'signup' %}')">
+					{% trans "Don't have an account?" %}
+				</a>
+			</div>
+
+			<div class="row d-flex justify-content-center">
+				<button id="sign-in" type="button" class="btn btn-primary" onclick="navigateTo(event, '{% url 'realhome' %}')">{% trans 'Sign in' %}</button>
+				<hr class="my-1">
+				<a id="sign-in-42" onclick="window.location.href='https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-d043e00c0555571b2b8d9af857f5a6f9eed0a7b9b447d0cd82c590f167bf2c70&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fhome%2F&response_type=code'" class="btn btn-dark" role="button">
+					{% trans 'Sign in with' %}
+					<img src="{% static 'images/assets/42logo.png' %}" alt="42" width="20">
+				</a>
+			</div>
+		</div>
 	</div>
-
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div id="login-card" class="card m-3">
-            <div class="card-body">
-				<h2 id="sign-in" class="card-title text-center">{% trans 'Sign in' %}</h2>
-                    <div class="mb-4">
-                        <input id="login" type="text" class="form-control" placeholder="{% trans 'Username or email' %}" required>
-                        <!-- <div id="login-feedback" class="invalid-feedback">
-                            {% trans 'Please enter a valid login.' %}
-                        </div> -->
-                    </div>
-                    <div class="mb-4">
-                        <div class="input-group">
-                            <input id="password" type="password" class="form-control" placeholder="{% trans 'Password' %}" required>
-                        </div>
-                    </div>
-                    <alert-component alert-dispaly="false"></alert-component>
-                    <div class="d-flex justify-content-between mb-3">
-                        <a id="dont-have-account" href="/signup/">{% trans "Don't have an account?" %}</a>
-                        <a id="forgot-password" href="#">{% trans 'Forgot password?' %}</a>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-						<button id="sign-in" type="button" class="btn btn-primary">{% trans 'Sign in' %}</button>
-                        <hr class="my-1">
-                        <a id="sign-in-42" href="https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-d043e00c0555571b2b8d9af857f5a6f9eed0a7b9b447d0cd82c590f167bf2c70&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fhome%2F&response_type=code" class="btn btn-dark" role="button">
-                            {% trans 'Sign in with' %}
-                            <img src="{% static 'images/assets/42logo.png' %}" alt="42" width="20"">
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-	<div class="position-fixed bottom-0 end-0 p-3">
-		<img id="language-en" src="{% static 'images/flags/en.jpg' %}" alt="English" style="cursor: pointer; width: 20px;">
-		<img id="language-fr" src="{% static 'images/flags/fr.jpg' %}" alt="Français" style="cursor: pointer; width: 20px;">
-		<img id="language-es" src="{% static 'images/flags/es.jpg' %}" alt="Español" style="cursor: pointer; width: 20px;">
-	</div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -23,15 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-p_2$4%w1g16-de)3xa#c1f)om6@9t0c*nz(c-ft76nvc)ayz70'
 
+# API 42 credentials (client ID and secret)
+CLIENT_ID = 'u-s4t2ud-d043e00c0555571b2b8d9af857f5a6f9eed0a7b9b447d0cd82c590f167bf2c70'
+CLIENT_SECRET = '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'
+REDIRECT_URI = 'http://localhost:8000/home/'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0/0']
 
-
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -98,8 +100,6 @@ DATABASES = {
 #         'PORT': '5432',
 #     }
 # }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
