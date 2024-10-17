@@ -29,3 +29,12 @@ body {
 .navbar-brand {
 	font-family: 'JetBrains Mono Extra Bold', monospace;
 }
+
+#login-card, #signup-card, #game-card {
+	width: 550px;
+}
+
+#language-en, #language-fr, #language-es {
+    cursor: pointer;
+    width: 20px;
+}

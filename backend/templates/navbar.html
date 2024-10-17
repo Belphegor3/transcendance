@@ -7,6 +7,8 @@
             <a id="sign-up" onclick="navigateTo(event, '{% url 'signup' %}')" class="btn btn-outline-primary me-2">{% trans 'Sign up' %}</a>
         {% elif request.path == '/fr/signup/' or request.path == '/en/signup/' or request.path == '/es/signup/' %}
             <a id="sign-in" onclick="navigateTo(event, '{% url 'home' %}')" class="btn btn-outline-primary me-2">{% trans 'Sign in' %}</a>
+		{% elif request.path == '/fr/home/' or request.path == '/en/home/' or request.path == '/es/home/' %}
+            <a id="play" class="btn btn-outline-primary me-2">{% trans 'Account' %}</a>
         {% endif %}
     </div>
 </div>
