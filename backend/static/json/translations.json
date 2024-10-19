@@ -17,6 +17,23 @@
             "email": "Email address",
             "pass": "Password",
             "registration": "Registration"
+        },
+        "custom_vs": {
+            "bar": "Select a size for your bar:",
+            "ball": "Select a size for your ball:",
+            "small": "Small",
+            "small2": "Small",
+            "medium": "Medium",
+            "medium2": "Medium",
+            "big": "Big",
+            "big2": "Big",
+            "name": "Nickname for the second player",
+            "points": "Point to win:",
+            "options": "Game Options",
+            "mode": "Choose your opponent:",
+            "bot": "Play against a bot",
+            "player": "Play against a player",
+            "begin": "Begin"
         }
     },
     "fr": {
@@ -37,6 +54,23 @@
             "email": "Addresse email",
             "pass": "Mot de passe",
             "registration": "Inscription"
+        },
+        "custom_vs": {
+            "bar": "Selectionnez la taille de votre barre:",
+            "ball": "Selectionnez la taille de votre balle:",
+            "small": "Petit",
+            "small2": "Petit",
+            "medium": "Moyen",
+            "medium2": "Moyen",
+            "big": "Enorme",
+            "big2": "Enorme",
+            "name": "Pseudo du second joueur",
+            "points": "Points a atteindre pour la victoire:",
+            "options": "Options du Jeu",
+            "mode": "Choississez votre adversaire:",
+            "bot": "Jouer contre un bot",
+            "player": "Jouer contre un joueur",
+            "begin": "Commencer"
         }
     },
     "es": {
@@ -57,6 +91,23 @@
             "email": "Correo electrónico",
             "pass": "Clave",
             "registration": "Inscripción"
+        },
+        "custom_vs": {
+            "bar": "Seleccione el tamaño de su barra:",
+            "ball": "Selecciona el tamaño de su bola:",
+            "small": "Pequeña",
+            "small2": "Pequeña",
+            "medium": "Promedio",
+            "medium2": "Promedio",
+            "big": "Enorme",
+            "big2": "Enorme",
+            "name": "Apodo del segundo jugador",
+            "points": "Puntos por la victoria:",
+            "options": "Opciones de juego",
+            "mode": "Elige tu oponente:",
+            "bot": "Juega contra un robot",
+            "player": "Jugar contra un jugador",
+            "begin": "Empezar"
         }
     }
 }

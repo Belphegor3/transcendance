@@ -1,9 +1,18 @@
+function loadGameOptions() {
+    fetch('/api/game/options/')
+        .then(response => response.json())
+        .then(data => {
+            initi(data.playerName, data.barSize, data.gamePoints, data.ballSize); // qui va devenir la fonction init qui aura donc des parametres
+        })
+        .catch(error => console.error('Erreur:', error));
+}
+
 function launchGame() {
-    const gameMode = sessionStorage.getItem('gameMode');
-    const playerName = sessionStorage.getItem('playerName');
-    const gameBackground = sessionStorage.getItem('gameBackground');
-    const gamePoints = sessionStorage.getItem('gamePoints');
-    const ballSize = sessionStorage.getItem('ballSize');
+    // const gameMode = localStorage.getItem('gameMode');
+    // const playerName = localStorage.getItem('playerName');
+    // const gameBackground = localStorage.getItem('gameBackground');
+    // const gamePoints = localStorage.getItem('gamePoints');
+    // const ballSize = localStorage.getItem('ballSize');
     let requestAnimId;
 
     let initiate = function() {
