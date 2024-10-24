@@ -17,7 +17,6 @@ class CustomUser(models.Model):
     par exemple, des utilisateurs, des produits, des commandes, etc.
     """
 
-
     username = models.CharField(max_length=10)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=10)
