@@ -1,0 +1,36 @@
+<html>
+    <body>
+    </body>
+    <script src="js/game.js"></script>
+    <script src="js/display.js"></script>
+    <script src="js/controle.js"></script>
+    <script src="js/keycode.js"></script>
+    <script src="js/geometry.js"></script>
+    <script src="js/ia.js"></script>
+    <script>
+        (function (){
+            let requestAnimId;
+            let initiate = function(){
+                game.init();
+                requestAnimId = window.requestAnimationFrame(main);
+            }
+            let main = function() {
+                if (game.begin == true)
+                {
+                    game.clearLayer(game.playersBallLayer);
+                    if (game.playerTwo.aiOption == true)
+                        game.ia.moveIa(game.playerTwo, game.ball);
+                    game.movePlayers();
+                    game.displayPlayers();
+                    game.moveBall();
+                    game.collideBallWithPlayersAndAction();
+                    game.playerScoring();
+                }
+                if (game.winCondition() == false)
+                    requestAnimId = window.requestAnimationFrame(main);
+                
+            }
+            window.onload = initiate;
+        })();
+    </script>
+</html>
