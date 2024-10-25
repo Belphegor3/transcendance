@@ -1,0 +1,17 @@
+button {
+    width: 150px;
+}
+
+#game-card {
+	height: 300px;
+	background-color: black;
+	font-family: 'JetBrains Mono Extra Bold', monospace;
+}
+
+#pong-title {
+    margin-bottom: 30px;
+}
+
+.hidden {
+    display: none;
+}

@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
 								<input type="email" class="form-control" id="registerEmail" required>
 							</div>
 							<div class="form-group">
-								<label for="newPassword">Password</label>
-								<input type="password" class="form-control" id="newPassword" required>
+								<label for="formerPassword">Password</label>
+								<input type="password" class="form-control" id="formerPassword" required>
 							</div>
 							<div class="form-group">
-								<label for="confirmPassword">Confirm Password</label>
-								<input type="password" class="form-control" id="confirmPassword" required>
+								<label for="confirmPassword2">Confirm Password</label>
+								<input type="password" class="form-control" id="confirmPassword2" required>
 							</div>
 							<button type="submit" class="btn btn-primary">Register</button>
 							<button type="button" class="btn btn-secondary" id="register42Button">
@@ -115,67 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 	`;
 
-	const gameOptionsModalTemplate = `
-		<div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 id="options" class="card-title text-center">Game Options</h5>
-						<button type="button" class="btn-close" id="closeGameOptionsModal" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body>
-                    	<form id="pongOptions" onsubmit="saveOptions(event)">
-                    	    <div class="mb-3">
-                    	        <label id="mode" for="gameMode" class="form-label">Choose your opponent:</label>
-                    	        <select id="gameMode" class="form-select" onchange="togglePlayerName()">
-                    	            <option id="bot" value="bot">Play against a bot</option>
-                    	            <option id="player" value="player">Play against another player</option>
-                    	        </select>
-                    	    </div>
-	
-                    	    <div id="secondPlayer" class="d-none">
-                    	        <label id="name" for="playerName" class="form-label">Nickname for the second player:</label>
-                    	        <input type="text" id="playerName" class="form-control" placeholder="Enter nickname">
-                    	    </div>
-	
-                    	    <div class="mb-3">
-                    	        <label id="bar" for="barSize" class="form-label">Select a bar size:</label>
-                    	        <select id="gameBackground" class="form-select">
-                    	            <option id="small" value="small">Small</option>
-                    	            <option id ="medium" value="medium">Medium</option>
-                    	            <option id="big" value="big">Big</option>
-                    	        </select>
-                    	    </div>
-
-                    	    <div class="mb-3">
-                    	        <label id="points" for="gamePoints" class="form-label">Points to win:</label>
-                    	        <select id="gamePoints" class="form-select">
-                    	            <option value="1">1</option>
-                    	            <option value="1">2</option>
-                    	            <option value="3">3</option>
-                    	            <option value="3">4</option>
-                    	            <option value="5">5</option>
-                    	            <option value="5">6</option>
-                    	            <option value="7">7</option>
-                    	            <option value="7">8</option>
-                    	            <option value="9">9</option>
-                    	        </select>
-                    	    </div>
-                    	    <div class="mb-3">
-                    	        <label id="ball" for="ballSize" class="form-label">Select a ball size:</label>
-                    	        <select id="ballSize" class="form-select">
-                    	            <option id="small2" value="small">Small</option>
-                    	            <option id="medium2" value="medium">Medium</option>
-                    	            <option id="big2" value="big">Big</option>
-                    	        </select>
-                    	    </div>
-                    	    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                    	</form>
-					</div>
-                </div>
-            </div>
-	`;
-
 	const passwordModalTemplate = `
 		<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -206,6 +145,85 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 	`;
 
+	const vsPlayerTemplate = `
+		<div id="pongOptionsPSection" style="display:none;">
+			<form id="pongOptionsP">
+				<div id="secondPlayer">
+					<label id="name" for="playerName" class="form-label">Nickname for the second player:</label>
+					<input type="text" id="playerName" class="form-control" placeholder="Enter nickname">
+				</div>
+				<div class="mb-3">
+					<label id="barP" for="barSizeP" class="form-label">Select a bar size:</label>
+					<select id="barSizeP" class="form-select">
+						<option id="smallP" value="small">Small</option>
+						<option id ="mediumP" value="medium">Medium</option>
+						<option id="bigP" value="big">Big</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label id="pointsP" for="gamePoints" class="form-label">Points to win:</label>
+					<select id="gamePointsP" class="form-select">
+						<option value="1">1</option>
+						<option value="1">2</option>
+						<option value="3">3</option>
+						<option value="3">4</option>
+						<option value="5">5</option>
+						<option value="5">6</option>
+						<option value="7">7</option>
+						<option value="7">8</option>
+						<option value="9">9</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label id="ballP" for="ballSizeP" class="form-label">Select a ball size:</label>
+					<select id="ballSizeP" class="form-select">
+						<option id="small2P" value="small">Small</option>
+						<option id="medium2P" value="medium">Medium</option>
+						<option id="big2P" value="big">Big</option>
+					</select>
+				</div>
+				<button id="submitP" type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	`;
+
+	const vsBotTemplate = `
+		<div id="pongOptionsBSection" style="display:none;">
+			<form id="pongOptionsB">
+				<div class="mb-3">
+					<label id="bar" for="barSize" class="form-label">Select a bar size:</label>
+					<select id="barSize" class="form-select">
+						<option id="small" value="small">Small</option>
+						<option id ="medium" value="medium">Medium</option>
+						<option id="big" value="big">Big</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label id="points" for="gamePoints" class="form-label">Points to win:</label>
+					<select id="gamePoints" class="form-select">
+						<option value="1">1</option>
+						<option value="1">2</option>
+						<option value="3">3</option>
+						<option value="3">4</option>
+						<option value="5">5</option>
+						<option value="5">6</option>
+						<option value="7">7</option>
+						<option value="7">8</option>
+						<option value="9">9</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label id="ball" for="ballSize" class="form-label">Select a ball size:</label>
+					<select id="ballSize" class="form-select">
+						<option id="small2" value="small">Small</option>
+						<option id="medium2" value="medium">Medium</option>
+						<option id="big2" value="big">Big</option>
+					</select>
+				</div>
+				<button id="submit" type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	`;
 
 	const mainContentTemplate = `
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -235,7 +253,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		</nav>
 		<div id="mainContent">
 			<div id="homeSection">
-				<button class="btn btn-primary my-2 my-sm-0" id="gameButton">1v1</button>
+				<div class="d-flex justify-content-center align-items-center vh-100">
+					<div id="game-card" class="card text-center bg-dark text-white">
+						<div class="card-body">
+							<h6 id="pong-title" class="display-3">PONG</h>
+							<div id="menu-options">
+								<button id="vsPlayerButton" class="btn btn-outline-light m-2">vs Player</button>
+								<button id="vsBotButton" class="btn btn-outline-light m-2">vs Bot</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div id="historySection" style="display:none;">
 			</div>
@@ -267,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
 
-	app.innerHTML = loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + gameOptionsModalTemplate;
+	app.innerHTML = loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate; //  + gameOptionsModalTemplate;
 
 	const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
 		backdrop: 'static',
@@ -289,12 +317,9 @@ document.addEventListener('DOMContentLoaded', () => {
         keyboard: false
     });
 
-    const customModal = new bootstrap.Modal(document.getElementById('customModal'), {
-        backdrop: 'static',
-        keyboard: false
-    });
-
 	const mainContent = document.getElementById('mainContent');
+	const optionsPlayerContent = document.getElementById('pongOptionsPSection');
+	const optionsBotContent = document.getElementById('pongOptionsBSection');
 	const showRegister = document.getElementById('showRegister');
 	const loginForm = document.getElementById('loginForm');
 	const showLogin = document.getElementById('showLogin');
@@ -303,7 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const navHistory = document.getElementById('navHistory');
 	const navProfile = document.getElementById('navProfile');
 	const logoutButton = document.getElementById('logoutButton');
-	const gameButton = document.getElementById('gameButton');
 	const profilePicture = document.getElementById('profilePicture');
 	const profileName = document.getElementById('profileName');
 	const profileUserName = document.getElementById('profileUserName');
@@ -315,7 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const changePasswordButton = document.getElementById('changePasswordButton');
 	const profileCloseButton = document.getElementById('closeProfileModal');
 	const closeButton = document.getElementById('closePasswordModal');
-	const gameOptionsCloseButton = document.getElementById('closeGameOptionsModal');
+	const vsPlayerButton = document.getElementById('vsPlayerButton');
+	const vsBotButton = document.getElementById('vsBotButton');
 
 	loginModal.show();
 
@@ -323,6 +348,20 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault();
 		loginModal.hide();
 		registerModal.show();
+	});
+
+	document.getElementById('pongOptionsB').addEventListener('submit', function(event) {
+		event.preventDefault();
+		saveOptionsB();
+		optionsBotContent.style.display = 'none';
+		launchGame();
+	});
+
+	document.getElementById('pongOptionsP').addEventListener('submitP', function(event) {
+		event.preventDefault();
+		saveOptionsP();
+		optionsPlayerContent.style.display = 'none';
+		launchGame();
 	});
 
 	showLogin.addEventListener('click', (e) => {
@@ -354,8 +393,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		const lastName = document.getElementById('lastName').value;
 		const userName = document.getElementById('userName').value;
 		const email = document.getElementById('registerEmail').value;
-		const password = document.getElementById('newPassword').value;
-		const confirmPassword = document.getElementById('confirmPassword').value;
+		const password = document.getElementById('formerPassword').value;
+		const confirmPassword = document.getElementById('confirmPassword2').value;
 
 		if (password !== confirmPassword) {
 			alert('Passwords do not match');
@@ -392,6 +431,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.getElementById('editUserName').value = userData.userName;
 		document.getElementById('editEmail').value = userData.email;
 		profileModal.show();
+	});
+
+	vsPlayerButton.addEventListener('click', (e) => {
+		e.preventDefault();
+		showSection('pongOptionsP');
+	});
+
+	vsBotButton.addEventListener('click', (e) => {
+		e.preventDefault();
+		showSection('pongOptionsB');
 	});
 
 	editProfileForm.addEventListener('submit', (e) => {
@@ -454,13 +503,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		mainContent.style.display = 'none';
 	});
 
-	gameButton.addEventListener('click', () => {
-		mainContent.style.display = 'none';
-		customModal.show();
-		launchGame();
-		mainContent.style.display = 'block';
-	});
-
 	changePasswordButton.addEventListener('click', () => {
 		changePasswordModal.show();
 	});
@@ -471,10 +513,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	profileCloseButton.addEventListener('click', () => {
 		profileModal.hide();
-	});
-
-	gameOptionsCloseButton.addEventListener('click', () => {
-		customModal.hide();
 	});
 
 	changePasswordForm.addEventListener('submit', (e) => {
@@ -496,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function showSection(section, addToHistory = true) {
-        const sections = ['home', 'history', 'profile'];
+        const sections = ['home', 'history', 'profile', 'pongOptionsB', 'pongOptionsP'];
         sections.forEach(sec => {
             const sectionElement = document.getElementById(sec + 'Section');
             if (sectionElement) {
@@ -541,12 +579,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-    const backToHomeButton = document.getElementById('backToHome');
+    // const backToHomeButton = document.getElementById('backToHome');
 
     
-    backToHomeButton.addEventListener('click', () => {
-        showSection('home');
-    });
+    // backToHomeButton.addEventListener('click', (e) => {
+	// 	e.preventDefault();
+    //     showSection('home');
+    // });
 
 	
 });
