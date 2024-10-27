@@ -39,4 +39,32 @@ python3 backend/manage.py collectstatic
 python3 backend/manage.py runserver --insecure
 ```
 
+# faire fonctionner la db:
+
+```bash
+sudo -u postgres psql
+```
+```psql
+CREATE ROLE group WITH LOGIN PASSWORD '1234';
+ALTER ROLE group CREATEDB;
+CREATE DATABASE trans;
+GRANT ALL PRIVILEGES ON DATABASE trans TO group;
+```
+
+ensuite il faut changer backend/principale/settings.py en remplacant l ancien 'DATABASES':
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'trans',
+        'USER': 'group',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
+
 [HOME](http://localhost:8000/)
