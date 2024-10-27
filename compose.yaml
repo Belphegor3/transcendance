@@ -1,23 +1,37 @@
 services:
-  nginx:
-    image: owasp/modsecurity-crs:4.6.0-nginx-alpine-202409030409
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - transcendence
-
-  gunicorn:
+  frontend:
     build:
-      context: .
-      dockerfile: backend/gunicorn/Dockerfile
+      context: ./frontend
+      dockerfile: Containerfile
+    container_name: frontend
+    ports:
+      - "8001:80"
+      - "4443:443"
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Containerfile
+    container_name: backend
     ports:
       - "8000:8000"
-    depends_on:
-      - nginx
     networks:
       - transcendence
+  postgres:
+    image: postgres
+    networks:
+      - transcendence
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=trans
+      - POSTGRES_USER=group
+      - POSTGRES_PASSWORD=1234
 
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+volumes:
+      data:
 networks:
   transcendence:
-    driver: bridge
+    external: false

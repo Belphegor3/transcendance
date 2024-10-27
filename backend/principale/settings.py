@@ -87,18 +87,31 @@ WSGI_APPLICATION = 'principale.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'trans',
+#         'USER': 'lfchouch',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+# # psql -U group -d trans
+# concevoir l'utilisateur postgres puis lui donner les droits sur 
+# la base de donnee trans et ensuite lancer les conteneurs
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'trans',
-        'USER': 'lfchouch',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'USER': 'postgres',
+        'PASSWORD': '123',
+        # 'HOST': 'localhost', # si lancer en local
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
