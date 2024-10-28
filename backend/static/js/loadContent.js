@@ -8,7 +8,7 @@ function loadContent(url) {
     .then(html => {
         document.getElementById('content').innerHTML = '';
         document.getElementById('content').innerHTML = html;
-        fetchTranslations(localStorage.getItem('selectedLanguage'));
+        fetchTranslations(sessionStorage.getItem('selectedLanguage'));
     })
     .catch(error => {
         console.error('Error loading content:', error);

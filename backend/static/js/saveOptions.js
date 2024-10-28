@@ -1,6 +1,4 @@
 function saveOptionsB() {
-
-    let playerName = 'Bot';
     const barSize = document.getElementById('barSize').value;
     const gamePoints = document.getElementById('gamePoints').value;
     const ballSize = document.getElementById('ballSize').value;
@@ -10,32 +8,32 @@ function saveOptionsB() {
     sessionStorage.setItem('gamePoints', gamePoints);
     sessionStorage.setItem('ballSize', ballSize);
     sessionStorage.setItem('gameMode', 1);
-    const gameOptions = {
-        playerName: playerName,
-        barSize: barSize,
-        gamePoints: gamePoints,
-        ballSize: ballSize,
-    };
+    // const gameOptions = {
+    //     playerName: playerName,
+    //     barSize: barSize,
+    //     gamePoints: gamePoints,
+    //     ballSize: ballSize,
+    // };
 
-    fetch('/api/game/options/save/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(gameOptions),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => console.error('Erreur:', error));
+    // fetch('/api/game/options/save/', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(gameOptions),
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data);
+    // })
+    // .catch(error => console.error('Erreur:', error));
 }
 
 function saveOptionsP() {
 
     let playerName = document.getElementById('playerName').value;
     const barSize = document.getElementById('barSizeP').value;
-    const gamePoints = document.getElementById('pointsP').value;
+    const gamePoints = document.getElementById('gamePointsP').value;
     const ballSize = document.getElementById('ballSizeP').value;
 
     sessionStorage.setItem('playerTwoName', playerName);
@@ -43,25 +41,25 @@ function saveOptionsP() {
     sessionStorage.setItem('gamePoints', gamePoints);
     sessionStorage.setItem('ballSize', ballSize);
     sessionStorage.setItem('gameMode', 2);
-    const gameOptions = {
-        playerName: playerName,
-        barSize: barSize,
-        gamePoints: gamePoints,
-        ballSize: ballSize,
-    };
+    // const gameOptions = {
+    //     playerName: playerName,
+    //     barSize: barSize,
+    //     gamePoints: gamePoints,
+    //     ballSize: ballSize,
+    // };
 
-    fetch('/api/game/options/save/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(gameOptions),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => console.error('Erreur:', error));
+    // fetch('/api/game/options/save/', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(gameOptions),
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data);
+    // })
+    // .catch(error => console.error('Erreur:', error));
 }
 
 function saveOptionsM() {
@@ -88,26 +86,26 @@ function saveOptionsM() {
     sessionStorage.setItem('gamePoints', gamePoints);
     sessionStorage.setItem('ballSize', ballSize);
 
-    const gameOptions = {
-        player1Name: player1Name,
-        player2Name: player2Name,
-        player3Name: player3Name,
-        player4Name: player4Name,
-        barSize: barSize,
-        gamePoints: gamePoints,
-        ballSize: ballSize,
-    };
+    // const gameOptions = {
+    //     player1Name: player1Name,
+    //     player2Name: player2Name,
+    //     player3Name: player3Name,
+    //     player4Name: player4Name,
+    //     barSize: barSize,
+    //     gamePoints: gamePoints,
+    //     ballSize: ballSize,
+    // };
 
-    fetch('/api/game/options/save/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(gameOptions),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => console.error('Erreur:', error));
+    // fetch('/api/game/options/save/', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(gameOptions),
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data);
+    // })
+    // .catch(error => console.error('Erreur:', error));
 }

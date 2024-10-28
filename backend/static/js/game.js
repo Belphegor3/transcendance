@@ -1,4 +1,5 @@
 const game = {
+    windowChange : false,
     begin : false,
     winValue : 1,
     winnerGame : "Nothing",
@@ -217,9 +218,13 @@ const game = {
     },  
 
     moveBall : function(){
-        this.ball.move();
-        this.ball.bounce();
-        this.displayBall();
+        if (this.begin == true)
+        {
+            //console.log("je suis la");
+            this.ball.move();
+            this.ball.bounce();
+            this.displayBall();
+        }
     },
 
     clearLayer : function(targetLayer) {
@@ -355,6 +360,7 @@ const game = {
         this.groundWidth = 700;
         //reset de la game
         this.begin = false;
+        this.windowChange = false; 
         this.styleGame = 2;
         this.scorePlayer1 = 0;
         this.scorePlayer2 = 0;
@@ -368,6 +374,7 @@ const game = {
         //ball
         this.ball.height = this.ball.width = 12;
         this.ball.radius = 6;
+        this.ball.speed = 1.5;
         //pad
         this.playerOne.height = this.playerTwo.height = 80;
         this.playerThree.height = this.playerFour.height = 80;
@@ -381,7 +388,6 @@ const game = {
         const playerTwoName = sessionStorage.getItem('playerTwoName'); // player two name
         const playerThreeName = sessionStorage.getItem('playerThreeName'); // player Three name
         const playerFourName = sessionStorage.getItem('playerFourName'); // player Four name
-        //const gameBackground = sessionStorage.getItem('gameBackground');
         const gamePoints = sessionStorage.getItem('gamePoints'); // 9 max point
         console.log(gameMode);
         const ballSize = sessionStorage.getItem('ballSize'); //1-2-3
@@ -392,7 +398,6 @@ const game = {
             this.styleGame = gameMode;
             switch (gameMode){
                 case '1':
-                    console.log(gameMode);
                     this.playerTwo.aiOption = true;
                     break;
                 case '2':
