@@ -7,6 +7,8 @@ services:
     ports:
       - "8001:80"
       - "4443:443"
+    networks:
+      - transcendence
   backend:
     build:
       context: ./backend
@@ -16,6 +18,9 @@ services:
       - "8000:8000"
     networks:
       - transcendence
+    depends_on:
+      postgres:
+        condition: service_healthy
   postgres:
     image: postgres
     networks:
@@ -25,11 +30,13 @@ services:
       - POSTGRES_DB=trans
       - POSTGRES_USER=group
       - POSTGRES_PASSWORD=1234
-
-    ports:
-      - "5432:5432"
     volumes:
       - data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U group -d trans'"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 volumes:
       data:
 networks:
