@@ -2,6 +2,7 @@ const game = {
     begin : false,
     winValue : 1,
     winnerGame : "Nothing",
+    styleGame : 4,
     groundWidth : 700,
     groundHeight : 400,
     groundColor: "#000000",
@@ -64,10 +65,26 @@ const game = {
             this.posRecY = this.posY - this.radius;
         },
         bounce : function() {
-            if (this.posRecX > game.groundWidth - this.width|| this.posRecX < 0)
+            if (this.posRecX > game.groundWidth - this.width)
+            {
+                this.posRecX = game.groundWidth - this.width;
                 this.directionX = -this.directionX;
-            if (this.posRecY > game.groundHeight - this.height || this.posRecY < 0)
+            }
+            else if (this.posRecX < 0)
+            {
+                this.posRecX = 0;
+                this.directionX = -this.directionX;
+            }
+            if (this.posRecY > game.groundHeight - this.height)
+            {
+                this.posRecY = game.groundHeight - this.height;
                 this.directionY = -this.directionY;
+            }
+            else if (this.posRecY < 0)
+            {
+                this.posRecY = 0;
+                this.directionY = -this.directionY;
+            }
         },
         collide : function(anotherItem){
             if (!(this.posRecX >= anotherItem.posX + anotherItem.width || this.posRecX <= anotherItem.posX - this.width || this.posRecY >= anotherItem.posY + anotherItem.height || this.posRecY <= anotherItem.posY - this.height)) {
@@ -115,13 +132,49 @@ const game = {
         }
     },
 
+    playerThree: {
+        width : 10,
+        height : 80,
+        color : "#FFFFFF",
+        posX : 70,
+        posY : 200,
+        goUp : false,
+        goDown : false,
+        originalPosition : "right",
+        aiOption : false,
+        playerName : "RandomThree",
+        start : function(){
+            this.posY = game.groundHeight / 2 - this.height / 2;
+            this.goUp = false;
+            this.goDown = false;
+        }
+    },
+
+    playerFour : {
+        width : 10,
+        height : 80,
+        color : "#FFFFFF",
+        posX : 620,
+        posY : 200,
+        goUp : false,
+        goDown : false,
+        originalPosition : "right",
+        aiOption : false,
+        playerName : "RandomFour",
+        start : function(){
+            this.posY = game.groundHeight / 2 - this.height / 2;
+            this.goUp = false;
+            this.goDown = false;
+        }
+    },
+
     init : function() {
         this.initValue();
+        
         this.groundLayer = game.display.createLayer("terrain", this.groundWidth, this.groundHeight, undefined, 0, "#000000", 0, 0);
         game.display.drawRectangleInLayer(this.groundLayer, this.netWidth, this.groundHeight, this.netColor, this.groundWidth/2 - this.netWidth/2, 0);
         
         this.scoreLayer = game.display.createLayer("score", this.groundWidth, this.groundHeight, undefined, 1, undefined , 0, 0);
-            
         this.displayScore();
 
         this.playersBallLayer = game.display.createLayer("playerBall", this.groundWidth, this.groundHeight, undefined, 2, undefined, 0, 0);
@@ -140,7 +193,11 @@ const game = {
         game.display.drawTextInLayer(this.scoreLayer, this.scorePlayer2, "60px Arial", "#FFFFFF", this.scorePosPlayer2, 55);
         game.display.drawTextInLayer(this.scoreLayer, this.playerOne.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer1, 30);
         game.display.drawTextInLayer(this.scoreLayer, this.playerTwo.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer2, 30);
-        
+        if (this.styleGame > 2)
+        {
+            game.display.drawTextInLayer(this.scoreLayer, this.playerThree.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer1, 50);
+            game.display.drawTextInLayer(this.scoreLayer, this.playerFour.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer2, 50);
+        }
     },
 
     displayBall : function() {
@@ -151,7 +208,13 @@ const game = {
     displayPlayers : function() {
         game.display.drawRectangleInLayer(this.playersBallLayer, this.playerOne.width, this.playerOne.height, this.playerOne.color, this.playerOne.posX, this.playerOne.posY);
         game.display.drawRectangleInLayer(this.playersBallLayer, this.playerTwo.width, this.playerTwo.height, this.playerTwo.color, this.playerTwo.posX, this.playerTwo.posY);
-    },
+        if (this.styleGame > 2)
+        {
+            //game.display.drawTextInLayer(this.scoreLayer, this.scorePlayer2, "60px Arial", "#FFFFFF", this.scorePosPlayer2, 155);
+            game.display.drawRectangleInLayer(this.playersBallLayer, this.playerThree.width, this.playerThree.height, this.playerThree.color, this.playerThree.posX, this.playerThree.posY);
+            game.display.drawRectangleInLayer(this.playersBallLayer, this.playerFour.width, this.playerFour.height, this.playerFour.color, this.playerFour.posX, this.playerFour.posY);
+        }
+    },  
 
     moveBall : function(){
         this.ball.move();
@@ -181,6 +244,19 @@ const game = {
         else if (game.playerTwo.goDown && game.playerTwo.posY < game.groundHeight - game.playerTwo.height){
             game.playerTwo.posY += this.speedPlayerDeplacement;
         }
+        if (this.styleGame > 2 && game.playerThree.goUp && game.playerThree.posY > 0){
+            game.playerThree.posY -= this.speedPlayerDeplacement;
+        }
+        else if (this.styleGame > 2 && game.playerThree.goDown && game.playerThree.posY < game.groundHeight - game.playerThree.height){
+            game.playerThree.posY += this.speedPlayerDeplacement;
+        }
+        if (this.styleGame > 2 && game.playerFour.goUp && game.playerFour.posY > 0){
+            game.playerFour.posY -= this.speedPlayerDeplacement;
+        }
+        else if (this.styleGame > 2 && game.playerFour.goDown && game.playerFour.posY < game.groundHeight - game.playerFour.height){
+            game.playerFour.posY += this.speedPlayerDeplacement;
+        }
+        
     },
 
     collideBallWithPlayersAndAction : function() {
@@ -199,6 +275,21 @@ const game = {
             this.ball.directionY = direc[1];
             //game.ball.directionX = -game.ball.directionX;
         }
+        if (this.styleGame > 2 && this.ball.collide(game.playerThree)) {
+            this.ball.speed *= multiplicateurModifier;
+            let direc = this.resultCollideRacketVerticalOnBall(game.playerThree);
+            this.ball.directionX = direc[0];
+            this.ball.directionY = direc[1];
+            //game.ball.directionX = -game.ball.directionX;
+        }
+        if (this.styleGame > 2 && this.ball.collide(game.playerFour)) {
+            this.ball.speed *= multiplicateurModifier;
+            let direc = this.resultCollideRacketVerticalOnBall(game.playerFour);
+            this.ball.directionX = direc[0];
+            this.ball.directionY = direc[1];
+            //game.ball.directionX = -game.ball.directionX;
+        }
+        
     },
 
     resultCollideRacketVerticalOnBall : function(anotherItem) {
@@ -222,6 +313,11 @@ const game = {
         this.ball.start();
         this.playerOne.start();
         this.playerTwo.start();
+        if (this.styleGame > 2)
+        {
+            this.playerThree.start();
+            this.playerFour.start();
+        }
     },
 
     playerScoring : function() {
@@ -253,16 +349,45 @@ const game = {
         return(false);
     },
     
+    reset : function(){
+        //reset de la window
+        this.groundHeight = 400;
+        this.groundWidth = 700;
+        //reset de la game
+        this.styleGame = 4;
+        this.scorePlayer1 = 0;
+        this.scorePlayer2 = 0;
+        this.winValue = 5;
+        this.winnerGame = "Nothing";
+        //reset des noms
+        this.playerOne.playerName = "RandomOne";
+        this.playerTwo.playerName = "RandomTwo";
+        this.playerThree.playerName = "RandomThree";
+        this.playerFour.playerName = "RandomFour";
+        //ball
+        this.ball.height = this.ball.width = 12;
+        this.ball.radius = 6;
+        //pad
+        this.playerOne.height = this.playerTwo.height = 80;
+        this.playerThree.height = this.playerFour.height = 80;
+        //ia
+        this.playerTwo.aiOption = false;
+    },
+
     initValue : function(){
         const gameMode = sessionStorage.getItem('gameMode'); // 1-2-3-4
         const playerOneName = sessionStorage.getItem('playerOneName'); // player one name
         const playerTwoName = sessionStorage.getItem('playerTwoName'); // player two name
+        const playerThreeName = sessionStorage.getItem('playerThreeName'); // player Three name
+        const playerFourName = sessionStorage.getItem('playerFourName'); // player Four name
         //const gameBackground = sessionStorage.getItem('gameBackground');
         const gamePoints = sessionStorage.getItem('gamePoints'); // 9 max point
-        const ballSize = sessionStorage.getItem('ballSize'); //
-        const padSize = sessionStorage.getItem('padSize'); 
+        const ballSize = sessionStorage.getItem('ballSize'); //1-2-3
+        let padSize = sessionStorage.getItem('padSize');//1-2-3
+        this.reset();
         if (gameMode != undefined)
         {
+            this.styleGame = gameMode;
             switch (gameMode){
                 case 1:
                     this.playerTwo.aiOption = true;
@@ -284,6 +409,14 @@ const game = {
         {
             this.playerTwo.playerName = playerTwoName;
         }
+        if (playerThreeName != undefined)
+        {
+            this.playerThree.playerName = playerThreeName;
+        }
+        if (playerFourName != undefined)
+        {
+            this.playerFour.playerName = playerFourName;
+        }
         if (gamePoints != undefined)
         {
             this.winValue = gamePoints;
@@ -291,21 +424,29 @@ const game = {
         if (ballSize != undefined)
         {
             if (ballSize == 1)
+            {
                 this.ball.height = this.ball.width = 6;
+                this.ball.radius = 3;
+            }
             if (ballSize == 2)
+            {
                 this.ball.height = this.ball.width = 12;
+                this.ball.radius = 6;
+            }
             else if (ballSize == 3)
+            {
                 this.ball.height = this.ball.width = 18;
+                this.ball.radius = 9;
+            }
         }
         if (padSize != undefined)
         {
             if (padSize == 1)
-                this.playerOne.height = this.playerTwo.height = 60;
+                this.playerOne.height = this.playerTwo.height = this.playerThree.height = this.playerFour.height = 60;
             else if (padSize == 2)
-                this.playerOne.height = this.playerTwo.height = 80;
+                this.playerOne.height = this.playerTwo.height = this.playerThree.height = this.playerFour.height = 80;
             else if (padSize == 3)
-                this.playerOne.height = this.playerTwo.height = 100;
+                this.playerOne.height = this.playerTwo.height = this.playerThree.height = this.playerFour.height = 100;
         }
-
     }
 };
