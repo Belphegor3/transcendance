@@ -418,6 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsB').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsB();
+		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsBotContent.style.display = 'none';
 		launchGame();
 	});
@@ -425,6 +427,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submitP', function(event) {
 		event.preventDefault();
 		saveOptionsP();
+		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
 		launchGame();
 	});
