@@ -3,7 +3,7 @@
  * @param {string} lang - Le code de la langue à définir (en, fr, es).
  */
  function setLanguage(lang) {
-    localStorage.setItem('selectedLanguage', lang);
-    console.log('after setLanguage', localStorage.getItem('selectedLanguage'));
+    sessionStorage.setItem('selectedLanguage', lang);
+    console.log('after setLanguage', sessionStorage.getItem('selectedLanguage'));
     fetchTranslations(lang);
 }
