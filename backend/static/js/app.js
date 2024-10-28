@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const app = document.getElementById('app');
 
-	// Templates for login and register modals
+	// Templates for login and register modals changement
 	const loginModalTemplate = `
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
