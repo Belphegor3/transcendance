@@ -1,23 +1,44 @@
 services:
-  nginx:
-    image: owasp/modsecurity-crs:4.6.0-nginx-alpine-202409030409
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Containerfile
+    container_name: frontend
     ports:
-      - "80:80"
-      - "443:443"
+      - "8001:80"
+      - "4443:443"
     networks:
       - transcendence
-
-  gunicorn:
+  backend:
     build:
-      context: .
-      dockerfile: backend/gunicorn/Dockerfile
+      context: ./backend
+      dockerfile: Containerfile
+    container_name: backend
     ports:
       - "8000:8000"
-    depends_on:
-      - nginx
     networks:
       - transcendence
-
+    depends_on:
+      postgres:
+        condition: service_healthy
+  postgres:
+    image: postgres
+    networks:
+      - transcendence
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=trans
+      - POSTGRES_USER=group
+      - POSTGRES_PASSWORD=1234
+    volumes:
+      - data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U group -d trans'"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+      data:
 networks:
   transcendence:
-    driver: bridge
+    external: false
