@@ -22,6 +22,8 @@ function launchGame() {
 
     let main = function() {
         game.clearLayer(game.playersBallLayer);
+        if (game.playerTwo.aiOption == true)
+            game.ia.moveIa(game.playerTwo, game.ball);
         game.movePlayers();
         game.displayPlayers();
         game.moveBall();

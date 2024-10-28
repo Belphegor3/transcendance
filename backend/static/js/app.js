@@ -145,6 +145,57 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 	`;
 
+	const multiTemplate = `
+	<div id="multiSection" style="display:none;">
+		<form id="multiOptions">
+			<div class="mb-3">
+				<label id="barM" for="barSizeM" class="form-label">Select a bar size:</label>
+				<select id="barSizeM" class="form-select">
+					<option id="smallM" value="small">Small</option>
+					<option id ="mediumM" value="medium">Medium</option>
+					<option id="bigM" value="big">Big</option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<label id="pointsM" for="gamePointsM" class="form-label">Points to win:</label>
+				<select id="gamePointsM" class="form-select">
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<label id="ballM" for="ballSizeM" class="form-label">Select a ball size:</label>
+				<select id="ballSizeM" class="form-select">
+					<option id="small2M" value="small">Small</option>
+					<option id="medium2M" value="medium">Medium</option>
+					<option id="big2M" value="big">Big</option>
+				</select>
+			</div>
+			<div id="playerOne">
+				<label id="p1" for="player1Name" class="form-label">Nickname for Player 1:</label>
+				<input type="text" id="player1Name" class="form-control" placeholder="Enter nickname">
+			</div>
+			<div id="playerTwo">
+				<label id="p2" for="player2Name" class="form-label">Nickname for Player 2:</label>
+				<input type="text" id="player2Name" class="form-control" placeholder="Enter nickname">
+			</div>
+			<div id="playerThree">
+				<label id="p3" for="player3Name" class="form-label">Nickname for Player 3:</label>
+				<input type="text" id="player3Name" class="form-control" placeholder="Enter nickname">
+			</div>
+			<button type="button" id="addPlayer" class="btn btn-secondary">+ Add Player</button>
+			<div id="playerFour" style="display:none;">
+				<label id="p4" for="player4Name" class="form-label">Nickname for Player 4:</label>
+				<input type="text" id="player4Name" class="form-control" placeholder="Enter nickname">
+			</div>
+			<button id="submitMulti" type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+	
+	`;
 	const vsPlayerTemplate = `
 		<div id="pongOptionsPSection" style="display:none;">
 			<form id="pongOptionsP">
@@ -163,14 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="mb-3">
 					<label id="pointsP" for="gamePoints" class="form-label">Points to win:</label>
 					<select id="gamePointsP" class="form-select">
-						<option value="1">1</option>
-						<option value="1">2</option>
-						<option value="3">3</option>
-						<option value="3">4</option>
 						<option value="5">5</option>
-						<option value="5">6</option>
+						<option value="6">6</option>
 						<option value="7">7</option>
-						<option value="7">8</option>
+						<option value="8">8</option>
 						<option value="9">9</option>
 					</select>
 				</div>
@@ -201,14 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="mb-3">
 					<label id="points" for="gamePoints" class="form-label">Points to win:</label>
 					<select id="gamePoints" class="form-select">
-						<option value="1">1</option>
-						<option value="1">2</option>
-						<option value="3">3</option>
-						<option value="3">4</option>
 						<option value="5">5</option>
-						<option value="5">6</option>
+						<option value="6">6</option>
 						<option value="7">7</option>
-						<option value="7">8</option>
+						<option value="8">8</option>
 						<option value="9">9</option>
 					</select>
 				</div>
@@ -254,12 +297,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		<div id="mainContent">
 			<div id="homeSection">
 				<div class="d-flex justify-content-center align-items-center vh-100">
-					<div id="game-card" class="card text-center bg-dark text-white">
-						<div class="card-body">
+					<div id="game-card" class="text-center bg-dark text-white">
+						<div>
 							<h6 id="pong-title" class="display-3">PONG</h>
 							<div id="menu-options">
 								<button id="vsPlayerButton" class="btn btn-outline-light m-2">vs Player</button>
 								<button id="vsBotButton" class="btn btn-outline-light m-2">vs Bot</button>
+								<button id="multiButton" class="btn btn-outline-light m-2">2v2</button>
 							</div>
 						</div>
 					</div>
@@ -295,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
 
-	app.innerHTML = loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate; //  + gameOptionsModalTemplate;
+	app.innerHTML = loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
 
 	const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
 		backdrop: 'static',
@@ -320,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const mainContent = document.getElementById('mainContent');
 	const optionsPlayerContent = document.getElementById('pongOptionsPSection');
 	const optionsBotContent = document.getElementById('pongOptionsBSection');
+	const optionsMultiContent = document.getElementById('multiSection');
 	const showRegister = document.getElementById('showRegister');
 	const loginForm = document.getElementById('loginForm');
 	const showLogin = document.getElementById('showLogin');
@@ -349,6 +394,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		loginModal.hide();
 		registerModal.show();
 	});
+
+	const multiButton = document.getElementById('multiButton');
+    document.getElementById('addPlayer').addEventListener('click', function() {
+        const playerFourDiv = document.getElementById('playerFour');
+        playerFourDiv.style.display = 'block';
+        this.style.display = 'none';
+    });
+
+	document.getElementById('multiOptions').addEventListener('submit', function(event) {
+        event.preventDefault();
+        saveOptionsM();
+        optionsMultiContent.style.display = 'none';
+        launchGame();
+    });
+
+    multiButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('multi');
+    });
 
 	document.getElementById('pongOptionsB').addEventListener('submit', function(event) {
 		event.preventDefault();
@@ -534,7 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function showSection(section, addToHistory = true) {
-        const sections = ['home', 'history', 'profile', 'pongOptionsB', 'pongOptionsP'];
+        const sections = ['home', 'history', 'profile', 'pongOptionsB', 'pongOptionsP', 'multi', 'playing'];
         sections.forEach(sec => {
             const sectionElement = document.getElementById(sec + 'Section');
             if (sectionElement) {

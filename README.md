@@ -33,6 +33,7 @@ pip install --upgrade pip
 pip install django
 pip install -r requirements.txt
 pip install psycopg2-binary
+pip install djangorestframework
 python3 backend/manage.py makemigrations
 python3 backend/manage.py migrate
 python3 backend/manage.py collectstatic
