@@ -354,7 +354,8 @@ const game = {
         this.groundHeight = 400;
         this.groundWidth = 700;
         //reset de la game
-        this.styleGame = 4;
+        this.begin = false;
+        this.styleGame = 2;
         this.scorePlayer1 = 0;
         this.scorePlayer2 = 0;
         this.winValue = 5;
@@ -382,23 +383,25 @@ const game = {
         const playerFourName = sessionStorage.getItem('playerFourName'); // player Four name
         //const gameBackground = sessionStorage.getItem('gameBackground');
         const gamePoints = sessionStorage.getItem('gamePoints'); // 9 max point
+        console.log(gameMode);
         const ballSize = sessionStorage.getItem('ballSize'); //1-2-3
-        let padSize = sessionStorage.getItem('padSize');//1-2-3
+        const barSize = sessionStorage.getItem('barSize');//1-2-3
         this.reset();
         if (gameMode != undefined)
         {
             this.styleGame = gameMode;
             switch (gameMode){
-                case 1:
+                case '1':
+                    console.log(gameMode);
                     this.playerTwo.aiOption = true;
                     break;
-                case 2:
+                case '2':
                     break;
-                case 3:
+                case '3':
                     this.playerTwo.aiOption = true;
                     break;
-                case 4:
-                    break;
+                case '4':
+                    break;  
             }
         }
         if (playerOneName != undefined)
@@ -423,29 +426,30 @@ const game = {
         }
         if (ballSize != undefined)
         {
-            if (ballSize == 1)
+            if (ballSize == "small")
             {
                 this.ball.height = this.ball.width = 6;
                 this.ball.radius = 3;
             }
-            if (ballSize == 2)
+            if (ballSize == "medium")
             {
                 this.ball.height = this.ball.width = 12;
                 this.ball.radius = 6;
             }
-            else if (ballSize == 3)
+            else if (ballSize == "big")
             {
+                
                 this.ball.height = this.ball.width = 18;
                 this.ball.radius = 9;
             }
         }
-        if (padSize != undefined)
+        if (barSize != undefined)
         {
-            if (padSize == 1)
+            if (barSize == "small")
                 this.playerOne.height = this.playerTwo.height = this.playerThree.height = this.playerFour.height = 60;
-            else if (padSize == 2)
+            else if (barSize == "medium")
                 this.playerOne.height = this.playerTwo.height = this.playerThree.height = this.playerFour.height = 80;
-            else if (padSize == 3)
+            else if (barSize == "big")
                 this.playerOne.height = this.playerTwo.height = this.playerThree.height = this.playerFour.height = 100;
         }
     }

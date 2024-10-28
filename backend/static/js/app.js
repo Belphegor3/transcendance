@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const app = document.getElementById('app');
 
-	// Templates for login and register modals
+	// Templates for login and register modals changement
 	const loginModalTemplate = `
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -418,6 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsB').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsB();
+		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsBotContent.style.display = 'none';
 		launchGame();
 	});
@@ -425,6 +427,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submitP', function(event) {
 		event.preventDefault();
 		saveOptionsP();
+		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
 		launchGame();
 	});

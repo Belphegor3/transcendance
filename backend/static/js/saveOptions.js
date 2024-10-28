@@ -2,10 +2,14 @@ function saveOptionsB() {
 
     let playerName = 'Bot';
     const barSize = document.getElementById('barSize').value;
-    const gamePoints = document.getElementById('points').value;
+    const gamePoints = document.getElementById('gamePoints').value;
     const ballSize = document.getElementById('ballSize').value;
 
-    
+    sessionStorage.setItem('playerTwoName', 'Bot');
+    sessionStorage.setItem('barSize', barSize);
+    sessionStorage.setItem('gamePoints', gamePoints);
+    sessionStorage.setItem('ballSize', ballSize);
+    sessionStorage.setItem('gameMode', 1);
     const gameOptions = {
         playerName: playerName,
         barSize: barSize,
@@ -34,10 +38,11 @@ function saveOptionsP() {
     const gamePoints = document.getElementById('pointsP').value;
     const ballSize = document.getElementById('ballSizeP').value;
 
-    if (!playerName) {
-        playerName = "Bot";
-    }
-
+    sessionStorage.setItem('playerTwoName', playerName);
+    sessionStorage.setItem('barSize', barSize);
+    sessionStorage.setItem('gamePoints', gamePoints);
+    sessionStorage.setItem('ballSize', ballSize);
+    sessionStorage.setItem('gameMode', 2);
     const gameOptions = {
         playerName: playerName,
         barSize: barSize,
@@ -70,8 +75,18 @@ function saveOptionsM() {
     const ballSize = document.getElementById('ballSizeM').value;
 
     if (!player4Name) {
+        sessionStorage.setItem('gameMode', 3);
         player4Name = "Bot";
     }
+    else
+        sessionStorage.setItem('gameMode', 4);
+    sessionStorage.setItem('playerOneName', player1Name);
+    sessionStorage.setItem('playerTwoName', player2Name);
+    sessionStorage.setItem('playerThreeName', player3Name);
+    sessionStorage.setItem('playerFourName', player4Name);
+    sessionStorage.setItem('barSize', barSize);
+    sessionStorage.setItem('gamePoints', gamePoints);
+    sessionStorage.setItem('ballSize', ballSize);
 
     const gameOptions = {
         player1Name: player1Name,
