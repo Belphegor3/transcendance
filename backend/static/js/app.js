@@ -304,6 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
 								<button id="vsPlayerButton" class="btn btn-outline-light m-2">vs Player</button>
 								<button id="vsBotButton" class="btn btn-outline-light m-2">vs Bot</button>
 								<button id="multiButton" class="btn btn-outline-light m-2">2v2</button>
+								<button id="tournamentButton" class="btn btn-outline-light m-2">Tournament</button>
 							</div>
 						</div>
 					</div>
