@@ -8,13 +8,15 @@ RUN apt-get update && apt-get upgrade -y && apt install -y \
     postgresql-contrib \
     libpq-dev \
     python3-dev \
-    python3-psycopg2
+    python3-psycopg2 
 
 # RUN pip install psycopg2-binary
 
 COPY requirements.txt .
 
 RUN pip install --break-system-packages -r requirements.txt
+
+# RUN apk add zlib-dev jpeg-dev gcc musl-dev  ca sert a pillow mais bug
 
 COPY . .
 COPY .. .
