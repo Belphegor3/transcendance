@@ -1,0 +1,6 @@
+python3 createsuperuser
+admin
+admin@hotmail.fr
+123
+
+-------------------------
