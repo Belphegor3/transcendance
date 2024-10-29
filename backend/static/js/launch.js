@@ -7,6 +7,19 @@ function loadGameOptions() {
         .catch(error => console.error('Erreur:', error));
 }
 
+function resetGame() {
+    game.reset();
+}
+
+function eraseGame() {
+    game.clearLayer(game.playersBallLayer);
+    document.body.removeChild(game.playersBallLayer.canvas);
+    game.clearLayer(game.scoreLayer);
+    document.body.removeChild(game.scoreLayer.canvas);
+    game.clearLayer(game.groundLayer);
+    document.body.removeChild(game.groundLayer.canvas);
+}
+
 function launchGame() {
     // const gameMode = localStorage.getItem('gameMode');
     // const playerName = localStorage.getItem('playerName');
@@ -16,6 +29,7 @@ function launchGame() {
     let requestAnimId;
 
     let initiate = function() {
+        game.reset();
         game.init();
         requestAnimId = window.requestAnimationFrame(main);
     };

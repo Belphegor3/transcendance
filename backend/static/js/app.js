@@ -339,8 +339,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 	`;
 
+	const playingTemplate = `
+		<div id="playingSection" style="display:none;">
+		</div>
+	`;
 
-	app.innerHTML = loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
+
+	app.innerHTML = playingTemplate + loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
 
 	const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
 		backdrop: 'static',
@@ -407,6 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         saveOptionsM();
         optionsMultiContent.style.display = 'none';
+		showSection('playing');
         launchGame();
     });
 
@@ -421,15 +427,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsBotContent.style.display = 'none';
+		showSection('playing');
 		launchGame();
 	});
 
-	document.getElementById('pongOptionsP').addEventListener('submitP', function(event) {
+	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsP();
 		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
+		showSection('playing');
 		launchGame();
 	});
 
@@ -598,7 +606,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('popstate', (event) => {
         const section = event.state?.section || 'home';
-
+		if (section == 'pongOptionsB' || section == 'pongOptionsP' || section == 'multi')
+			eraseGame();
         showSection(section, false);
     });
 

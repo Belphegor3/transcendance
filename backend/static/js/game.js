@@ -350,6 +350,7 @@ const game = {
     },
     
     reset : function(){
+        console.log("je passe\n");
         //reset de la window
         this.groundHeight = 400;
         this.groundWidth = 700;
@@ -368,6 +369,7 @@ const game = {
         //ball
         this.ball.height = this.ball.width = 12;
         this.ball.radius = 6;
+        this.ball.speed = 1.5;
         //pad
         this.playerOne.height = this.playerTwo.height = 80;
         this.playerThree.height = this.playerFour.height = 80;
@@ -381,7 +383,6 @@ const game = {
         const playerTwoName = sessionStorage.getItem('playerTwoName'); // player two name
         const playerThreeName = sessionStorage.getItem('playerThreeName'); // player Three name
         const playerFourName = sessionStorage.getItem('playerFourName'); // player Four name
-        //const gameBackground = sessionStorage.getItem('gameBackground');
         const gamePoints = sessionStorage.getItem('gamePoints'); // 9 max point
         console.log(gameMode);
         const ballSize = sessionStorage.getItem('ballSize'); //1-2-3
@@ -392,7 +393,6 @@ const game = {
             this.styleGame = gameMode;
             switch (gameMode){
                 case '1':
-                    console.log(gameMode);
                     this.playerTwo.aiOption = true;
                     break;
                 case '2':
