@@ -350,7 +350,6 @@ const game = {
     },
     
     reset : function(){
-        console.log("je passe\n");
         //reset de la window
         this.groundHeight = 400;
         this.groundWidth = 700;

@@ -289,23 +289,22 @@ document.addEventListener('DOMContentLoaded', () => {
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="languagePicker" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<img src="english-flag.png" alt="English" style="width: 20px; height: 20px;">
-								English
+								<img src="images/flags/en.jpg">
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languagePicker">
 								<li>
 									<a class="dropdown-item language-option" href="#" data-language="en">
-										<img src="../flags/en.jpg" alt="English" style="width: 20px; height: 20px;">
+										<img src="en.jpg">
 									</a>
 								</li>
 								<li>
 									<a class="dropdown-item language-option" href="#" data-language="fr">
-										<img src="../flags/fr.jpg" alt="French" style="width: 20px; height: 20px;">
+										<img src="/backend/static/images/flags/fr.jpg">
 									</a>
 								</li>
 								<li>
-									<a class="dropdown-item language-option" href="#" data-language="fr">
-										<img src="../flags/es.jpg" alt="Spanish" style="width: 20px; height: 20px;">
+									<a class="dropdown-item language-option" href="#" data-language="es">
+										<img src="images/flags/es.jpg">
 									</a>
 								</li>
 							</ul>
@@ -356,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						<label for="profilePictureInput" data-translate="uploadp" class="form-label">Upload Profile Picture</label>
 						<input type="file" class="form-control" id="profilePictureInput" accept="image/*">
 					</div>
-					<button type="submit" class="btn btn-primary">Upload</button>
+					<button type="submit" data-translate="upload" class="btn btn-primary">Upload</button>
 				</form>
 			</div>
 		</div>
@@ -630,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('popstate', (event) => {
         const section = event.state?.section || 'home';
 		if (section == 'pongOptionsB' || section == 'pongOptionsP' || section == 'multi')
-			eraseGame();
+			eraseGameWhilePlaying();
         showSection(section, false);
     });
 
@@ -828,7 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			e.preventDefault();
 			const language = option.getAttribute('data-language');
 			updateLanguage(language);
-			document.getElementById('languagePicker').innerHTML = option.innerHTML; // Update the flag icon in the navbar
+			document.getElementById('languagePicker').innerHTML = option.innerHTML;
 		});
 	});
 

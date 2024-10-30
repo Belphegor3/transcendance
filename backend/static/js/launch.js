@@ -11,13 +11,15 @@ function resetGame() {
     game.reset();
 }
 
-function eraseGame() {
-    game.clearLayer(game.playersBallLayer);
-    document.body.removeChild(game.playersBallLayer.canvas);
-    game.clearLayer(game.scoreLayer);
-    document.body.removeChild(game.scoreLayer.canvas);
-    game.clearLayer(game.groundLayer);
-    document.body.removeChild(game.groundLayer.canvas);
+function eraseGameWhilePlaying() {
+    if (!(game.scorePlayer1 == game.winValue || game.scorePlayer2 == game.winValue)) {
+        game.clearLayer(game.playersBallLayer);
+        document.body.removeChild(game.playersBallLayer.canvas);
+        game.clearLayer(game.scoreLayer);
+        document.body.removeChild(game.scoreLayer.canvas);
+        game.clearLayer(game.groundLayer);
+        document.body.removeChild(game.groundLayer.canvas);
+    }
 }
 
 function launchGame() {
