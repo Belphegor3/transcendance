@@ -22,12 +22,19 @@ function eraseGameWhilePlaying() {
     }
 }
 
+function eraseGameWhilePlaying(){
+    if (game.scorePlayer1 != game.winValue && game.scorePlayer2 != game.winValue)
+    {
+        game.windowChange = true;
+    }
+}
+
 function launchGame() {
-    // const gameMode = localStorage.getItem('gameMode');
-    // const playerName = localStorage.getItem('playerName');
-    // const gameBackground = localStorage.getItem('gameBackground');
-    // const gamePoints = localStorage.getItem('gamePoints');
-    // const ballSize = localStorage.getItem('ballSize');
+    // const gameMode = sessionStorage.getItem('gameMode');
+    // const playerName = sessionStorage.getItem('playerName');
+    // const gameBackground = sessionStorage.getItem('gameBackground');
+    // const gamePoints = sessionStorage.getItem('gamePoints');
+    // const ballSize = sessionStorage.getItem('ballSize');
     let requestAnimId;
 
     let initiate = function() {
@@ -40,6 +47,7 @@ function launchGame() {
         game.clearLayer(game.playersBallLayer);
         if (game.playerTwo.aiOption == true)
             game.ia.moveIa(game.playerTwo, game.ball);
+        //console.log(game.begin);
         game.movePlayers();
         game.displayPlayers();
         game.moveBall();

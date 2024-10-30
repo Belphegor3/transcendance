@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							</div>
 							<button data-translate="register" type="submit" class="btn btn-primary">Register</button>
 							<button type="button" class="btn btn-secondary" id="register42Button">
-								<h1 data-translate="registerwith">Register with</div>
+								<h1 data-translate="registerwith">Register with</h1>
 								<img src="logo 42" style="height: 20px; width: 20px;">
 							</button>
 						</form>
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
 								</li>
 								<li>
 									<a class="dropdown-item language-option" href="#" data-language="es">
-										<img src="images/flags/es.jpg">
+										<img src="../flags/es.jpg" alt="Spanish" style="width: 20px; height: 20px;">
 									</a>
 								</li>
 							</ul>
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsB').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsB();
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsBotContent.style.display = 'none';
 		showSection('playing');
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsP();
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
 		showSection('playing');
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const email = document.getElementById('email').value;
 		const password = document.getElementById('password').value;
 		if (validateUser(email, password)) {
-			const userData = JSON.parse(localStorage.getItem(email));
+			const userData = JSON.parse(sessionStorage.getItem(email));
 			profileName.textContent = `${userData.firstName} ${userData.lastName}`;
 			profileUserName.textContent = userData.userName;
 			profileEmail.textContent = userData.email;
@@ -515,16 +515,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			const reader = new FileReader();
 			reader.onload = function (e) {
 				profilePicture.src = e.target.result;
-				const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+				const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
 				userData.profilePicture = e.target.result;
-				localStorage.setItem(userData.email, JSON.stringify(userData));
+				sessionStorage.setItem(userData.email, JSON.stringify(userData));
 			};
 			reader.readAsDataURL(fileInput.files[0]);
 		}
 	});
 
 	editProfileButton.addEventListener('click', () => {
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
 		document.getElementById('editFirstName').value = userData.firstName;
 		document.getElementById('editLastName').value = userData.lastName;
 		document.getElementById('editUserName').value = userData.userName;
@@ -548,12 +548,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		const lastName = document.getElementById('editLastName').value;
 		const userName = document.getElementById('editUserName').value;
 		const email = document.getElementById('editEmail').value;
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
 		userData.firstName = firstName;
 		userData.lastName = lastName;
 		userData.userName = userName;
 		userData.email = email;
-		localStorage.setItem(email, JSON.stringify(userData));
+		sessionStorage.setItem(email, JSON.stringify(userData));
 		profileName.textContent = `${firstName} ${lastName}`;
 		profileUserName.textContent = userName;
 		profileEmail.textContent = email;
@@ -635,7 +635,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSection(section, addToHistory = true) {
         const sections = ['home', 'history', 'profile', 'pongOptionsB', 'pongOptionsP', 'multi', 'playing'];
-        sections.forEach(sec => {
+        eraseGameWhilePlaying();
+		sections.forEach(sec => {
             const sectionElement = document.getElementById(sec + 'Section');
             if (sectionElement) {
                 if (sec === section) {
@@ -655,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showSection(initialSection || 'home', false);
 
 	function validateUser(email, password) {
-		const userDataString = localStorage.getItem(email);
+		const userDataString = sessionStorage.getItem(email);
 
 		if (!userDataString) {
 			return false;
@@ -666,11 +667,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function registerUser(firstName, lastName, userName, email, password) {
-		const userExists = localStorage.getItem(email);
+		const userExists = sessionStorage.getItem(email);
 		if (userExists) {
 			return false;
 		}
-		localStorage.setItem(email, JSON.stringify({ firstName, lastName, userName, email, password }));
+		sessionStorage.setItem(email, JSON.stringify({ firstName, lastName, userName, email, password }));
 		return true;
 	}
 

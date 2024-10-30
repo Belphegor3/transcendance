@@ -218,9 +218,13 @@ const game = {
     },  
 
     moveBall : function(){
-        this.ball.move();
-        this.ball.bounce();
-        this.displayBall();
+        if (this.begin == true)
+        {
+            //console.log("je suis la");
+            this.ball.move();
+            this.ball.bounce();
+            this.displayBall();
+        }
     },
 
     clearLayer : function(targetLayer) {
