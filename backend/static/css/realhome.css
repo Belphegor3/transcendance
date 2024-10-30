@@ -18,6 +18,10 @@ button {
     width: 200px;
 }
 
+#pongOptionsPSection, #pongOptionsBSection {
+    padding-top: 100px;
+}
+
 #pong-title {
     margin-bottom: 30px;
 }

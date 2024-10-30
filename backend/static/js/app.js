@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Templates for login and register modals
 	const loginModalTemplate = `
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="loginModalLabel">Login</h5>
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const registerModalTemplate = `
 		<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="registerModalLabel">Register</h5>
@@ -178,7 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
 						<option id="big2P" value="big">Big</option>
 					</select>
 				</div>
-				<button id="submitP" type="submit" class="btn btn-primary">Submit</button>
+				<div class="d-flex justify-content-between mt-3">
+					<button id="submitP" type="submit" class="btn btn-primary">Submit</button>
+					<button class="backToHomeButton btn btn-secondary bg-dark text-white">Back</button>
+				</div>
 			</form>
 		</div>
 	`;
@@ -216,7 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
 						<option id="big2" value="big">Big</option>
 					</select>
 				</div>
-				<button id="submit" type="submit" class="btn btn-primary">Submit</button>
+				<div class="d-flex justify-content-between mt-3">
+					<button id="submitP" type="submit" class="btn btn-primary">Submit</button>
+					<button class="backToHomeButton btn btn-secondary bg-dark text-white">Back</button>
+				</div>
 			</form>
 		</div>
 	`;
@@ -322,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const navHome = document.getElementById('navHome');
 	const navHistory = document.getElementById('navHistory');
 	const navProfile = document.getElementById('navProfile');
+	const navbarToggle = document.querySelector('.navbar-toggler');
 	const logoutButton = document.getElementById('logoutButton');
 	const profilePicture = document.getElementById('profilePicture');
 	const profileName = document.getElementById('profileName');
@@ -483,16 +490,28 @@ document.addEventListener('DOMContentLoaded', () => {
 	navHome.addEventListener('click', (e) => {
 		e.preventDefault();
 		showSection('home');
+		collapseNavbar();
 	});
+
 	navHistory.addEventListener('click', (e) => {
 		e.preventDefault();
 		showSection('history');
+		collapseNavbar();
 		loadScript('history.js');
 	});
+
 	navProfile.addEventListener('click', (e) => {
 		e.preventDefault();
 		showSection('profile');
+		collapseNavbar();
 	});
+
+	function collapseNavbar() {
+		const navbar = document.getElementById('navbarNav');
+		if (navbar.classList.contains('show')) {
+			navbarToggle.click();
+		}
+	}
 
 	logoutButton.addEventListener('click', () => {
 		logoutUser();
@@ -576,13 +595,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-    // const backToHomeButton = document.getElementById('backToHome');
+    const backToHomeButtons = document.querySelectorAll('.backToHomeButton');
 
-    
-    // backToHomeButton.addEventListener('click', (e) => {
-	// 	e.preventDefault();
-    //     showSection('home');
-    // });
+	backToHomeButtons.forEach(button => {
+		button.addEventListener('click', (e) => { 
+			e.preventDefault();
+			showSection('home');
+		});
+	});
 
-	
+
 });
