@@ -3,9 +3,19 @@ button {
 }
 
 #game-card {
-	height: 300px;
-	background-color: black;
-	font-family: 'JetBrains Mono Extra Bold', monospace;
+    width: 1000px;
+    height: 500px;
+    background-color: black;
+    font-family: 'JetBrains Mono Extra Bold', monospace;
+}
+
+#pong-title {
+    font-size: 5rem;
+}
+
+#menu-options button {
+    font-size: 1.5rem;
+    width: 200px;
 }
 
 #pong-title {

@@ -12,18 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
 					<div class="modal-body">
 						<form id="loginForm">
 							<div class="mb-3">
-								<label for="email" class="form-label">Email Address</label>
-								<input type="email" class="form-control" id="email" required>
+								<input type="email" class="form-control" id="email" placeholder="Email Address" required>
 							</div>
 							<div class="mb-3">
-								<label for="password" class="form-label">Password</label>
-								<input type="password" class="form-control" id="password" required>
+                            <input type="password" class="form-control" id="password" placeholder="Password" required>
 							</div>
-							<button type="submit" class="btn btn-primary">Login</button>
-							<button type="button" class="btn btn-secondary" id="login42Button">
-								<img src="logo 42" style="height: 20px; width: 20px;">
-								login
-							</button>
+							<div class="d-flex justify-content-between">
+								<button type="submit" class="btn btn-primary w-100 me-1">Login</button>
+								<button type="button" class="btn btn-secondary bg-dark text-white w-100 ms-1" id="login42Button">
+									login with
+									<img src="/static/images/assets/42logo.png" style="height: 20px; width: 20px;">
+								</button>
+							</div>
 						</form>
 						<p class="mt-3" id="noAccountText">
 							<span data-translate="noAccountText">No account?</span>
@@ -44,35 +44,31 @@ document.addEventListener('DOMContentLoaded', () => {
 					</div>
 					<div class="modal-body">
 						<form id="registerForm">
-							<div class="form-group">
-								<label for="firstName">First Name</label>
-								<input type="text" class="form-control" id="firstName" required>
+							<div class="mb-3 form-group">
+                          		<input type="text" class="form-control" id="firstName" placeholder="First Name" required>
 							</div>
-							<div class="form-group">
-								<label for="lastName">Last Name</label>
-								<input type="text" class="form-control" id="lastName" required>
+							<div class="mb-3 form-group">
+                            	<input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
 							</div>
-							<div class="form-group">
-								<label for="userName">User Name</label>
-								<input type="text" class="form-control" id="userName" required>
+							<div class="mb-3 form-group">
+                            	<input type="text" class="form-control" id="userName" placeholder="User Name" required>
 							</div>
-							<div class="form-group">
-								<label for="registerEmail">Email Address</label>
-								<input type="email" class="form-control" id="registerEmail" required>
+							<div class="mb-3 form-group">
+                            	<input type="email" class="form-control" id="registerEmail" placeholder="Email Address" required>
 							</div>
-							<div class="form-group">
-								<label for="formerPassword">Password</label>
-								<input type="password" class="form-control" id="formerPassword" required>
+							<div class="mb-3 form-group">
+                            	<input type="password" class="form-control" id="formerPassword" placeholder="Password" required>
 							</div>
-							<div class="form-group">
-								<label for="confirmPassword2">Confirm Password</label>
-								<input type="password" class="form-control" id="confirmPassword2" required>
+							<div class="mb-3 form-group">
+                            	<input type="password" class="form-control" id="confirmPassword2" placeholder="Confirm Password" required>
 							</div>
-							<button type="submit" class="btn btn-primary">Register</button>
-							<button type="button" class="btn btn-secondary" id="register42Button">
-								Register with
-								<img src="logo 42" style="height: 20px; width: 20px;">
-							</button>
+							<div class="d-flex justify-content-between">
+								<button type="submit" class="btn btn-primary w-100 me-1">Register</button>
+								<button type="button" class="btn btn-secondary bg-dark text-white w-100 ms-1" id="register42Button">
+									Register with
+									<img src="/static/images/assets/42logo.png" style="height: 20px; width: 20px;">
+								</button>
+							</div>
 						</form>
 						<p class="mt-3">Already have an account? <a href="#" id="showLogin">Login</a></p>
 					</div>
@@ -226,14 +222,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
 	const mainContentTemplate = `
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center">
+			<div class="container-fluid justify-content-between">
 				<a class="navbar-brand" href="#">Transcendence</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+				<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
 					<ul class="navbar-nav ms-auto">
 						<li class="nav-item">
 							<a class="nav-link" href="#" id="navHome">Home</a>
@@ -245,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							<a class="nav-link" href="#" id="navHistory">History</a>
 						</li>
 						<li class="nav-item">
-							<button class="btn btn-outline-danger my-2 my-sm-0" id="logoutButton">Logout</button>
+							<button class="btn btn-outline-danger my-2 mx-2 my-sm-0" style="width: 100px" id="logoutButton">Logout</button>
 						</li>
 					</ul>
 				</div>
@@ -253,35 +249,37 @@ document.addEventListener('DOMContentLoaded', () => {
 		</nav>
 		<div id="mainContent">
 			<div id="homeSection">
-				<div class="d-flex justify-content-center align-items-center vh-100">
+				<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
 					<div id="game-card" class="card text-center bg-dark text-white">
-						<div class="card-body">
-							<h6 id="pong-title" class="display-3">PONG</h>
-							<div id="menu-options">
-								<button id="vsPlayerButton" class="btn btn-outline-light m-2">vs Player</button>
-								<button id="vsBotButton" class="btn btn-outline-light m-2">vs Bot</button>
+						<div class="card-body d-flex flex-column justify-content-center align-items-center">
+							<h6 id="pong-title" class="display-2 mb-4">PONG</h6>
+							<div id="menu-options" class="d-flex flex-column gap-3">
+								<button id="vsPlayerButton" class="btn btn-outline-light btn-lg">vs Player</button>
+								<button id="vsBotButton" class="btn btn-outline-light btn-lg">vs Bot</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 			<div id="historySection" style="display:none;">
+			<h1>History</h1>
 			</div>
 			<div id="profileSection" style="display:none;">
 				<h1>Profile</h1>
 				<div class="col-md-4">
 					<div class="profile-picture-container text-center mb-4">
-						<img id="profilePicture" src="default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
+						<img id="profilePicture" src="/static/images/assets/default-avatar.png" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
 					</div>
 					<div class="profile-info">
 						<p><strong>Name:</strong> <span id="profileName"></span></p>
 						<p><strong>Username:</strong> <span id="profileUserName"></span></p>
 						<p><strong>Email:</strong> <span id="profileEmail"></span></p>
 					</div>
-					<button class="btn btn-secondary mt-3 w-100" id="editProfileButton">Edit Profile</button>
-					<button class="btn btn-secondary mt-3 w-100" id="changePasswordButton">Change Password</button>
-					<button class="btn btn-danger mt-3 w-100" id="deleteAccountButton">Delete Account</button>
-					<button class="btn btn-warning mt-3 w-100" id="anonymizeUserButton">Anonymize Data</button>
+					<button class="btn btn-secondary mt-2 w-100" id="editProfileButton">Edit Profile</button>
+					<button class="btn btn-secondary mt-2 w-100" id="changePasswordButton">Change Password</button>
+					<button class="btn btn-danger mt-2 w-100" id="deleteAccountButton">Delete Account</button>
+					<button class="btn btn-warning mt-2 w-100" id="anonymizeUserButton">Anonymize Data</button>
 				</div>
 				<form id="uploadProfilePictureForm" class="mt-3" w-100>
 					<div class="form-group mb-3">
@@ -293,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			</div>
 		</div>
 	`;
-
 
 	app.innerHTML = loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate; //  + gameOptionsModalTemplate;
 
@@ -318,8 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 	const mainContent = document.getElementById('mainContent');
-	const optionsPlayerContent = document.getElementById('pongOptionsPSection');
-	const optionsBotContent = document.getElementById('pongOptionsBSection');
 	const showRegister = document.getElementById('showRegister');
 	const loginForm = document.getElementById('loginForm');
 	const showLogin = document.getElementById('showLogin');
@@ -341,6 +336,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const closeButton = document.getElementById('closePasswordModal');
 	const vsPlayerButton = document.getElementById('vsPlayerButton');
 	const vsBotButton = document.getElementById('vsBotButton');
+	const optionsPlayerContent = document.getElementById('pongOptionsPSection');
+	const optionsBotContent = document.getElementById('pongOptionsBSection');
 
 	loginModal.show();
 

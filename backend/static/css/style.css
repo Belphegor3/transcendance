@@ -15,23 +15,27 @@
 body {
 	background-color: #f0f0f5;
 	font-family: 'JetBrains Mono Regular', monospace;
+	padding-top: 10px;
 }
 
 .navbar {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 9999;
+	left: 50%;
+    transform: translateX(-50%);
 	box-shadow: rgba(0, 82, 224, 0.1) 0px 6px 12px 0px;
 	padding: 10px;
+	z-index: 1000
 }
 
-.navbar-brand {
+.navbar-brand, #loginModalLabel, #registerModalLabel {
 	font-family: 'JetBrains Mono Extra Bold', monospace;
 }
 
-#login-card, #signup-card, #game-card {
-	width: 550px;
+.modal-title {
+    text-align: center;
+    width: 100%;
 }
 
 #language-en, #language-fr, #language-es {
