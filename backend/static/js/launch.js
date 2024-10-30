@@ -46,8 +46,12 @@ function launchGame() {
         game.collideBallWithPlayersAndAction();
         game.playerScoring();
 
-        if (game.winCondition() == false) {
+        if (game.winCondition() == false && game.windowChange == false) {
             requestAnimId = window.requestAnimationFrame(main);
+        }
+        else if (game.windowChange == true)
+        {
+            this.eraseGame();
         }
     };
 

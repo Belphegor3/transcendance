@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('popstate', (event) => {
         const section = event.state?.section || 'home';
 		if (section == 'pongOptionsB' || section == 'pongOptionsP' || section == 'multi')
-			eraseGameWhilePlaying();
+			game.windowChange = true;
         showSection(section, false);
     });
 

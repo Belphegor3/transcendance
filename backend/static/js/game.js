@@ -1,4 +1,5 @@
 const game = {
+    windowChange : false,
     begin : false,
     winValue : 1,
     winnerGame : "Nothing",
@@ -355,6 +356,7 @@ const game = {
         this.groundWidth = 700;
         //reset de la game
         this.begin = false;
+        this.windowChange = false; 
         this.styleGame = 2;
         this.scorePlayer1 = 0;
         this.scorePlayer2 = 0;
