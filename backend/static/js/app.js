@@ -7,19 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="loginModalLabel">Login</h5>
+						<h5 class="modal-title" data-translate="login" id="loginModalLabel">Login</h5>
 					</div>
 					<div class="modal-body">
 						<form id="loginForm">
 							<div class="mb-3">
-								<label for="email" class="form-label">Email Address</label>
+								<label data-translate="email" for="email" class="form-label">Email Address</label>
 								<input type="email" class="form-control" id="email" required>
 							</div>
 							<div class="mb-3">
-								<label for="password" class="form-label">Password</label>
+								<label data-translate="password" for="password" class="form-label">Password</label>
 								<input type="password" class="form-control" id="password" required>
 							</div>
-							<button type="submit" class="btn btn-primary">Login</button>
+							<button data-translate="login" type="submit" class="btn btn-primary">Login</button>
 							<button type="button" class="btn btn-secondary" id="login42Button">
 								<img src="logo 42" style="height: 20px; width: 20px;">
 								login
@@ -40,41 +40,41 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="registerModalLabel">Register</h5>
+						<h5 class="modal-title" data-translate="register" id="registerModalLabel">Register</h5>
 					</div>
 					<div class="modal-body">
 						<form id="registerForm">
 							<div class="form-group">
-								<label for="firstName">First Name</label>
+								<label data-translate="firstname" for="firstName">First Name</label>
 								<input type="text" class="form-control" id="firstName" required>
 							</div>
 							<div class="form-group">
-								<label for="lastName">Last Name</label>
+								<label data-translate="lastname" for="lastName">Last Name</label>
 								<input type="text" class="form-control" id="lastName" required>
 							</div>
 							<div class="form-group">
-								<label for="userName">User Name</label>
+								<label data-translate="username" for="userName">User Name</label>
 								<input type="text" class="form-control" id="userName" required>
 							</div>
 							<div class="form-group">
-								<label for="registerEmail">Email Address</label>
+								<label data-translate="email" for="registerEmail">Email Address</label>
 								<input type="email" class="form-control" id="registerEmail" required>
 							</div>
 							<div class="form-group">
-								<label for="formerPassword">Password</label>
+								<label data-translate="password" for="formerPassword">Password</label>
 								<input type="password" class="form-control" id="formerPassword" required>
 							</div>
 							<div class="form-group">
-								<label for="confirmPassword2">Confirm Password</label>
+								<label data-translate="confirmpass" for="confirmPassword2">Confirm Password</label>
 								<input type="password" class="form-control" id="confirmPassword2" required>
 							</div>
-							<button type="submit" class="btn btn-primary">Register</button>
+							<button data-translate="register" type="submit" class="btn btn-primary">Register</button>
 							<button type="button" class="btn btn-secondary" id="register42Button">
-								Register with
+								<h1 data-translate="registerwith">Register with</div>
 								<img src="logo 42" style="height: 20px; width: 20px;">
 							</button>
 						</form>
-						<p class="mt-3">Already have an account? <a href="#" id="showLogin">Login</a></p>
+						<p data-translate="already" class="mt-3">Already have an account?<a data-translate="login" href="#" id="showLogin">Login</a></p>
 					</div>
 				</div>
 			</div>
@@ -86,28 +86,28 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="profileModalLabel">Edit Profile</h5>
+						<h5 class="modal-title" data-translate="editp" id="profileModalLabel">Edit Profile</h5>
 						<button type="button" class="btn-close" id="closeProfileModal" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<form id="editProfileForm">
 							<div class="form-group">
-								<label for="editFirstName">First Name</label>
+								<label data-translate="firstname" for="editFirstName">First Name</label>
 								<input type="text" class="form-control" id="editFirstName" required>
 							</div>
 							<div class="form-group">
-								<label for="editLastName">Last Name</label>
+								<label data-translate="lastname" for="editLastName">Last Name</label>
 								<input type="text" class="form-control" id="editLastName" required>
 							</div>
 							<div class="form-group">
-								<label for="editUserName">User Name</label>
+								<label data-translate="username" for="editUserName">User Name</label>
 								<input type="text" class="form-control" id="editUserName" required>
 							</div>
 							<div class="form-group">
-								<label for="editEmail">Email Address</label>
+								<label data-translate="email" for="editEmail">Email Address</label>
 								<input type="email" class="form-control" id="editEmail" required>
 							</div>
-							<button type="submit" class="btn btn-primary">Save Changes</button>
+							<button data-translate="save" type="submit" class="btn btn-primary">Save Changes</button>
 						</form>
 					</div>
 				</div>
@@ -120,24 +120,24 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+						<h5 class="modal-title" data-translate="changepass" id="changePasswordModalLabel">Change Password</h5>
 						<button type="button" class="btn-close" id ="closePasswordModal" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<form id="changePasswordForm">
 							<div class="mb-3">
-								<label for="currentPassword" class="form-label">Current Password</label>
+								<label for="currentPassword" data-translate="currentpass" class="form-label">Current Password</label>
 								<input type="password" class="form-control" id="currentPassword" required>
 							</div>
 							<div class="mb-3">
-								<label for="newPassword" class="form-label">New Password</label>
+								<label for="newPassword" data-translate="newpass" class="form-label">New Password</label>
 								<input type="password" class="form-control" id="newPassword" required>
 							</div>
 							<div class="mb-3">
-								<label for="confirmPassword" class="form-label">Confirm Password</label>
+								<label for="confirmPassword" data-translate="confirmpass" class="form-label">Confirm Password</label>
 								<input type="password" class="form-control" id="confirmPassword" required>
 							</div>
-							<button type="submit" class="btn btn-primary">Change Password</button>
+							<button type="submit" data-translate="changepass" class="btn btn-primary">Change Password</button>
 						</form>
 					</div>
 				</div>
@@ -149,15 +149,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	<div id="multiSection" style="display:none;">
 		<form id="multiOptions">
 			<div class="mb-3">
-				<label id="barM" for="barSizeM" class="form-label">Select a bar size:</label>
+				<label id="barM" data-translate="selectbar" for="barSizeM" class="form-label">Select a bar size:</label>
 				<select id="barSizeM" class="form-select">
-					<option id="smallM" value="small">Small</option>
-					<option id ="mediumM" value="medium">Medium</option>
-					<option id="bigM" value="big">Big</option>
+					<option id="smallM" data-translate="small" value="small">Small</option>
+					<option id ="mediumM" data-translate="medium" value="medium">Medium</option>
+					<option id="bigM" data-translate="big" value="big">Big</option>
 				</select>
 			</div>
 			<div class="mb-3">
-				<label id="pointsM" for="gamePointsM" class="form-label">Points to win:</label>
+				<label id="pointsM" data-translate="pointstowin" for="gamePointsM" class="form-label">Points to win:</label>
 				<select id="gamePointsM" class="form-select">
 					<option value="5">5</option>
 					<option value="6">6</option>
@@ -167,31 +167,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				</select>
 			</div>
 			<div class="mb-3">
-				<label id="ballM" for="ballSizeM" class="form-label">Select a ball size:</label>
+				<label id="ballM" data-translate="selectball" for="ballSizeM" class="form-label">Select a ball size:</label>
 				<select id="ballSizeM" class="form-select">
-					<option id="small2M" value="small">Small</option>
-					<option id="medium2M" value="medium">Medium</option>
-					<option id="big2M" value="big">Big</option>
+					<option id="small2M" data-translate="small" value="small">Small</option>
+					<option id="medium2M" data-translate="medium" value="medium">Medium</option>
+					<option id="big2M" data-translate="big" value="big">Big</option>
 				</select>
 			</div>
 			<div id="playerOne">
-				<label id="p1" for="player1Name" class="form-label">Nickname for Player 1:</label>
+				<label id="p1" data-translate="p1" for="player1Name" class="form-label">Nickname for Player 1:</label>
 				<input type="text" id="player1Name" class="form-control" placeholder="Enter nickname">
 			</div>
 			<div id="playerTwo">
-				<label id="p2" for="player2Name" class="form-label">Nickname for Player 2:</label>
+				<label id="p2" data-translate="p2" for="player2Name" class="form-label">Nickname for Player 2:</label>
 				<input type="text" id="player2Name" class="form-control" placeholder="Enter nickname">
 			</div>
 			<div id="playerThree">
-				<label id="p3" for="player3Name" class="form-label">Nickname for Player 3:</label>
+				<label id="p3" data-translate="p3" for="player3Name" class="form-label">Nickname for Player 3:</label>
 				<input type="text" id="player3Name" class="form-control" placeholder="Enter nickname">
 			</div>
-			<button type="button" id="addPlayer" class="btn btn-secondary">+ Add Player</button>
+			<button data-translate="addplayer" type="button" id="addPlayer" class="btn btn-secondary">+ Add Player</button>
 			<div id="playerFour" style="display:none;">
-				<label id="p4" for="player4Name" class="form-label">Nickname for Player 4:</label>
+				<label id="p4" data-translate="p4" for="player4Name" class="form-label">Nickname for Player 4:</label>
 				<input type="text" id="player4Name" class="form-control" placeholder="Enter nickname">
 			</div>
-			<button id="submitMulti" type="submit" class="btn btn-primary">Submit</button>
+			<button id="submitMulti" data-translate="submit" type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
 	
@@ -200,19 +200,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		<div id="pongOptionsPSection" style="display:none;">
 			<form id="pongOptionsP">
 				<div id="secondPlayer">
-					<label id="name" for="playerName" class="form-label">Nickname for the second player:</label>
+					<label id="name" data-translate="p2" for="playerName" class="form-label">Nickname for Player 2:</label>
 					<input type="text" id="playerName" class="form-control" placeholder="Enter nickname">
 				</div>
 				<div class="mb-3">
-					<label id="barP" for="barSizeP" class="form-label">Select a bar size:</label>
+					<label id="barP" data-translate="selectbar" for="barSizeP" class="form-label">Select a bar size:</label>
 					<select id="barSizeP" class="form-select">
-						<option id="smallP" value="small">Small</option>
-						<option id ="mediumP" value="medium">Medium</option>
-						<option id="bigP" value="big">Big</option>
+						<option id="smallP" data-translate="small" value="small">Small</option>
+						<option id ="mediumP" data-translate="medium" value="medium">Medium</option>
+						<option id="bigP" data-translate="big" value="big">Big</option>
 					</select>
 				</div>
 				<div class="mb-3">
-					<label id="pointsP" for="gamePoints" class="form-label">Points to win:</label>
+					<label id="pointsP" data-translate="pointstowin" for="gamePoints" class="form-label">Points to win:</label>
 					<select id="gamePointsP" class="form-select">
 						<option value="5">5</option>
 						<option value="6">6</option>
@@ -222,14 +222,14 @@ document.addEventListener('DOMContentLoaded', () => {
 					</select>
 				</div>
 				<div class="mb-3">
-					<label id="ballP" for="ballSizeP" class="form-label">Select a ball size:</label>
+					<label id="ballP" data-translate="selectball" for="ballSizeP" class="form-label">Select a ball size:</label>
 					<select id="ballSizeP" class="form-select">
-						<option id="small2P" value="small">Small</option>
-						<option id="medium2P" value="medium">Medium</option>
-						<option id="big2P" value="big">Big</option>
+						<option id="small2P" data-translate="small" value="small">Small</option>
+						<option id="medium2P" data-translate="medium" value="medium">Medium</option>
+						<option id="big2P" data-translate="big" value="big">Big</option>
 					</select>
 				</div>
-				<button id="submitP" type="submit" class="btn btn-primary">Submit</button>
+				<button id="submitP" data-translate="submit" type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>
 	`;
@@ -238,15 +238,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		<div id="pongOptionsBSection" style="display:none;">
 			<form id="pongOptionsB">
 				<div class="mb-3">
-					<label id="bar" for="barSize" class="form-label">Select a bar size:</label>
+					<label id="bar" data-translate="selectbar" for="barSize" class="form-label">Select a bar size:</label>
 					<select id="barSize" class="form-select">
-						<option id="small" value="small">Small</option>
-						<option id ="medium" value="medium">Medium</option>
-						<option id="big" value="big">Big</option>
+						<option id="small" data-translate="small" value="small">Small</option>
+						<option id ="medium" data-translate="medium" value="medium">Medium</option>
+						<option id="big" data-translate="big" value="big">Big</option>
 					</select>
 				</div>
 				<div class="mb-3">
-					<label id="points" for="gamePoints" class="form-label">Points to win:</label>
+					<label id="points" data-translate="pointstowin" for="gamePoints" class="form-label">Points to win:</label>
 					<select id="gamePoints" class="form-select">
 						<option value="5">5</option>
 						<option value="6">6</option>
@@ -256,14 +256,14 @@ document.addEventListener('DOMContentLoaded', () => {
 					</select>
 				</div>
 				<div class="mb-3">
-					<label id="ball" for="ballSize" class="form-label">Select a ball size:</label>
+					<label id="ball" data-translate="selectball" for="ballSize" class="form-label">Select a ball size:</label>
 					<select id="ballSize" class="form-select">
-						<option id="small2" value="small">Small</option>
-						<option id="medium2" value="medium">Medium</option>
-						<option id="big2" value="big">Big</option>
+						<option id="small2" data-translate="small" value="small">Small</option>
+						<option id="medium2" data-translate="medium" value="medium">Medium</option>
+						<option id="big2" data-translate="big" value="big">Big</option>
 					</select>
 				</div>
-				<button id="submit" type="submit" class="btn btn-primary">Submit</button>
+				<button id="submit" data-translate="submit" type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>
 	`;
@@ -279,16 +279,39 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 					<ul class="navbar-nav ms-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="#" id="navHome">Home</a>
+							<a class="nav-link" data-translate="home" href="#" data-translate="home" id="navHome">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" id="navProfile">Profile</a>
+							<a class="nav-link" data-translate="profile" href="#" id="navProfile">Profile</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#" id="navHistory">History</a>
+							<a class="nav-link" data-translate="history" href="#" id="navHistory">History</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="languagePicker" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<img src="english-flag.png" alt="English" style="width: 20px; height: 20px;">
+								English
+							</a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languagePicker">
+								<li>
+									<a class="dropdown-item language-option" href="#" data-language="en">
+										<img src="../flags/en.jpg" alt="English" style="width: 20px; height: 20px;">
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item language-option" href="#" data-language="fr">
+										<img src="../flags/fr.jpg" alt="French" style="width: 20px; height: 20px;">
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item language-option" href="#" data-language="fr">
+										<img src="../flags/es.jpg" alt="Spanish" style="width: 20px; height: 20px;">
+									</a>
+								</li>
+							</ul>
 						</li>
 						<li class="nav-item">
-							<button class="btn btn-outline-danger my-2 my-sm-0" id="logoutButton">Logout</button>
+							<button class="btn btn-outline-danger my-2 my-sm-0" data-translate="logout" id="logoutButton">Logout</button>
 						</li>
 					</ul>
 				</div>
@@ -301,10 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
 						<div>
 							<h6 id="pong-title" class="display-3">PONG</h>
 							<div id="menu-options">
-								<button id="vsPlayerButton" class="btn btn-outline-light m-2">vs Player</button>
-								<button id="vsBotButton" class="btn btn-outline-light m-2">vs Bot</button>
+								<button id="vsPlayerButton" class="btn btn-outline-light m-2" data-translate="vsp">vs Player</button>
+								<button id="vsBotButton" class="btn btn-outline-light m-2" data-translate="vsb">vs Bot</button>
 								<button id="multiButton" class="btn btn-outline-light m-2">2v2</button>
-								<button id="tournamentButton" class="btn btn-outline-light m-2">Tournament</button>
+								<button id="tournamentButton" class="btn btn-outline-light m-2" data-translate="tournament">Tournament</button>
 							</div>
 						</div>
 					</div>
@@ -319,18 +342,18 @@ document.addEventListener('DOMContentLoaded', () => {
 						<img id="profilePicture" src="default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
 					</div>
 					<div class="profile-info">
-						<p><strong>Name:</strong> <span id="profileName"></span></p>
-						<p><strong>Username:</strong> <span id="profileUserName"></span></p>
-						<p><strong>Email:</strong> <span id="profileEmail"></span></p>
+						<p><strong>Name:</strong> <span id="profileName" data-translate="pname"></span></p>
+						<p><strong>Username:</strong> <span id="profileUserName" data-translate="pusername"></span></p>
+						<p><strong>Email:</strong> <span id="profileEmail" data-translate="pmail"></span></p>
 					</div>
-					<button class="btn btn-secondary mt-3 w-100" id="editProfileButton">Edit Profile</button>
-					<button class="btn btn-secondary mt-3 w-100" id="changePasswordButton">Change Password</button>
-					<button class="btn btn-danger mt-3 w-100" id="deleteAccountButton">Delete Account</button>
-					<button class="btn btn-warning mt-3 w-100" id="anonymizeUserButton">Anonymize Data</button>
+					<button class="btn btn-secondary mt-3 w-100" id="editProfileButton" data-translate="editp">Edit Profile</button>
+					<button class="btn btn-secondary mt-3 w-100" id="changePasswordButton" data-translate="changepass">Change Password</button>
+					<button class="btn btn-danger mt-3 w-100" id="deleteAccountButton" data-translate="delacc">Delete Account</button>
+					<button class="btn btn-warning mt-3 w-100" id="anonymizeUserButton" data-translate="anonymise">Anonymize Data</button>
 				</div>
 				<form id="uploadProfilePictureForm" class="mt-3" w-100>
 					<div class="form-group mb-3">
-						<label for="profilePictureInput" class="form-label">Upload Profile Picture</label>
+						<label for="profilePictureInput" data-translate="uploadp" class="form-label">Upload Profile Picture</label>
 						<input type="file" class="form-control" id="profilePictureInput" accept="image/*">
 					</div>
 					<button type="submit" class="btn btn-primary">Upload</button>
@@ -657,6 +680,159 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
+	const translations = {
+		en: {
+			noAccountText: "No account?",
+			createOneText: "Create one",
+			email: "Email Address",
+			password: "Password",
+			login: "Login",
+			home: "Home",
+			firstname: "First Name",
+			lastname: "Last Name",
+			username: "User Name",
+			registerwith: "Register with",
+			already: "Already have an account?",
+			editp: "Edit Profile",
+			save: "Save Changes",
+			changepass: "Change Password",
+			currentpass: "Current Password",
+			newpass: "New Password",
+			confirmpass: "Confirm Password",
+			selectbar: "Select a bar size:",
+			small: "Small",
+			medium: "Medium",
+			big: "Big",
+			pointstowin: "Points to win:",
+			selectball: "Select a ball size:",
+			p1: "Nickname for Player 1:",
+			p2: "Nickname for Player 2:",
+			p3: "Nickname for Player 3:",
+			p4: "Nickname for Player 4:",
+			addplayer: "+ Add Player",
+			submit: "Submit",
+			profile: "Profile",
+			history: "History",
+			logout: "Logout",
+			vsp: "vs Player",
+			vsb: "vs Bot",
+			tournament: "Tournament",
+			pname: "Name:",
+			pusername: "Username:",
+			pmail: "Email:",
+			delacc: "Delete Account",
+			anonymise: "Anonymise Data",
+			uploadp: "Upload Profile Picture",
+			upload: "Upload"
+		},
+		fr: {
+			noAccountText: "Pas de compte ?",
+			createOneText: "Créer un compte",
+			email: "Adresse e-mail",
+			password: "Mot de passe",
+			login: "Connexion",
+			home: "Accueil",
+			firstname: "Prénom",
+			lastname: "Nom",
+			username: "Nom d'utilisateur",
+			registerwith: "S'inscrire avec",
+			already: "Vous avez déjà un compte ?",
+			editp: "Éditer le profil",
+			save: "Enregistrer les modifications",
+			changepass: "Changer le mot de passe",
+			currentpass: "Mot de passe actuel",
+			newpass: "Nouveau mot de passe",
+			confirmpass: "Confirmer le mot de passe",
+			selectbar: "Sélectionnez une taille de barre :",
+			small: "Petit",
+			medium: "Moyen",
+			big: "Grand",
+			pointstowin: "Points pour gagner :",
+			selectball: "Sélectionnez une taille de balle :",
+			p1: "Surnom pour le Joueur 1 :",
+			p2: "Surnom pour le Joueur 2 :",
+			p3: "Surnom pour le Joueur 3 :",
+			p4: "Surnom pour le Joueur 4 :",
+			addplayer: "+ Ajouter un joueur",
+			submit: "Soumettre",
+			profile: "Profil",
+			history: "Historique",
+			logout: "Déconnexion",
+			vsp: "vs Joueur",
+			vsb: "vs Bot",
+			tournament: "Tournoi",
+			pname: "Nom :",
+			pusername: "Nom d'utilisateur :",
+			pmail: "E-mail :",
+			delacc: "Supprimer le compte",
+			anonymise: "Anonymiser les données",
+			uploadp: "Télécharger la photo de profil",
+			upload: "Télécharger"
+		}
+		,
+		es: {
+			noAccountText: "¿No tienes cuenta?",
+			createOneText: "Crear una",
+			email: "Dirección de correo",
+			password: "Contraseña",
+			login: "Iniciar sesión",
+			home: "Inicio",
+			firstname: "Nombre",
+			lastname: "Apellido",
+			username: "Nombre de usuario",
+			registerwith: "Registrarse con",
+			already: "¿Ya tienes una cuenta?",
+			editp: "Editar perfil",
+			save: "Guardar cambios",
+			changepass: "Cambiar contraseña",
+			currentpass: "Contraseña actual",
+			newpass: "Nueva contraseña",
+			confirmpass: "Confirmar contraseña",
+			selectbar: "Selecciona un tamaño de barra:",
+			small: "Pequeño",
+			medium: "Medio",
+			big: "Grande",
+			pointstowin: "Puntos para ganar:",
+			selectball: "Selecciona un tamaño de pelota:",
+			p1: "Apodo para el Jugador 1:",
+			p2: "Apodo para el Jugador 2:",
+			p3: "Apodo para el Jugador 3:",
+			p4: "Apodo para el Jugador 4:",
+			addplayer: "+ Agregar jugador",
+			submit: "Enviar",
+			profile: "Perfil",
+			history: "Historial",
+			logout: "Cerrar sesión",
+			vsp: "vs Jugador",
+			vsb: "vs Bot",
+			tournament: "Torneo",
+			pname: "Nombre:",
+			pusername: "Nombre de usuario:",
+			pmail: "Correo:",
+			delacc: "Eliminar cuenta",
+			anonymise: "Anonimizar datos",
+			uploadp: "Subir foto de perfil",
+			upload: "Subir"
+		}		
+	};
+
+	function updateLanguage(language) {
+		document.querySelectorAll('[data-translate]').forEach(element => {
+			const key = element.getAttribute('data-translate');
+			element.textContent = translations[language][key];
+		});
+	}
+
+	document.querySelectorAll('.language-option').forEach(option => {
+		option.addEventListener('click', (e) => {
+			e.preventDefault();
+			const language = option.getAttribute('data-language');
+			updateLanguage(language);
+			document.getElementById('languagePicker').innerHTML = option.innerHTML; // Update the flag icon in the navbar
+		});
+	});
+
+	updateLanguage('en');
     // const backToHomeButton = document.getElementById('backToHome');
 
     
