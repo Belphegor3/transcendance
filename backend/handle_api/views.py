@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import UserProfile
 from .serializers import UserProfileSerializer
+from django.contrib.auth.models import User
 
 # @api_view(['POST'])
 # @login_required
@@ -75,3 +76,5 @@ def create_user_profile(request):
         serializer.save(user=request.user)
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
+user = User.objects.create_user("user", "testmail@mail.fr", "123");
