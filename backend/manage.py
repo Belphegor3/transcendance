@@ -4,6 +4,20 @@ import os
 import sys
 
 
+# from django.contrib.auth.models import User
+
+# def create_superuser(username, email, password):
+#     """Crée un superutilisateur avec les informations fournies."""
+#     try:
+#         User.objects.create_superuser(username=username, email=email, password=password)
+#         print("SuperUser created.")
+#     except Exception as e:
+#         print(f"Error when creating SuperUser. : {e}")
+
+# create_superuser('root', 'root@gmail.com', '123')
+#pour cree le superuser auto
+
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'principale.settings')

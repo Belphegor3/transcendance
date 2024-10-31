@@ -3,7 +3,7 @@ from django.urls import path, include
 from . import views
 from django.contrib import admin
 
-# user admin = admin / pass admin = 123
+# user admin = root / pass admin = 123
 
 handler404 = 'principale.views.custom_404'
 
