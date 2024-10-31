@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							</div>
 							<button data-translate="login" type="submit" class="btn btn-primary">Login</button>
 							<button type="button" class="btn btn-secondary" id="login42Button">
-								<img src="logo 42" style="height: 20px; width: 20px;">
+								<img src="/static/images/logo/42.png" style="height: 20px; width: 20px;">
 								login
 							</button>
 						</form>
@@ -70,11 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
 							</div>
 							<button data-translate="register" type="submit" class="btn btn-primary">Register</button>
 							<button type="button" class="btn btn-secondary" id="register42Button">
-								<h1 data-translate="registerwith">Register with</h1>
-								<img src="logo 42" style="height: 20px; width: 20px;">
+								Register with
+								<img src="/static/images/logo/42.png" style="height: 20px; width: 20px;">
 							</button>
+							<p data-translate="already" class="mt-3">Already have an account?<a data-translate="login" href="#" id="showLogin">Login</a></p>
 						</form>
-						<p data-translate="already" class="mt-3">Already have an account?<a data-translate="login" href="#" id="showLogin">Login</a></p>
 					</div>
 				</div>
 			</div>
@@ -289,22 +289,22 @@ document.addEventListener('DOMContentLoaded', () => {
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="languagePicker" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<img src="images/flags/en.jpg">
+								<img src="/static/images/flags/en.jpg">
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languagePicker">
 								<li>
 									<a class="dropdown-item language-option" href="#" data-language="en">
-										<img src="en.jpg">
+										<img src="/static/images/flags/en.jpg" alt="English" style="width: 20px; height: 20px;">
 									</a>
 								</li>
 								<li>
 									<a class="dropdown-item language-option" href="#" data-language="fr">
-										<img src="/backend/static/images/flags/fr.jpg">
+										<img src="/static/images/flags/fr.jpg" alt="French" style="width: 20px; height: 20px;">
 									</a>
 								</li>
 								<li>
 									<a class="dropdown-item language-option" href="#" data-language="es">
-										<img src="../flags/es.jpg" alt="Spanish" style="width: 20px; height: 20px;">
+										<img src="/static/images/flags/es.jpg" alt="Spanish" style="width: 20px; height: 20px;">
 									</a>
 								</li>
 							</ul>
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				<h1>Profile</h1>
 				<div class="col-md-4">
 					<div class="profile-picture-container text-center mb-4">
-						<img id="profilePicture" src="default-profile.png" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
+						<img id="profilePicture" src="/static/images/logo/42.png" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
 					</div>
 					<div class="profile-info">
 						<p><strong>Name:</strong> <span id="profileName" data-translate="pname"></span></p>
@@ -456,11 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsP();
-<<<<<<< HEAD
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
-=======
 		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
->>>>>>> a2ac85c (up)
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
 		showSection('playing');
@@ -696,6 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			lastname: "Last Name",
 			username: "User Name",
 			registerwith: "Register with",
+			register: "Register",
 			already: "Already have an account?",
 			editp: "Edit Profile",
 			save: "Save Changes",
@@ -740,6 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			lastname: "Nom",
 			username: "Nom d'utilisateur",
 			registerwith: "S'inscrire avec",
+			register: "Inscription",
 			already: "Vous avez déjà un compte ?",
 			editp: "Éditer le profil",
 			save: "Enregistrer les modifications",
@@ -785,6 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			lastname: "Apellido",
 			username: "Nombre de usuario",
 			registerwith: "Registrarse con",
+			register: "Registrarse",
 			already: "¿Ya tienes una cuenta?",
 			editp: "Editar perfil",
 			save: "Guardar cambios",
