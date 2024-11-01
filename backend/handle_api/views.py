@@ -77,4 +77,85 @@ def create_user_profile(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
-user = User.objects.create_user("user", "testmail@mail.fr", "123");
+# new_user = User.objects.create_user(username='useruser', password='123')
+
+# user_profile = UserProfile.objects.create(
+#     user=new_user,
+#     # avatar='avatars/default.jpg',
+#     display_name='jhonn',
+#     wins=0,
+#     losses=0,
+#     match_history=""
+# )
+
+
+def create_test_user():
+    # Données en dur
+    data = {
+        "username": "testuser",
+        "password": "testpassword123",
+        "display_name": "TestUserDisplayName",
+        # "avatar": "avatars/testuser.jpg"
+    }
+
+    # Vérifier si l'utilisateur existe déjà
+    if User.objects.filter(username=data['username']).exists():
+        print(f"L'utilisateur {data['username']} existe déjà. Aucune création n'a été effectuée.")
+        return
+
+    # Créer un nouvel utilisateur
+    new_user = User.objects.create_user(
+        username=data['username'],
+        password=data['password']
+    )
+
+    # Associer un profil utilisateur
+    UserProfile.objects.create(
+        user=new_user,
+        avatar=data['avatar'],
+        display_name=data['display_name']
+    )
+    print(f"Utilisateur {new_user.username} et profil créés avec succès.")
+
+    import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from .models import UserProfile
+
+@csrf_exempt  # Pour simplifier le test local, désactiver CSRF pour cette vue
+def create_users_from_json(request):
+    if request.method == 'POST':
+        try:
+            # Charger les données JSON de la requête
+            users_data = json.loads(request.body)
+            created_users = []
+
+            # Boucler sur chaque utilisateur dans le JSON reçu
+            for user_data in users_data:
+                username = user_data.get('username')
+                password = user_data.get('password')
+                display_name = user_data.get('display_name')
+                avatar = user_data.get('avatar', 'avatars/default.jpg')
+
+                # Vérifier si l'utilisateur existe déjà
+                if User.objects.filter(username=username).exists():
+                    continue  # Ignorer cet utilisateur s'il existe
+
+                # Créer le nouvel utilisateur et son profil
+                new_user = User.objects.create_user(username=username, password=password)
+                UserProfile.objects.create(
+                    user=new_user,
+                    avatar=avatar,
+                    display_name=display_name
+                )
+                created_users.append(username)
+
+            # Répondre avec la liste des utilisateurs créés
+            return JsonResponse({"created_users": created_users}, status=201)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+
+    # Si ce n'est pas une requête POST
+    return JsonResponse({"error": "Only POST requests are allowed"}, status=405)
