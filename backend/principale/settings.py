@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     # 'rest_framework',
 ]
 
+AUTH_USER_MODEL = 'handle_api.Player'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
