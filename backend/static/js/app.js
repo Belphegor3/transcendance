@@ -456,11 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsP();
-<<<<<<< HEAD
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
-=======
 		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
->>>>>>> a2ac85c (up)
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
 		showSection('playing');
@@ -566,8 +562,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const login42Button = document.getElementById('login42Button');
 	login42Button.addEventListener('click', () => {
-		const clientId = 'YOUR_CLIENT_ID';
-		const redirectUri = 'YOUR_REDIRECT_URI';
+		const clientId = '';
+		const redirectUri = 'https://localhost:4443/';
 		const scope = 'public';
 		const state = 'some_random_state';
 		const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
@@ -577,8 +573,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const register42Button = document.getElementById('register42Button')
 	register42Button.addEventListener('click', () => {
-		const clientId = 'YOUR_CLIENT_ID';
-		const redirectUri = 'YOUR_REDIRECT_URI';
+		const clientId = '';
+		const redirectUri = 'https://localhost:4443/';
 		const scope = 'public';
 		const state = 'some_random_state';
 		const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;

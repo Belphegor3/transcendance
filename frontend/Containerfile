@@ -1,1 +1,20 @@
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+# FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM debian:12-slim AS ssl-cert
+
+# hadolint ignore=DL3008
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+    && openssl req -new				\
+		-newkey rsa:4096			\
+		-x509						\
+		-sha256						\
+		-days 365					\
+		-nodes						\
+		-out /cert.crt	\
+		-keyout /cert.key	\
+		-subj "/C=FR/ST=France/L=Paris/O=42/CN=akefeder"
+
+FROM nginxinc/nginx-unprivileged:1.27-alpine AS prod
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=ssl-cert --chown=nginx:nginx /cert.* /etc/nginx/.
