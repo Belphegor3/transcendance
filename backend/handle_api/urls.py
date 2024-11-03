@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import RegisterUserView
 
 urlpatterns = [
     # path('profile/', views.get_profile, name='get_profile'),
@@ -7,5 +8,6 @@ urlpatterns = [
     # path('login/', views.login_user, name='login_user'),
     path('game/options/', views.get_latest_game_options, name='get_latest_game_options'),
     path('game/options/save/', views.save_game_options, name='save_game_options'),
+    path('register/', RegisterUserView.as_view(), name='register'),
     # path('game/score/', views.save_game_score, name='save_game_score'),
 ]

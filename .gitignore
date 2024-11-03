@@ -1,3 +1,6 @@
 .env
 .vscode
 backend/staticfiles
+backend/handle_api/__pycache__
+backend/princile/__pycache__
+backend/handle_api/migrations/__pycache__

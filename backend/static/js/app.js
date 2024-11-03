@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const profileModalTemplate = `
 		<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" data-translate="editp" id="profileModalLabel">Edit Profile</h5>
@@ -88,46 +88,23 @@ document.addEventListener('DOMContentLoaded', () => {
 					</div>
 					<div class="modal-body">
 						<form id="editProfileForm">
-							<div class="mb-3 form-group">
-								<input data-translate="firstname" type="text" class="form-control" placeholder="First Name" required>
+							<div class="form-group">
+								<label data-translate="firstname" for="editFirstName">First Name</label>
+								<input type="text" class="form-control" id="editFirstName" required>
 							</div>
-							<div class="mb-3 form-group">
-								<input data-translate="lastname" type="text" class="form-control" placeholder="Last Name" required>
+							<div class="form-group">
+								<label data-translate="lastname" for="editLastName">Last Name</label>
+								<input type="text" class="form-control" id="editLastName" required>
 							</div>
-							<div class="mb-3 form-group">
-								<input data-translate="username" type="text" class="form-control" placeholder="User Name" required>
+							<div class="form-group">
+								<label data-translate="username" for="editUserName">User Name</label>
+								<input type="text" class="form-control" id="editUserName" required>
 							</div>
-							<div class="mb-3 form-group">
-								<input data-translate="email" type="text" class="form-control" placeholder="Email Address" required>
+							<div class="form-group">
+								<label data-translate="email" for="editEmail">Email Address</label>
+								<input type="email" class="form-control" id="editEmail" required>
 							</div>
 							<button data-translate="save" type="submit" class="btn btn-primary">Save Changes</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	`;
-
-	const passwordModalTemplate = `
-		<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" data-translate="changepass" id="changePasswordModalLabel">Change Password</h5>
-						<button type="button" class="btn-close" id ="closePasswordModal" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form id="changePasswordForm">
-							<div class="mb-3 form-group">
-								<input data-translate="currentpass" type="text" class="form-control" placeholder="Current Password" required>
-							</div>
-							<div class="mb-3 form-group">
-								<input data-translate="newpass" type="text" class="form-control" placeholder="New Password" required>
-							</div>
-							<div class="mb-3 form-group">
-								<input data-translate="confirmpass" type="text" class="form-control" placeholder="Confirm Password" required>
-							</div>
-							<button type="submit" data-translate="changepass" class="btn btn-primary">Change Password</button>
 						</form>
 					</div>
 				</div>
@@ -244,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="mb-3 form-group">
 					<label id="points" data-translate="pointstowin" for="gamePoints" class="form-label">Points to win:</label>
 					<select id="gamePoints" class="form-select">
-						<option value="5">5</option>
+						<option value="1">5</option>
 						<option value="6">6</option>
 						<option value="7">7</option>
 						<option value="8">8</option>
@@ -335,9 +312,10 @@ document.addEventListener('DOMContentLoaded', () => {
 						<img id="profilePicture" src="/static/images/assets/default-avatar.png" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
 					</div>
 					<div class="profile-info">
-						<p><strong>Name:</strong> <span id="profileName" data-translate="pname"></span></p>
-						<p><strong>Username:</strong> <span id="profileUserName" data-translate="pusername"></span></p>
-						<p><strong>Email:</strong> <span id="profileEmail" data-translate="pmail"></span></p>
+						<p><strong data-translate="fname">Name:</strong> <span id="profileFirst"></span></p>
+						<p><strong data-translate="lname">Name:</strong> <span id="profileLast"></span></p>
+						<p><strong data-translate="pusername">Username:</strong> <span id="profileUserName"></span></p>
+						<p><strong data-translate="pmail">Email:</strong> <span id="profileEmail"></span></p>
 					</div>
 					<button class="btn btn-secondary mt-3 w-100" id="editProfileButton" data-translate="editp">Edit Profile</button>
 					<button class="btn btn-secondary mt-3 w-100" id="changePasswordButton" data-translate="changepass">Change Password</button>
@@ -405,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 	`;
 
-	app.innerHTML = tournamentTemplate + playingTemplate + loginModalTemplate + registerModalTemplate + profileModalTemplate + passwordModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
+	app.innerHTML = tournamentTemplate + playingTemplate + loginModalTemplate + registerModalTemplate + profileModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
 
 	const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
 		backdrop: 'static',
@@ -422,11 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		keyboard: true
 	});
 
-    const changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'), {
-        backdrop: 'static',
-        keyboard: false
-    });
-
 	const mainContent = document.getElementById('mainContent');
 	const optionsPlayerContent = document.getElementById('pongOptionsPSection');
 	const optionsBotContent = document.getElementById('pongOptionsBSection');
@@ -440,16 +413,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	const navProfile = document.getElementById('navProfile');
 	const logoutButton = document.getElementById('logoutButton');
 	const profilePicture = document.getElementById('profilePicture');
-	const profileName = document.getElementById('profileName');
+	const profileLast = document.getElementById('profileLast');
+	const profileFirst = document.getElementById('profileFirst');
 	const profileUserName = document.getElementById('profileUserName');
 	const profileEmail = document.getElementById('profileEmail');
 	const uploadProfilePictureForm = document.getElementById('uploadProfilePictureForm');
 	const editProfileButton = document.getElementById('editProfileButton');
 	const editProfileForm = document.getElementById('editProfileForm');
-	const changePasswordForm = document.getElementById('changePasswordForm');
-	const changePasswordButton = document.getElementById('changePasswordButton');
 	const profileCloseButton = document.getElementById('closeProfileModal');
-	const closeButton = document.getElementById('closePasswordModal');
 	const vsPlayerButton = document.getElementById('vsPlayerButton');
 	const vsBotButton = document.getElementById('vsBotButton');
 	const tournamentButton = document.getElementById('tournamentButton');
@@ -477,6 +448,10 @@ document.addEventListener('DOMContentLoaded', () => {
         launchGame();
     });
 
+	document.getElementById('deleteAccountButton').addEventListener('click', function() {
+
+	});
+
     multiButton.addEventListener('click', (e) => {
         e.preventDefault();
         showSection('multi');
@@ -497,7 +472,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		tournamentContent.style.display = 'none';
 		showSection('playing');
 		handleTournament();
-		// showSection('home');
 	});
 
 	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
@@ -522,7 +496,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		const password = document.getElementById('password').value;
 		if (validateUser(email, password)) {
 			const userData = JSON.parse(sessionStorage.getItem(email));
-			profileName.textContent = `${userData.firstName} ${userData.lastName}`;
+			profileFirst.textContent = userData.firstName;
+			profileLast.textContent = userData.lastName;
 			profileUserName.textContent = userData.userName;
 			profileEmail.textContent = userData.email;
 			loginModal.hide();
@@ -546,7 +521,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			alert('Passwords do not match');
 			return;
 		}
-
+		const userData2 = {
+			firstname: document.getElementById('firstName').value,
+			lastname: document.getElementById('lastName').value,
+			username: document.getElementById('userName').value,
+			email: document.getElementById('registerEmail').value,
+			password: document.getElementById('formerPassword').value,
+		};
+		registerUserDB(userData2);
 		if (registerUser(firstName, lastName, userName, email, password)) {
 			registerModal.hide();
 			loginModal.show();
@@ -606,7 +588,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		userData.userName = userName;
 		userData.email = email;
 		sessionStorage.setItem(email, JSON.stringify(userData));
-		profileName.textContent = `${firstName} ${lastName}`;
+		profileFirst.textContent = firstName;
+		profileLast.textContent = lastName;
 		profileUserName.textContent = userName;
 		profileEmail.textContent = email;
 		profileModal.hide();
@@ -652,28 +635,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		mainContent.style.display = 'none';
 	});
 
-	changePasswordButton.addEventListener('click', () => {
-		changePasswordModal.show();
-	});
-
-	closeButton.addEventListener('click', () => {
-		changePasswordModal.hide();
-	});
-
 	profileCloseButton.addEventListener('click', () => {
 		profileModal.hide();
-	});
-
-	changePasswordForm.addEventListener('submit', (e) => {
-		e.preventDefault();
-		const newPassword = document.getElementById('newPassword').value;
-		const confirmPassword = document.getElementById('confirmPassword').value;
-
-		if (newPassword !== confirmPassword) {
-			alert('Passwords do not match');
-			return;
-		}
-		changePasswordModal.hide();
 	});
 
     window.addEventListener('popstate', (event) => {
@@ -686,7 +649,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSection(section, addToHistory = true) {
         const sections = ['home', 'profile', 'pongOptionsB', 'pongOptionsP', 'multi', 'playing', 'tournament'];
         eraseGameWhilePlaying();
-		// collapseNavbar();
 		sections.forEach(sec => {
             const sectionElement = document.getElementById(sec + 'Section');
             if (sectionElement) {
@@ -772,7 +734,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			vsp: "vs Player",
 			vsb: "vs Bot",
 			tournament: "Tournament",
-			pname: "Name:",
+			fname: "First Name:",
+			lname: "Last Name:",
 			pusername: "Username:",
 			pmail: "Email:",
 			delacc: "Delete Account",
@@ -820,7 +783,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			vsp: "vs Joueur",
 			vsb: "vs Bot",
 			tournament: "Tournoi",
-			pname: "Nom :",
+			fname: "Prenom:",
+			lname: "Nom:",
 			pusername: "Nom d'utilisateur :",
 			pmail: "E-mail :",
 			delacc: "Supprimer le compte",
@@ -869,7 +833,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			vsp: "vs Jugador",
 			vsb: "vs Bot",
 			tournament: "Torneo",
-			pname: "Nombre:",
+			fname: "Nombre:",
+			lname: "Apellido:",
 			pusername: "Nombre de usuario:",
 			pmail: "Correo:",
 			delacc: "Eliminar cuenta",
