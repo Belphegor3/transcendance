@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsP();
-		const userData = JSON.parse(localStorage.getItem(profileEmail.textContent));
+		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
 		sessionStorage.setItem('playerOneName', userData.userName);
 		optionsPlayerContent.style.display = 'none';
 		showSection('playing');
@@ -496,6 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const password = document.getElementById('password').value;
 		if (validateUser(email, password)) {
 			const userData = JSON.parse(sessionStorage.getItem(email));
+			console.log(userData);
 			profileFirst.textContent = userData.firstName;
 			profileLast.textContent = userData.lastName;
 			profileUserName.textContent = userData.userName;
@@ -521,6 +522,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			alert('Passwords do not match');
 			return;
 		}
+		if (registerUser(firstName, lastName, userName, email, password)) {
+			registerModal.hide();
+			loginModal.show();
+		} else {
+			alert('Registration failed');
+			return;
+		}
 		const userData2 = {
 			firstname: document.getElementById('firstName').value,
 			lastname: document.getElementById('lastName').value,
@@ -529,12 +537,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			password: document.getElementById('formerPassword').value,
 		};
 		registerUserDB(userData2);
-		if (registerUser(firstName, lastName, userName, email, password)) {
-			registerModal.hide();
-			loginModal.show();
-		} else {
-			alert('Registration failed');
-		}
 	});
 
 	uploadProfilePictureForm.addEventListener('submit', (e) => {
