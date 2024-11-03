@@ -55,14 +55,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import GameOptions
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import UserRegisterSerializer
 
 # Désactiver la protection CSRF pour cette vue
-@csrf_exempt
 @api_view(['POST'])
 def save_game_options(request):
     data = request.data
@@ -80,7 +79,6 @@ def save_game_options(request):
 
 
 # Désactiver la protection CSRF pour cette vue
-@csrf_exempt
 @api_view(['GET'])
 def get_latest_game_options(request):
     user = request.user
@@ -105,9 +103,6 @@ def get_latest_game_options(request):
 
     return Response(options)
 
-
-# Désactiver la protection CSRF pour la vue d'enregistrement utilisateur
-@method_decorator(csrf_exempt, name='dispatch')
 class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserRegisterSerializer(data=request.data)

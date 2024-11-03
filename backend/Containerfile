@@ -19,7 +19,11 @@ RUN pip install --break-system-packages -r requirements.txt
 COPY . .
 COPY .. .
 
-ENTRYPOINT [ "python3" ]
-CMD [ "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT [ "/app/entrypoint.sh" ]
+
+# ENTRYPOINT [ "python3" ]
+# CMD [ "manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
 
 EXPOSE 8000
