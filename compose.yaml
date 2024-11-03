@@ -9,13 +9,13 @@ services:
       - "4443:443"
     networks:
       - transcendence
+    depends_on:
+      - backend
   backend:
     build:
       context: ./backend
       dockerfile: Containerfile
     container_name: backend
-    ports:
-      - "8000:8000"
     networks:
       - transcendence
     depends_on:
