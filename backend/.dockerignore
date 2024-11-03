@@ -1,1 +1,8 @@
+# Docker
 Containerfile
+.dockerignore
+
+# Virtual environment
+.env
+.venv/
+venv/

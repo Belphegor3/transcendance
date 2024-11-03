@@ -220,7 +220,6 @@ const game = {
     moveBall : function(){
         if (this.begin == true)
         {
-            //console.log("je suis la");
             this.ball.move();
             this.ball.bounce();
             this.displayBall();
@@ -343,12 +342,12 @@ const game = {
     winCondition : function(){
         if (this.scorePlayer1 == this.winValue)
         {
-            winnerGame = this.playerOne.playerName;
+            this.winnerGame = this.playerOne.playerName;
             return (true);
         }
         else if (this.scorePlayer2 == this.winValue)
         {
-            winnerGame = this.playerTwo.playerName;
+            this.winnerGame = this.playerTwo.playerName;
             return (true);
         }
         return(false);
@@ -383,15 +382,14 @@ const game = {
     },
 
     initValue : function(){
-        const gameMode = sessionStorage.getItem('gameMode'); // 1-2-3-4
-        const playerOneName = sessionStorage.getItem('playerOneName'); // player one name
-        const playerTwoName = sessionStorage.getItem('playerTwoName'); // player two name
-        const playerThreeName = sessionStorage.getItem('playerThreeName'); // player Three name
-        const playerFourName = sessionStorage.getItem('playerFourName'); // player Four name
-        const gamePoints = sessionStorage.getItem('gamePoints'); // 9 max point
-        console.log(gameMode);
-        const ballSize = sessionStorage.getItem('ballSize'); //1-2-3
-        const barSize = sessionStorage.getItem('barSize');//1-2-3
+        const gameMode = sessionStorage.getItem('gameMode');
+        const playerOneName = sessionStorage.getItem('playerOneName');
+        const playerTwoName = sessionStorage.getItem('playerTwoName');
+        const playerThreeName = sessionStorage.getItem('playerThreeName');
+        const playerFourName = sessionStorage.getItem('playerFourName');
+        const gamePoints = sessionStorage.getItem('gamePoints');
+        const ballSize = sessionStorage.getItem('ballSize');
+        const barSize = sessionStorage.getItem('barSize');
         this.reset();
         if (gameMode != undefined)
         {
