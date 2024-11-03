@@ -53,7 +53,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def validate_username(self, value):
         if Player.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Le nom d'affichage est déjà pris.")
+            raise serializers.ValidationError("Username already exists.")
         return value
 
     def create(self, validated_data):
@@ -66,3 +66,19 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+    def update(self, instance, validated_data):
+        instance.firstname = validated_data.get('firstname', instance.firstname)
+        instance.lastname = validated_data.get('lastname', instance.lastname)
+        instance.email = validated_data.get('email', instance.email)
+        instance.username = validated_data.get('username', instance.username)
+
+        password = validated_data.get('password', None)
+        if password:
+            instance.set_password(password)
+
+        instance.save()
+        return instance
+    
+    def delete(self, instance):
+        instance.delete()

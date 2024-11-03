@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 	document.getElementById('deleteAccountButton').addEventListener('click', function() {
-
+		deleteAccount();
 	});
 
     multiButton.addEventListener('click', (e) => {

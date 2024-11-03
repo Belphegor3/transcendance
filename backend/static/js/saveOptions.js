@@ -15,18 +15,18 @@ function saveOptionsB() {
     //     ballSize: ballSize,
     // };
 
-    // fetch('/api/game/options/save/', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(gameOptions),
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     console.log(data);
-    // })
-    // .catch(error => console.error('Erreur:', error));
+    fetch('/api/game/options/save/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(gameOptions),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => console.error('Erreur:', error));
 }
 
 function saveOptionsP() {

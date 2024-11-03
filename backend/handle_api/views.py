@@ -1,62 +1,7 @@
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from .models import GameOptions
-# from django.contrib.auth.decorators import login_required
-# from rest_framework import status
-# from rest_framework.views import APIView
-# from .serializers import UserRegisterSerializer
-
-# @api_view(['POST'])
-# @login_required
-# def save_game_options(request):
-#     data = request.data
-
-#     GameOptions.player_name = data.get('playerName') or "Bot"
-#     GameOptions.bar_size = data.get('barSize') or "medium"
-#     GameOptions.game_points = data.get('gamePoints') or 5
-#     GameOptions.ball_size = data.get('ballSize') or "small"
-#     GameOptions.save()
-
-#     return Response({'status': 'Options enregistrées avec succès', 'id': GameOptions.id})
-
-
-# @api_view(['GET'])
-# @login_required
-# def get_latest_game_options(request):
-#     user = request.user
-
-#     try:
-#         game_options = user.game_options.latest('created_at')
-#         options = {
-#             'playerName': game_options.player_name,
-#             'barSize': game_options.bar_size,
-#             'gamePoints': game_options.game_points,
-#             'ballSize': game_options.ball_size,
-#         }
-#     except GameOptions.DoesNotExist:
-#         options = {
-#             'playerName': 'Bot',
-#             'barSize': 'medium',
-#             'gamePoints': 5,
-#             'ballSize': 'small',
-#         }
-
-#     return Response(options)
-
-# class RegisterUserView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         serializer = UserRegisterSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({"message": "Utilisateur créé avec succès"}, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import GameOptions
 # from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import UserRegisterSerializer
@@ -100,8 +45,36 @@ def get_latest_game_options(request):
             'gamePoints': 5,
             'ballSize': 'small',
         }
-
     return Response(options)
+
+@api_view(['GET'])
+def get_user_info(request):
+    user = request.user
+    if not user.is_authenticated:
+        return Response({'error': 'Utilisateur non authentifié'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    serializer = UserRegisterSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def set_user_info(request):
+    user = request.user
+    if not user.is_authenticated:
+        return Response({'error': 'Utilisateur non authentifié'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    serializer = UserRegisterSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message': 'Informations mises à jour avec succès'}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def delete_user_account(request):
+    user = request.user
+    user.delete()
+    return Response({'message': 'Compte utilisateur supprimé avec succès'}, status=status.HTTP_200_OK)
+
+
 
 class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
