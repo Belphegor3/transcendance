@@ -18,6 +18,12 @@ function generateUniquePairs() {
     return pairs;
 }
 
+function setSessionTournament(){
+    sessionStorage.setItem('ballSize', 'medium');
+    sessionStorage.setItem('barSize', 'medium');
+    sessionStorage.setItem('gamePoints', 5);
+    sessionStorage.setItem('gamePoints', 5);
+}
 
 function handleTournament() {
     (async () => {
@@ -31,28 +37,23 @@ function handleTournament() {
             document.getElementById('player7').value,
             document.getElementById('player8').value
         ];
-
-        // 1/4 final
+        setSessionTournament();
         const uniquePairs = generateUniquePairs();
 
         const winner1 = await playMatch(players[uniquePairs[0][0] - 1], players[uniquePairs[0][1] - 1]);
-        alert(winner1 + " won!");
+        alert(winner1 + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!");
         const winner2 = await playMatch(players[uniquePairs[1][0] - 1], players[uniquePairs[1][1] - 1]);
-        alert(winner2 + " won!");
+        alert(winner2 + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!");
         const winner3 = await playMatch(players[uniquePairs[2][0] - 1], players[uniquePairs[2][1] - 1]);
-        alert(winner3 + " won!");
+        alert(winner3 + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!");
         const winner4 = await playMatch(players[uniquePairs[3][0] - 1], players[uniquePairs[3][1] - 1]);
-        alert(winner4 + " won!");
-        alert("Let's begin semi-finals!");
+        alert(winner4 + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!\nLet's begin semi-finals!");
 
-        // 1/2 final
         const winner5 = await playMatch(winner1, winner2);
-        alert(winner5 + " won!");
+        alert(winner5 + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!");
         const winner6 = await playMatch(winner3, winner4);
-        alert(winner6 + " won!");
+        alert(winner6 + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!\nHere is the final");
 
-        // Final
-        alert("Here is the final");
         const tournamentWinner = await playMatch(winner5, winner6);
         alert(tournamentWinner + " won the Tournament, Congratulations!");
     })();

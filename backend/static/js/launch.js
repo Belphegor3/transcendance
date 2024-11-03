@@ -47,7 +47,7 @@ function launchGame() {
         }
         if (game.winCondition() == true){
             sessionStorage.setItem('victory', game.winnerGame);
-            alert(game.winnerGame + " won!");
+		    alert(game.winnerGame + " won (" + game.scorePlayer1 + "-" + game.scorePlayer2 + ")!");
             eraseGame();
             return;
         }
