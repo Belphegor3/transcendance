@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// const register42Button = document.getElementById('register42Button')
 	// register42Button.addEventListener('click', () => {
 	// 	e.preventDefault();
-	// 	const clientId = 'u-s4t2ud-cf90b4be82d99fc6b453ec810047cc40587fd6cadc19530ff4017e93d764af33';
+	// 	const clientId = 
 	// 	const redirectUri = 'https://localhost:4443/';
 	// 	const scope = 'public';
 	// 	const state = 'some_random_state';
