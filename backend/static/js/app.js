@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	registerForm.addEventListener('submit', (e) => {
+	registerForm.addEventListener('submit', async (e) => {
 		e.preventDefault();
 		const firstName = document.getElementById('firstName').value;
 		const lastName = document.getElementById('lastName').value;
@@ -517,27 +517,68 @@ document.addEventListener('DOMContentLoaded', () => {
 		const email = document.getElementById('registerEmail').value;
 		const password = document.getElementById('formerPassword').value;
 		const confirmPassword = document.getElementById('confirmPassword2').value;
-
+	
+		// Vérifie si les mots de passe correspondent
 		if (password !== confirmPassword) {
-			alert('Passwords do not match');
+			alert('Les mots de passe ne correspondent pas');
 			return;
 		}
-		if (registerUser(firstName, lastName, userName, email, password)) {
-			registerModal.hide();
-			loginModal.show();
-		} else {
-			alert('Registration failed');
-			return;
-		}
+	
+		// Prépare les données de l'utilisateur
 		const userData2 = {
-			firstname: document.getElementById('firstName').value,
-			lastname: document.getElementById('lastName').value,
-			username: document.getElementById('userName').value,
-			email: document.getElementById('registerEmail').value,
-			password: document.getElementById('formerPassword').value,
+			firstname: firstName,
+			lastname: lastName,
+			username: userName,
+			email: email,
+			password: password,
 		};
-		registerUserDB(userData2);
+	
+		// Appelle la fonction d'inscription à la base de données
+		const registrationResult = await registerUserDB(userData2);
+	
+		// Vérifie si l'inscription a réussi
+		if (registrationResult) {
+			console.log("la valeur de registrationResult est: " + registrationResult);
+			registerModal.hide(); // Ferme le modal d'inscription
+			loginModal.hide();
+			showSection('home') // Affiche le modal de connexion
+		} else {
+			console.log("la valeur de registrationResult est: " + registrationResult);
+			// alert('Échec de l\'inscription, veuillez réessayer.'); // Alerte en cas d'échec
+		}
 	});
+	
+
+
+	// registerForm.addEventListener('submit', (e) => {
+	// 	e.preventDefault();
+	// 	const firstName = document.getElementById('firstName').value;
+	// 	const lastName = document.getElementById('lastName').value;
+	// 	const userName = document.getElementById('userName').value;
+	// 	const email = document.getElementById('registerEmail').value;
+	// 	const password = document.getElementById('formerPassword').value;
+	// 	const confirmPassword = document.getElementById('confirmPassword2').value;
+
+	// 	if (password !== confirmPassword) {
+	// 		alert('Passwords do not match');
+	// 		return;
+	// 	}
+	// 	if (registerUser(firstName, lastName, userName, email, password)) {
+	// 		registerModal.hide();
+	// 		loginModal.show();
+	// 	} else {
+	// 		alert('Registration failed');
+	// 		return;
+	// 	}
+	// 	const userData2 = {
+	// 		firstname: document.getElementById('firstName').value,
+	// 		lastname: document.getElementById('lastName').value,
+	// 		username: document.getElementById('userName').value,
+	// 		email: document.getElementById('registerEmail').value,
+	// 		password: document.getElementById('formerPassword').value,
+	// 	};
+	// 	registerUserDB(userData2);
+	// });
 
 	uploadProfilePictureForm.addEventListener('submit', (e) => {
 		e.preventDefault();

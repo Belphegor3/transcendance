@@ -41,6 +41,9 @@
 #         return user
 
 
+# empeche les duplicate d'email et d'username
+# doit etre fix dans le JS pour afficher un beau messasge d'erreur
+
 from rest_framework import serializers
 from .models import Player
 
@@ -54,6 +57,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     def validate_username(self, value):
         if Player.objects.filter(username=value).exists():
             raise serializers.ValidationError("Le nom d'affichage est déjà pris.")
+        return value
+
+    def validate_email(self, value):
+        if Player.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Cet email est déjà utilisé.")
         return value
 
     def create(self, validated_data):

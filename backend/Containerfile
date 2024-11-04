@@ -1,4 +1,5 @@
 FROM debian:12
+#installer libpq et gcc pour que psycopg2 fonctionne si on remet une image python
 
 RUN apt-get update && apt-get upgrade -y && apt install -y \
     python3 \

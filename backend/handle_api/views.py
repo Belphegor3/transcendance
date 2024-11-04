@@ -60,8 +60,9 @@ from django.utils.decorators import method_decorator
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import UserRegisterSerializer
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 
-# Désactiver la protection CSRF pour cette vue
 @api_view(['POST'])
 def save_game_options(request):
     data = request.data
@@ -78,7 +79,6 @@ def save_game_options(request):
     return Response({'status': 'Options enregistrées avec succès', 'id': game_options.id})
 
 
-# Désactiver la protection CSRF pour cette vue
 @api_view(['GET'])
 def get_latest_game_options(request):
     user = request.user
@@ -110,3 +110,29 @@ class RegisterUserView(APIView):
             serializer.save()
             return Response({"message": "Utilisateur créé avec succès"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LoginUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email")
+        password = request.data.get("password")
+
+        user = authenticate(request, email=email, password=password)
+
+        # Vérifie si les informations d'authentification sont correctes
+        if user is not None:
+            # Crée un token pour l’utilisateur si nécessaire
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({
+                "message": "Connexion réussie",
+                "token": token.key,
+                "user": {
+                    "username": user.username,
+                    "email": user.email,
+                    "firstname": user.first_name,
+                    "lastname": user.last_name,
+                }
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                "error": "Identifiants incorrects"
+            }, status=status.HTTP_401_UNAUTHORIZED)
