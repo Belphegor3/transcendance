@@ -509,22 +509,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
+	
 	registerForm.addEventListener('submit', async (e) => {
 		e.preventDefault();
+		const password = document.getElementById('formerPassword').value;
+		const confirmPassword = document.getElementById('confirmPassword2').value;
+
+		if (password !== confirmPassword) {
+			alert('Passwords do not match');
+			return;
+		}
+				
 		const firstName = document.getElementById('firstName').value;
 		const lastName = document.getElementById('lastName').value;
 		const userName = document.getElementById('userName').value;
 		const email = document.getElementById('registerEmail').value;
-		const password = document.getElementById('formerPassword').value;
-		const confirmPassword = document.getElementById('confirmPassword2').value;
 	
-		// Vérifie si les mots de passe correspondent
-		if (password !== confirmPassword) {
-			alert('Les mots de passe ne correspondent pas');
-			return;
-		}
-	
-		// Prépare les données de l'utilisateur
 		const userData2 = {
 			firstname: firstName,
 			lastname: lastName,
@@ -532,19 +532,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			email: email,
 			password: password,
 		};
-	
-		// Appelle la fonction d'inscription à la base de données
 		const registrationResult = await registerUserDB(userData2);
 	
-		// Vérifie si l'inscription a réussi
 		if (registrationResult) {
-			console.log("la valeur de registrationResult est: " + registrationResult);
-			registerModal.hide(); // Ferme le modal d'inscription
-			loginModal.hide();
-			showSection('home') // Affiche le modal de connexion
+			registerModal.hide();
+			loginModal.show();
 		} else {
-			console.log("la valeur de registrationResult est: " + registrationResult);
 			// alert('Échec de l\'inscription, veuillez réessayer.'); // Alerte en cas d'échec
+			;
 		}
 	});
 	
