@@ -6,3 +6,4 @@ typing_extensions==4.11.0
 gunicorn==23.0.0
 setuptools==75.1.0
 djangorestframework
+requests

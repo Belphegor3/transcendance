@@ -65,10 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         	</div>
 							<div class="d-flex justify-content-between">
                         		<button data-translate="register" type="submit" class="btn btn-primary w-100 me-1">Register</button>
-                        		<button type="button" class="btn btn-secondary bg-dark text-white w-100 ms-1" id="register42Button">
-                            		Register with
-                            		<img src="/static/images/assets/42logo.png" style="height: 20px; width: 20px;">
-                        		</button>
                     		</div>
 						</form>
 						<p data-translate="already" class="mt-3">Already have an account?<a data-translate="login" href="#" id="showLogin">Login</a></p>
@@ -598,26 +594,22 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	const login42Button = document.getElementById('login42Button');
-	login42Button.addEventListener('click', () => {
-		const clientId = 'YOUR_CLIENT_ID';
-		const redirectUri = 'YOUR_REDIRECT_URI';
-		const scope = 'public';
-		const state = 'some_random_state';
-		const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
-
-		window.location.href = authUrl;
+	login42Button.addEventListener('click', (e) => {
+		e.preventDefault();
+		window.location.href = "/api/oauth/redirect";
 	});
 
-	const register42Button = document.getElementById('register42Button')
-	register42Button.addEventListener('click', () => {
-		const clientId = 'YOUR_CLIENT_ID';
-		const redirectUri = 'YOUR_REDIRECT_URI';
-		const scope = 'public';
-		const state = 'some_random_state';
-		const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+	// const register42Button = document.getElementById('register42Button')
+	// register42Button.addEventListener('click', () => {
+	// 	e.preventDefault();
+	// 	const clientId = 'u-s4t2ud-cf90b4be82d99fc6b453ec810047cc40587fd6cadc19530ff4017e93d764af33';
+	// 	const redirectUri = 'https://localhost:4443/';
+	// 	const scope = 'public';
+	// 	const state = 'some_random_state';
+	// 	const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
 
-		window.location.href = authUrl;
-	});
+	// 	window.location.href = authUrl;
+	// });
 
 	navHome.addEventListener('click', (e) => {
 		e.preventDefault();

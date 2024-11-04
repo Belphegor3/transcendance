@@ -16,6 +16,8 @@ services:
       context: ./backend
       dockerfile: Containerfile
     container_name: backend
+    env_file:
+      - .env
     networks:
       - transcendence
     depends_on:
@@ -26,10 +28,8 @@ services:
     networks:
       - transcendence
     container_name: postgres
-    environment:
-      - POSTGRES_DB=trans
-      - POSTGRES_USER=group
-      - POSTGRES_PASSWORD=1234
+    env_file:
+      - .env
     volumes:
       - data:/var/lib/postgresql/data
     healthcheck:

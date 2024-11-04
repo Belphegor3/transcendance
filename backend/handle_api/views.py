@@ -60,6 +60,13 @@ from django.utils.decorators import method_decorator
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import UserRegisterSerializer
+from django.conf import settings
+from django.shortcuts import redirect
+# from django.contrib.auth import login
+from django.contrib.auth.models import User
+import os
+import requests
+import logging
 
 # Désactiver la protection CSRF pour cette vue
 @api_view(['POST'])
@@ -103,10 +110,85 @@ def get_latest_game_options(request):
 
     return Response(options)
 
+logger = logging.getLogger(__name__)
+
+def redirect42Oauth(request):
+    client_id = os.getenv('CLIENT_ID')
+    redirect_uri = os.getenv('REDIRECT_URI')
+    oauth_url = (
+        "https://api.intra.42.fr/oauth/authorize?"
+        f"client_id={client_id}&"
+        f"redirect_uri={redirect_uri}&"
+        "response_type=code"
+    )
+    print("token récupéré :")
+    return redirect(oauth_url)
+
+def callback42Oauth(request):
+    # Récupérer le code d'autorisation de la requête
+    code = request.GET.get('code')
+    if not code:
+        return JsonResponse({'error': 'Code not provided'}, status=400)
+
+    token_url = 'https://api.intra.42.fr/oauth/token'
+    
+    # Données pour obtenir le token d'accès
+    token_data = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'client_id': os.getenv('CLIENT_ID'),
+        'client_secret': os.getenv('CLIENT_SECRET'),
+        'redirect_uri': os.getenv('REDIRECT_URI')
+    }
+    # Envoyer une requête POST pour obtenir le token d'accès
+    try:
+        token_response = requests.post(token_url, data=token_data)
+        token_response.raise_for_status()  # Lève une erreur pour les codes d'erreur HTTP
+        
+        token_json = token_response.json()
+        access_token = token_json.get('access_token')
+        
+
+        if not access_token:
+            return JsonResponse({'error': 'Access token not found'}, status=400)
+
+        # Récupérer les informations utilisateur
+        user_data = get_42_user_data(access_token)
+
+        # Traiter les informations pour créer ou connecter l'utilisateur
+        return login_or_create_user(request, user_data)
+        
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def get_42_user_data(access_token):
+    api_url = 'https://api.intra.42.fr/v2/me'
+    headers = {'Authorization': f'Bearer {access_token}'}
+    
+    response = requests.get(api_url, headers=headers)
+    
+    if response.status_code != 200:
+        raise ValueError('Failed to fetch user data')
+
+    return response.json()
+
+def login_or_create_user(request, user_data):
+    username = user_data.get('login')
+    first_name = user_data.get('first_name')
+    last_name = user_data.get('last_name')
+    email = user_data.get('email')
+    if not username or not first_name or not last_name or not email:
+        logger.error("Erreur : certaines informations utilisateur sont manquantes.")
+        return redirect("https://localhost:4443/game")
+    logger.debug(f"Utilisateur récupéré : {username}, {first_name} {last_name}, {email}")
+
+    return redirect("https://localhost:4443/")
+
+
 class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserRegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"message": "Utilisateur créé avec succès"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
