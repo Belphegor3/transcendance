@@ -389,13 +389,18 @@ const game = {
             game.scorePosPlayer2 = 365 * scale;
             game.namePosPlayer2 = 500 * scale;
             
-            // Scale player positions
+            // Scale player positions and dimensions
             game.playerOne.posX = 10 * scale;
-            game.playerTwo.posX = (newWidth - 30) * scale;
+            game.playerTwo.posX = newWidth - (20 * scale);
+            game.playerOne.width = game.playerTwo.width = 10 * scale;
+            game.playerOne.height = game.playerTwo.height = 80 * scale;
+            game.speedPlayerDeplacement = 3 * scale;
             
             if (game.styleGame > 2) {
                 game.playerThree.posX = 70 * scale;
-                game.playerFour.posX = (newWidth - 90) * scale;
+                game.playerFour.posX = newWidth - (80 * scale);
+                game.playerThree.width = game.playerFour.width = 10 * scale;
+                game.playerThree.height = game.playerFour.height = 80 * scale;
             }
             
             return {
