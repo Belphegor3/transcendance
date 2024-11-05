@@ -344,6 +344,48 @@ const game = {
         return Math.min(this.groundWidth / 700, this.groundHeight / 400);
     },
 
+    responsive : {
+        calculateDimensions: function() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const aspectRatio = 700/400; // Original game ratio
+            
+            let newWidth, newHeight;
+            
+            // Add padding for controls/score
+            const padding = 20;
+            
+            if (screenWidth/screenHeight > aspectRatio) {
+                // Screen is wider than needed
+                newHeight = screenHeight - padding * 2;
+                newWidth = newHeight * aspectRatio;
+            } else {
+                // Screen is taller than needed
+                newWidth = screenWidth - padding * 2;
+                newHeight = newWidth / aspectRatio;
+            }
+            
+            // Update game dimensions
+            game.groundWidth = newWidth;
+            game.groundHeight = newHeight;
+            
+            // Scale positions proportionally
+            const scaleX = newWidth / 700;
+            const scaleY = newHeight / 400;
+            
+            // Update player positions
+            game.playerOne.posX = 10 * scaleX;
+            game.playerTwo.posX = (game.groundWidth - 30) * scaleX;
+            
+            if (game.styleGame > 2) {
+                game.playerThree.posX = 70 * scaleX;
+                game.playerFour.posX = (game.groundWidth - 90) * scaleX;
+            }
+            
+            return {width: newWidth, height: newHeight};
+        }
+    },
+
     winCondition : function(){
         if (this.scorePlayer1 == this.winValue)
         {
