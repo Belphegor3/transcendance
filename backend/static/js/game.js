@@ -40,7 +40,7 @@ const game = {
             this.posRecX = this.posX - this.radius;
             this.posRecY = this.posY - this.radius;
             this.height = this.width = this.radius * 2;
-            this.speed = 1.5;
+            this.speed = 1.5 * game.getSpeedScale();
             let randomDepart = game.geometry.randomDirection(0,4);
             if (randomDepart <= 1){
                 this.directionX = 1 * this.speed;
@@ -172,7 +172,8 @@ const game = {
     init : function() {
         this.initValue();
         
-        this.groundLayer = game.display.createLayer("terrain", this.groundWidth, this.groundHeight, undefined, 0, "#000000", 0, 0);
+        const newDimensions = this.responsive.calculateDimensions();
+        this.groundLayer = game.display.createLayer("terrain", newDimensions.width, newDimensions.height, undefined, 0, "#000000", 0, 0);
         game.display.drawRectangleInLayer(this.groundLayer, this.netWidth, this.groundHeight, this.netColor, this.groundWidth/2 - this.netWidth/2, 0);
         
         this.scoreLayer = game.display.createLayer("score", this.groundWidth, this.groundHeight, undefined, 1, undefined , 0, 0);
@@ -339,6 +340,10 @@ const game = {
         }
     },
 
+    getSpeedScale : function() {
+        return Math.min(this.groundWidth / 700, this.groundHeight / 400);
+    },
+
     winCondition : function(){
         if (this.scorePlayer1 == this.winValue)
         {
@@ -457,3 +462,18 @@ const game = {
         }
     }
 };
+
+window.addEventListener('resize', function() {
+    if (game.groundLayer) {
+        const newDimensions = game.responsive.calculateDimensions();
+        game.groundLayer.canvas.width = newDimensions.width;
+        game.groundLayer.canvas.height = newDimensions.height;
+        game.scoreLayer.canvas.width = newDimensions.width;
+        game.scoreLayer.canvas.height = newDimensions.height;
+        game.playersBallLayer.canvas.width = newDimensions.width;
+        game.playersBallLayer.canvas.height = newDimensions.height;
+        
+        // Reset positions
+        game.initialPosition();
+    }
+});
