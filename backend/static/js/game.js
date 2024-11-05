@@ -348,41 +348,62 @@ const game = {
         calculateDimensions: function() {
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
-            const aspectRatio = 700/400; // Original game ratio
+            const aspectRatio = 700/400;
+            const padding = 20;
             
             let newWidth, newHeight;
             
-            // Add padding for controls/score
-            const padding = 20;
+            // Determine if we should switch to landscape mode
+            const shouldBeLandscape = screenWidth < screenHeight;
             
-            if (screenWidth/screenHeight > aspectRatio) {
-                // Screen is wider than needed
-                newHeight = screenHeight - padding * 2;
-                newWidth = newHeight * aspectRatio;
+            if (shouldBeLandscape) {
+                // Rotate the screen dimensions for calculation
+                const tempWidth = screenHeight;
+                const tempHeight = screenWidth;
+                
+                if (tempWidth/tempHeight > aspectRatio) {
+                    newHeight = tempHeight - padding * 2;
+                    newWidth = newHeight * aspectRatio;
+                } else {
+                    newWidth = tempWidth - padding * 2;
+                    newHeight = newWidth / aspectRatio;
+                }
             } else {
-                // Screen is taller than needed
-                newWidth = screenWidth - padding * 2;
-                newHeight = newWidth / aspectRatio;
+                if (screenWidth/screenHeight > aspectRatio) {
+                    newHeight = screenHeight - padding * 2;
+                    newWidth = newHeight * aspectRatio;
+                } else {
+                    newWidth = screenWidth - padding * 2;
+                    newHeight = newWidth / aspectRatio;
+                }
             }
             
             // Update game dimensions
             game.groundWidth = newWidth;
             game.groundHeight = newHeight;
             
-            // Scale positions proportionally
-            const scaleX = newWidth / 700;
-            const scaleY = newHeight / 400;
+            // Scale UI elements
+            const scale = Math.min(newWidth/700, newHeight/400);
+            game.scorePosPlayer1 = 300 * scale;
+            game.namePosPlayer1 = 125 * scale;
+            game.scorePosPlayer2 = 365 * scale;
+            game.namePosPlayer2 = 500 * scale;
             
-            // Update player positions
-            game.playerOne.posX = 10 * scaleX;
-            game.playerTwo.posX = (game.groundWidth - 30) * scaleX;
+            // Scale player positions
+            game.playerOne.posX = 10 * scale;
+            game.playerTwo.posX = (newWidth - 30) * scale;
             
             if (game.styleGame > 2) {
-                game.playerThree.posX = 70 * scaleX;
-                game.playerFour.posX = (game.groundWidth - 90) * scaleX;
+                game.playerThree.posX = 70 * scale;
+                game.playerFour.posX = (newWidth - 90) * scale;
             }
             
-            return {width: newWidth, height: newHeight};
+            return {
+                width: newWidth, 
+                height: newHeight,
+                scale: scale,
+                isLandscape: shouldBeLandscape
+            };
         }
     },
 
@@ -508,14 +529,31 @@ const game = {
 window.addEventListener('resize', function() {
     if (game.groundLayer) {
         const newDimensions = game.responsive.calculateDimensions();
-        game.groundLayer.canvas.width = newDimensions.width;
-        game.groundLayer.canvas.height = newDimensions.height;
-        game.scoreLayer.canvas.width = newDimensions.width;
-        game.scoreLayer.canvas.height = newDimensions.height;
-        game.playersBallLayer.canvas.width = newDimensions.width;
-        game.playersBallLayer.canvas.height = newDimensions.height;
         
-        // Reset positions
-        game.initialPosition();
+        // Update all canvas dimensions
+        [game.groundLayer, game.scoreLayer, game.playersBallLayer].forEach(layer => {
+            layer.canvas.width = newDimensions.width;
+            layer.canvas.height = newDimensions.height;
+        });
+        
+        // Redraw all layers
+        game.clearLayer(game.groundLayer);
+        game.clearLayer(game.scoreLayer);
+        game.clearLayer(game.playersBallLayer);
+        
+        // Redraw game elements
+        game.displayScore();
+        game.displayBall();
+        game.displayPlayers();
+        
+        // Update net position
+        game.display.drawRectangleInLayer(
+            game.groundLayer, 
+            game.netWidth, 
+            game.groundHeight, 
+            game.netColor, 
+            game.groundWidth/2 - game.netWidth/2, 
+            0
+        );
     }
 });
