@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const app = document.getElementById('app');
+	const rootElement = document.documentElement;
 
 	const loginModalTemplate = `
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -383,7 +384,28 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 	`;
 
-	app.innerHTML = tournamentTemplate + playingTemplate + loginModalTemplate + registerModalTemplate + profileModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
+    const fontSizeSliderTemplate = `
+        <div class="font-size-slider">
+            <label for="fontSizeSlider">Adjust Font Size:</label>
+            <input type="range" id="fontSizeSlider" min="10" max="30" value="16">
+        </div>
+    `;
+
+	app.innerHTML = fontSizeSliderTemplate + tournamentTemplate + playingTemplate + loginModalTemplate + registerModalTemplate + profileModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
+
+	const fontSizeSlider = document.getElementById('fontSizeSlider');
+
+	const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+        rootElement.style.fontSize = `${savedFontSize}px`;
+        fontSizeSlider.value = savedFontSize;
+    }
+
+	fontSizeSlider.addEventListener('input', (event) => {
+        const fontSize = event.target.value;
+        rootElement.style.fontSize = `${fontSize}px`;
+        localStorage.setItem('fontSize', fontSize);
+    });
 
 	const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
 		backdrop: 'static',
@@ -648,6 +670,18 @@ document.addEventListener('DOMContentLoaded', () => {
         showSection(section, false);
     });
 
+	function initializeAccessibility() {
+        const sections = ['home', 'profile', 'pongOptionsB', 'pongOptionsP', 'multi', 'playing', 'tournament'];
+        sections.forEach(sec => {
+            const element = document.getElementById(sec + 'Section');
+            if (element) {
+                element.setAttribute('role', 'region');
+                element.setAttribute('aria-label', `${sec} section`);
+                element.setAttribute('tabindex', '-1');
+            }
+        });
+    }
+
     function showSection(section, addToHistory = true) {
         const sections = ['home', 'profile', 'pongOptionsB', 'pongOptionsP', 'multi', 'playing', 'tournament'];
         eraseGameWhilePlaying();
@@ -656,8 +690,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sectionElement) {
                 if (sec === section) {
                     sectionElement.style.display = 'block';
+					sectionElement.setAttribute('aria-hidden', 'false');
+                    // Announce section change
+                    const announcement = document.createElement('div');
+                    announcement.setAttribute('role', 'status');
+                    announcement.setAttribute('aria-live', 'polite');
+                    announcement.textContent = `Navigated to ${section} section`;
+                    document.body.appendChild(announcement);
+                    setTimeout(() => announcement.remove(), 1000);
+                    sectionElement.focus();
                 } else {
                     sectionElement.style.display = 'none';
+					sectionElement.setAttribute('aria-hidden', 'true');
                 }
             }
         });
@@ -666,6 +710,8 @@ document.addEventListener('DOMContentLoaded', () => {
             history.pushState({ section: section }, null, `#${section}`);
         }
     }
+
+	initializeAccessibility();
 
     const initialSection = window.location.hash.substr(1);
     showSection(initialSection || 'home', false);
