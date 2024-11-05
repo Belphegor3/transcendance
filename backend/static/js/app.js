@@ -494,18 +494,34 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault();
 		const email = document.getElementById('email').value;
 		const password = document.getElementById('password').value;
-		if (validateUser(email, password)) {
-			const userData = JSON.parse(sessionStorage.getItem(email));
-			console.log(userData);
-			profileFirst.textContent = userData.firstName;
-			profileLast.textContent = userData.lastName;
-			profileUserName.textContent = userData.userName;
-			profileEmail.textContent = userData.email;
+		// if (validateUser(email, password)) {
+		// 	const userData = JSON.parse(sessionStorage.getItem(email));
+		// 	console.log(userData);
+		// 	profileFirst.textContent = userData.firstName;
+		// 	profileLast.textContent = userData.lastName;
+		// 	profileUserName.textContent = userData.userName;
+		// 	profileEmail.textContent = userData.email;
+		// 	loginModal.hide();
+		// 	mainContent.style.display = 'block';
+		// 	showSection('home');
+		// } else {
+		// 	alert('Invalid email address or password');
+		// }
+		const userData3 = {
+			email: email,
+			password: password,
+		};
+
+		const loginResult = await loginUserDB(userData3);
+	
+		if (loginResult) {
+			registerModal.hide();
 			loginModal.hide();
 			mainContent.style.display = 'block';
 			showSection('home');
 		} else {
-			alert('Invalid email address or password');
+			// alert('Échec de l\'inscription, veuillez réessayer.'); // Alerte en cas d'échec
+			;
 		}
 	});
 
@@ -542,38 +558,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			;
 		}
 	});
-	
-
-
-	// registerForm.addEventListener('submit', (e) => {
-	// 	e.preventDefault();
-	// 	const firstName = document.getElementById('firstName').value;
-	// 	const lastName = document.getElementById('lastName').value;
-	// 	const userName = document.getElementById('userName').value;
-	// 	const email = document.getElementById('registerEmail').value;
-	// 	const password = document.getElementById('formerPassword').value;
-	// 	const confirmPassword = document.getElementById('confirmPassword2').value;
-
-	// 	if (password !== confirmPassword) {
-	// 		alert('Passwords do not match');
-	// 		return;
-	// 	}
-	// 	if (registerUser(firstName, lastName, userName, email, password)) {
-	// 		registerModal.hide();
-	// 		loginModal.show();
-	// 	} else {
-	// 		alert('Registration failed');
-	// 		return;
-	// 	}
-	// 	const userData2 = {
-	// 		firstname: document.getElementById('firstName').value,
-	// 		lastname: document.getElementById('lastName').value,
-	// 		username: document.getElementById('userName').value,
-	// 		email: document.getElementById('registerEmail').value,
-	// 		password: document.getElementById('formerPassword').value,
-	// 	};
-	// 	registerUserDB(userData2);
-	// });
 
 	uploadProfilePictureForm.addEventListener('submit', (e) => {
 		e.preventDefault();
