@@ -1,6 +1,129 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const app = document.getElementById('app');
-	const rootElement = document.documentElement;
+    const app = document.getElementById('app');
+    const rootElement = document.documentElement;
+    
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+        :root {
+            --dark-bg: #121212;
+            --dark-secondary: #1E1E1E;
+            --neon-primary: #07F4FF;
+            --neon-secondary: #FF00FF;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+        }
+
+        body {
+            background-color: var(--dark-bg) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .navbar {
+            background-color: var(--dark-secondary) !important;
+            box-shadow: 0 2px 10px rgba(7, 244, 255, 0.1);
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text-primary) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-primary) !important;
+            text-shadow: 0 0 8px rgba(7, 244, 255, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--dark-secondary);
+            border: 1px solid rgba(7, 244, 255, 0.2);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(7, 244, 255, 0.2);
+        }
+
+        .form-control {
+            background-color: #2D2D2D !important;
+            border: 1px solid rgba(7, 244, 255, 0.2) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(7, 244, 255, 0.25) !important;
+            border-color: var(--neon-primary) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--neon-primary) !important;
+            border: none !important;
+            color: var(--dark-bg) !important;
+            font-weight: bold !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(7, 244, 255, 0.5) !important;
+        }
+
+        .btn-secondary {
+            background-color: #2D2D2D !important;
+            border: 1px solid var(--neon-primary) !important;
+            color: var(--neon-primary) !important;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--neon-primary) !important;
+            color: var(--dark-bg) !important;
+            box-shadow: 0 0 15px rgba(0, 255, 178, 0.5) !important;
+        }
+
+        #game-card {
+            background-color: var(--dark-secondary) !important;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(7, 244, 255, 0.1);
+        }
+
+        #pong-title {
+            color: var(--neon-primary);
+            text-shadow: 0 0 15px rgba(7, 244, 255, 0.5);
+            font-weight: bold;
+        }
+
+        .profile-info {
+            background-color: var(--dark-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .font-size-slider {
+            background-color: var(--dark-secondary) !important;
+            border: 1px solid rgba(0, 255, 178, 0.2);
+            color: var(--text-primary);
+        }
+
+        .dropdown-menu {
+            background-color: var(--dark-secondary);
+            border: 1px solid rgba(0, 255, 178, 0.2);
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(7, 244, 255, 0.1);
+        }
+
+        select.form-select {
+            background-color: #2D2D2D !important;
+            color: var(--text-primary) !important;
+            border: 1px solid rgba(0, 255, 178, 0.2) !important;
+        }
+
+        select.form-select:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 255, 178, 0.25) !important;
+            border-color: var(--neon-primary) !important;
+        }
+    `;
+    document.head.appendChild(styleElement);
 
 	const loginModalTemplate = `
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -385,9 +508,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
     const fontSizeSliderTemplate = `
-        <div class="font-size-slider" style="position: fixed; top: 10px; right: 10px; z-index: 1000; background: rgba(255, 255, 255, 0.9); padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        <div class="font-size-slider" style="position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 10px; border-radius: 5px;">
             <label for="fontSizeSlider" style="display: block; margin-bottom: 5px; font-size: 14px;">Font Size:</label>
-            <input type="range" id="fontSizeSlider" min="10" max="30" value="16" style="width: 100px;">
+            <input type="range" id="fontSizeSlider" min="10" max="30" value="16" style="width: 100px; accent-color: var(--neon-primary);">
             <span id="fontSizeValue" style="margin-left: 5px; font-size: 14px;">16px</span>
         </div>
     `;

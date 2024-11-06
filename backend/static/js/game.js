@@ -6,9 +6,9 @@ const game = {
     styleGame : 4,
     groundWidth : 700,
     groundHeight : 400,
-    groundColor: "#000000",
+    groundColor: "#121212",
     netWidth : 6,
-    netColor : "#FFFFFF",
+    netColor : "#00FFB2",
 
     scorePosPlayer1 : 300,
     namePosPlayer1 : 125,
@@ -24,7 +24,7 @@ const game = {
     ball : {
         width : 12,
         height : 12,
-        color : "#FFFFFF",
+        color : "#00FFB2",
         posX : 200,
         posY : 200,
         posRecX : 0,
@@ -98,7 +98,7 @@ const game = {
     playerOne : {
         width : 10,
         height : 80,
-        color : "#FFFFFF",
+        color : "#00FFB2",
         posX : 10,
         posY : 200,
         goUp : false,
@@ -118,7 +118,7 @@ const game = {
     playerTwo : {
         width : 10,
         height : 80,
-        color : "#FFFFFF",
+        color : "#00FFB2",
         posX : 680,
         posY : 200,
         goUp : false,
@@ -136,7 +136,7 @@ const game = {
     playerThree: {
         width : 10,
         height : 80,
-        color : "#FFFFFF",
+        color : "#00FFB2",
         posX : 70,
         posY : 200,
         goUp : false,
@@ -190,15 +190,13 @@ const game = {
     },
 
     displayScore : function() {
-        //game.display.drawCircleInLayer(this.scoreLayer, "blue", 60, 50, 6);
-        game.display.drawTextInLayer(this.scoreLayer, this.scorePlayer1, "60px Arial", "#FFFFFF", this.scorePosPlayer1, 55);
-        game.display.drawTextInLayer(this.scoreLayer, this.scorePlayer2, "60px Arial", "#FFFFFF", this.scorePosPlayer2, 55);
-        game.display.drawTextInLayer(this.scoreLayer, this.playerOne.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer1, 30);
-        game.display.drawTextInLayer(this.scoreLayer, this.playerTwo.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer2, 30);
-        if (this.styleGame > 2)
-        {
-            game.display.drawTextInLayer(this.scoreLayer, this.playerThree.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer1, 50);
-            game.display.drawTextInLayer(this.scoreLayer, this.playerFour.playerName, "14px Arial", "#FFFFFF", this.namePosPlayer2, 50);
+        game.display.drawTextInLayer(this.scoreLayer, this.scorePlayer1, "60px Montserrat", "#00FFB2", this.scorePosPlayer1, 55);
+        game.display.drawTextInLayer(this.scoreLayer, this.scorePlayer2, "60px Montserrat", "#00FFB2", this.scorePosPlayer2, 55);
+        game.display.drawTextInLayer(this.scoreLayer, this.playerOne.playerName, "14px Montserrat", "#00FFB2", this.namePosPlayer1, 30);
+        game.display.drawTextInLayer(this.scoreLayer, this.playerTwo.playerName, "14px Montserrat", "#00FFB2", this.namePosPlayer2, 30);
+        if (this.styleGame > 2) {
+            game.display.drawTextInLayer(this.scoreLayer, this.playerThree.playerName, "14px Montserrat", "#00FFB2", this.namePosPlayer1, 50);
+            game.display.drawTextInLayer(this.scoreLayer, this.playerFour.playerName, "14px Montserrat", "#00FFB2", this.namePosPlayer2, 50);
         }
     },
 

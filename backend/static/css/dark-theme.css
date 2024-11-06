@@ -1,0 +1,395 @@
+:root {
+    --background-primary: #121212;
+    --background-secondary: #1E1E1E;
+    --accent-primary: #00FFB2;
+    --accent-secondary: #FF00FF;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B3B3B3;
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    background-color: var(--background-secondary);
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 255, 178, 0.1);
+}
+
+nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent-primary);
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-secondary);
+    text-decoration: underline;
+}
+
+/* Buttons */
+button, .button {
+    background-color: var(--background-secondary);
+    color: var(--accent-primary);
+    border: 2px solid var(--accent-primary);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover, .button:hover {
+    background-color: var(--accent-primary);
+    color: var(--background-primary);
+    box-shadow: 0 0 15px var(--accent-primary);
+}
+
+/* Forms */
+input, select, textarea {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-primary);
+    color: var(--text-primary);
+    padding: 8px;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+
+/* Tables */
+table {
+    background-color: var(--background-secondary);
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid var(--accent-primary);
+    color: var(--text-primary);
+}
+
+th {
+    background-color: var(--background-secondary);
+    color: var(--accent-primary);
+}
+
+/* Cards/Containers */
+.card, .container {
+    background-color: var(--background-secondary);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid var(--accent-primary);
+    box-shadow: 0 0 20px rgba(0, 255, 178, 0.1);
+}
+
+/* Game Canvas */
+canvas {
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 20px rgba(0, 255, 178, 0.2);
+    border-radius: 5px;
+    margin: 1rem auto;
+    display: block;
+}
+
+/* Lists */
+ul, ol {
+    color: var(--text-primary);
+    margin-left: 1.5rem;
+}
+
+/* Dividers */
+hr {
+    border: none;
+    border-top: 1px solid var(--accent-primary);
+    margin: 1.5rem 0;
+}
+
+/* Modal/Dialog */
+.modal {
+    background-color: var(--background-secondary);
+    border: 2px solid var(--accent-primary);
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 255, 178, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+
+/* Form Labels */
+label {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Placeholder Text */
+::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Selection */
+::selection {
+    background-color: var(--accent-primary);
+    color: var(--background-primary);
+}
+
+/* Error Messages */
+.error {
+    color: #ff4444;
+    background-color: rgba(255, 68, 68, 0.1);
+    border: 1px solid #ff4444;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+
+/* Success Messages */
+.success {
+    color: var(--accent-primary);
+    background-color: rgba(0, 255, 178, 0.1);
+    border: 1px solid var(--accent-primary);
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+
+/* Profile View */
+#profile {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
+
+#profile .profile-container {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 0 20px rgba(0, 255, 178, 0.1);
+}
+
+#profile img {
+    border: 3px solid var(--accent-primary);
+    border-radius: 50%;
+}
+
+/* Home View */
+#home {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
+
+#home .menu-container {
+    background-color: var(--background-secondary);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    border: 1px solid var(--accent-primary);
+}
+
+/* Pong Options View */
+#pongOptionsB {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
+
+#pongOptionsB .options-container {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+/* Common elements within these views */
+#profile select,
+#home select,
+#pongOptionsB select {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-primary);
+}
+
+#profile input,
+#home input,
+#pongOptionsB input {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-primary);
+}
+
+/* Menu items and navigation */
+.menu-item {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-primary);
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: var(--accent-primary);
+    color: var(--background-primary);
+    box-shadow: 0 0 15px var(--accent-primary);
+}
+
+/* Stats and information displays */
+.stats-container {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+/* Form groups */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Buttons in these views */
+#profile button,
+#home button,
+#pongOptionsB button {
+    background-color: var(--background-secondary);
+    color: var(--accent-primary);
+    border: 2px solid var(--accent-primary);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+}
+
+#profile button:hover,
+#home button:hover,
+#pongOptionsB button:hover {
+    background-color: var(--accent-primary);
+    color: var(--background-primary);
+    box-shadow: 0 0 15px var(--accent-primary);
+}
+
+/* Additional common elements */
+.title {
+    color: var(--accent-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Game options specific styling */
+.option-group {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.option-group label {
+    color: var(--text-primary);
+}
+
+/* Modal/popup styling */
+.modal-content {
+    background-color: var(--background-secondary);
+    border: 2px solid var(--accent-primary);
+    color: var(--text-primary);
+}
+
+/* Table styling specific to these views */
+#profile table,
+#home table,
+#pongOptionsB table {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-primary);
+    width: 100%;
+    margin: 1rem 0;
+}
+
+#profile th,
+#home th,
+#pongOptionsB th {
+    background-color: var(--background-secondary);
+    color: var(--accent-primary);
+    padding: 1rem;
+    border: 1px solid var(--accent-primary);
+}
+
+#profile td,
+#home td,
+#pongOptionsB td {
+    padding: 1rem;
+    border: 1px solid var(--accent-primary);
+    color: var(--text-primary);
+}
