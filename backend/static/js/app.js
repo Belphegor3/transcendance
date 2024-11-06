@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </button>
                             </div>
 						</form>
-						<p class="mt-3" id="noAccountText">
+						<p class="mt-3">
 							<span data-translate="noAccountText">No account?</span>
 							<a href="#" id="showRegister" data-translate="createOneText">Create one</a>
 						</p>
@@ -64,14 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         	    <input data-translate="confirmpass" type="password" class="form-control" id="confirmPassword2" placeholder="Confirm Password" required>
                         	</div>
 							<div class="d-flex justify-content-between">
-                        		<button data-translate="register" type="submit" class="btn btn-primary w-100 me-1">Register</button>
-                        		<button type="button" class="btn btn-secondary bg-dark text-white w-100 ms-1" id="register42Button">
-                            		Register with
-                            		<img src="/static/images/assets/42logo.png" style="height: 20px; width: 20px;">
-                        		</button>
+                        		<button data-translate="register" type="submit" class="btn btn-primary me-1 w-100">Register</button>
                     		</div>
 						</form>
-						<p data-translate="already" class="mt-3">Already have an account?<a data-translate="login" href="#" id="showLogin">Login</a></p>
+						<p class="mt-3">
+							<span data-translate="already" class="mt-3 w-100">Already have an account?</span>
+							<a href="#" id="showLogin" data-translate="login">Login</a>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -415,13 +414,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	const profileEmail = document.getElementById('profileEmail');
 	const uploadProfilePictureForm = document.getElementById('uploadProfilePictureForm');
 	const editProfileButton = document.getElementById('editProfileButton');
+	// const anonymizeUserButton = document.getElementById('anonymizeUserButton');
 	const editProfileForm = document.getElementById('editProfileForm');
 	const profileCloseButton = document.getElementById('closeProfileModal');
 	const vsPlayerButton = document.getElementById('vsPlayerButton');
 	const vsBotButton = document.getElementById('vsBotButton');
 	const tournamentButton = document.getElementById('tournamentButton');
 
-	loginModal.show();
+    const urlParams = new URLSearchParams(window.location.search);
+    const from42 = urlParams.get('from');
+
+    if (from42 !== '42') {
+        loginModal.show();
+    }
+	if (from42 == '42')
+		getget();
 
 	showRegister.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -444,8 +451,35 @@ document.addEventListener('DOMContentLoaded', () => {
         launchGame();
     });
 
-	document.getElementById('deleteAccountButton').addEventListener('click', function() {
+	document.getElementById('anonymizeUserButton').addEventListener('click', async (e) => {
+		e.preventDefault();
+		const userData6 = {
+			firstname: "xxx",
+			username: "xxx",
+			lastname: "xxx",
+			email: sessionStorage.getItem('email'),
+		}
 
+		profileFirst.textContent = 'xxx';
+		profileLast.textContent = 'xxx';
+		profileUserName.textContent = 'xxx';
+		await anonymiseUser(userData6);
+	})
+
+	document.getElementById('deleteAccountButton').addEventListener('click', async (e) => {
+		e.preventDefault();
+		const userData5 = {
+			email: sessionStorage.getItem('email'),
+			firstname: sessionStorage.getItem('firstname'),
+			lastname: sessionStorage.getItem('lastname'),
+			username: sessionStorage.getItem('username')
+		};
+		// const deleteResult = await deleteAccount(userData5);
+		const deleteResult = await deleteAccount(userData5);
+		if (deleteResult){
+			showSection('home');
+			loginModal.show();
+		}
 	});
 
     multiButton.addEventListener('click', (e) => {
@@ -453,11 +487,10 @@ document.addEventListener('DOMContentLoaded', () => {
         showSection('multi');
     });
 
-	document.getElementById('pongOptionsB').addEventListener('submit', function(event) {
+	document.getElementById('pongOptionsB').addEventListener('submit', async function(event) {
 		event.preventDefault();
 		saveOptionsB();
-		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
-		sessionStorage.setItem('playerOneName', userData.userName);
+		sessionStorage.setItem('playerOneName', sessionStorage.getItem('username'));
 		optionsBotContent.style.display = 'none';
 		showSection('playing');
 		launchGame();
@@ -473,8 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('pongOptionsP').addEventListener('submit', function(event) {
 		event.preventDefault();
 		saveOptionsP();
-		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
-		sessionStorage.setItem('playerOneName', userData.userName);
+		sessionStorage.setItem('playerOneName', sessionStorage.getItem('username'));
 		optionsPlayerContent.style.display = 'none';
 		showSection('playing');
 		launchGame();
@@ -495,15 +527,33 @@ document.addEventListener('DOMContentLoaded', () => {
 			password: password,
 		};
 
+		const userData2 = { email, password };
+		const response = await fetch('/api/token/', {
+			method: 'POST',  // Méthode POST pour l'authentification
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(userData2),
+		});
+	
+		if (!response.ok) {
+			const errorData = await response.json();
+			console.error('Erreur:', errorData);
+			alert('Erreur lors de la connexion.');
+			return;
+		}
+	
+		const data = await response.json();
+	
+		if (data.token)
+			sessionStorage.setItem('authToken', data.token);
 		const loginResult = await loginUserDB(userData3);
-		console.log("valeur de registrationResult: " + loginResult);
 		if (loginResult) {
 			const user = loginResult.user;
 			profileFirst.textContent = user.firstname;
 			profileLast.textContent = user.lastname;
 			profileUserName.textContent = user.username;
 			profileEmail.textContent = user.email;
-			console.log("je me connecte et je veux set les valeurs de firstname: " + user.firstname);
 			// sessionStorage.setItem(email, JSON.stringify({ user }));
 			// sessionStorage.setItem(email, JSON.stringify({
 			// 	firstname: user.firstname,
@@ -522,7 +572,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		
 	});
-
 	
 	registerForm.addEventListener('submit', async (e) => {
 		e.preventDefault();
@@ -547,7 +596,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			password: password,
 		};
 		const registrationResult = await registerUserDB(userData2);
-		console.log("valeur de registrationResult: " + registrationResult);
 		if (registrationResult) {
 			registerModal.hide();
 			loginModal.show();
@@ -572,10 +620,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	editProfileButton.addEventListener('click', () => {
-		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
-		document.getElementById('editFirstName').value = userData.firstName;
-		document.getElementById('editLastName').value = userData.lastName;
-		document.getElementById('editUserName').value = userData.userName;
+		const firstname = sessionStorage.getItem('firstname');
+		const lastname = sessionStorage.getItem('lastname');
+		const username = sessionStorage.getItem('username');
+		document.getElementById('editFirstName').value = firstname;
+		document.getElementById('editLastName').value = lastname;
+		document.getElementById('editUserName').value = username;
 		profileModal.show();
 	});
 
@@ -596,6 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	editProfileForm.addEventListener('submit', async (e) => {
 		e.preventDefault();
+		
 		const firstName = document.getElementById('editFirstName').value;
 		const lastName = document.getElementById('editLastName').value;
 		const userName = document.getElementById('editUserName').value;
@@ -603,14 +654,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		profileFirst.textContent = firstName;
 		profileLast.textContent = lastName;
 		profileUserName.textContent = userName;
-		sessionStorage.setItem(email, JSON.stringify({ firstName, lastName, userName, email }));
+		sessionStorage.setItem('username', userName);
+		sessionStorage.setItem('lastname', lastName);
+		sessionStorage.setItem('firstname', firstName);
+		// sessionStorage.setItem(email, JSON.stringify({ firstName, lastName, userName, email }));
 		const userData4 = {
 			firstname: firstName,
 			lastname: lastName,
 			username: userName,
 			email: sessionStorage.getItem('email')
 		};
-
 		const editResult = await editUserDB(userData4);
 		if (editResult)
 			profileModal.hide();
@@ -619,26 +672,60 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	const login42Button = document.getElementById('login42Button');
-	login42Button.addEventListener('click', () => {
-		const clientId = 'YOUR_CLIENT_ID';
-		const redirectUri = 'YOUR_REDIRECT_URI';
-		const scope = 'public';
-		const state = 'some_random_state';
-		const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
-
-		window.location.href = authUrl;
+	
+	login42Button.addEventListener('click', (e) => {
+		e.preventDefault();
+		window.location.href = "/api/oauth/redirect";
+		
 	});
 
-	const register42Button = document.getElementById('register42Button')
-	register42Button.addEventListener('click', () => {
-		const clientId = 'YOUR_CLIENT_ID';
-		const redirectUri = 'YOUR_REDIRECT_URI';
-		const scope = 'public';
-		const state = 'some_random_state';
-		const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+	function getCoookie(name) {
+		const value = `; ${document.cookie}`;
+		const parts = value.split(`; ${name}=`);
+		if (parts.length === 2) return parts.pop().split(';').shift();
+	}
+	
+	// // Récupérer les cookies de l'utilisateur
+	// const userEmail = getCoookie('user_email');
+	// const userLastName = getCoookie('user_lastname');
+	// const userFirstName = getCoookie('user_firstname');
+	// const userUsername = getCoookie('user_username');
 
-		window.location.href = authUrl;
-	});
+	// sessionStorage.setItem('username', userName);
+	// sessionStorage.setItem('lastname', lastName);
+	// sessionStorage.setItem('firstname', firstName);
+
+	async function getget(){
+		const getgetResult = await getUserDB();
+		console.log("dans mon getget j ai: " + getgetResult.firstname);
+		// sessionStorage.setItem('email', getCoookie('user_email'))
+		// sessionStorage.setItem('username', getCoookie('user_username'))
+		// sessionStorage.setItem('firstname', getCoookie('user_firstname'))
+		// sessionStorage.setItem('lastname', getCoookie('user_lastname'))
+		if (getgetResult){
+			profileFirst.textContent = getgetResult.firstname;
+			profileLast.textContent = getgetResult.lastname;
+			profileUserName.textContent = getgetResult.username;
+			profileEmail.textContent = getgetResult.email;
+			sessionStorage.setItem('email', getgetResult.email);
+			sessionStorage.setItem('username', getgetResult.username);
+			sessionStorage.setItem('firstname', getgetResult.firstname);
+			sessionStorage.setItem('lastname', getgetResult.lastname);
+		}
+		// console.log("tetetetetetetetetetetetetetetetetetetete " + getCoookie('user_email'));
+	}
+
+
+	// const register42Button = document.getElementById('register42Button')
+	// register42Button.addEventListener('click', () => {
+	// 	const clientId = 'YOUR_CLIENT_ID';
+	// 	const redirectUri = 'YOUR_REDIRECT_URI';
+	// 	const scope = 'public';
+	// 	const state = 'some_random_state';
+	// 	const authUrl = `https://api.intra.42.fr/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+
+	// 	window.location.href = authUrl;
+	// });
 
 	navHome.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -910,4 +997,202 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault();
         showSection('home');
     });
+
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	
+	const csrftoken = getCookie('csrftoken');
+	console.log('CSRF Token:', csrftoken);
+	sessionStorage.setItem('csrftoken', csrftoken);
+	
+	async function registerUserDB(userData2) {
+		console.log("Données envoyées: ", JSON.stringify(userData2));
+		// const csrftoken = getCookie('csrftoken');
+		try {
+			const response = await fetch('/api/register/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: JSON.stringify(userData2),
+			});
+			if (!response.ok) {
+				const errorData = await response.json();
+				console.log('Erreur:' + errorData);
+				let errorMessage = 'Erreur lors de l\'inscription:\n';
+				for (const [key, value] of Object.entries(errorData)) {
+					errorMessage += `${key}: ${value.join(', ')}\n`;
+				}
+				alert(errorMessage);
+				return false;
+			}
+			sessionStorage.setItem('username', userData2.username);
+			sessionStorage.setItem('firstname', userData2.firstname);
+			sessionStorage.setItem('lastname', userData2.lastname);
+			sessionStorage.setItem('email', userData2.email);
+			console.log('CSRF Token:', csrftoken);
+			return true;
+		} catch (error) {
+			return false;
+		}
+	}
+	
+	async function loginUserDB(userData3) {
+		// const csrftoken = getCookie('csrftoken');
+		try {
+			const response = await fetch('/api/login/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: JSON.stringify(userData3),
+			});
+	
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			console.error('Erreur lors de la connexion:', error);
+			return false;
+		}
+	}
+	
+	async function editUserDB(userData3) {
+		// const csrftoken = getCookie('csrftoken');
+		console.log("test 1 du csrf token: " + getCookie('csrftoken'));
+		console.log("test 2 du csrf token: " + csrftoken);
+		console.log("test 3 du csrf token: " + sessionStorage.getItem('csrftoken'));
+		try {
+			const response = await fetch('/api/edit/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: JSON.stringify(userData3),
+			});
+	
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			console.error('Erreur lors de la connexion:', error);
+			return false;
+		}
+	}
+	
+	async function deleteAccount(userData5) {
+		// const csrftoken = getCookie('csrftoken');
+		// console.log(getCookie("csrf", 'csrftoken'));
+		try {
+			const response = await fetch('/api/deleteaccount/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: JSON.stringify(userData5),
+			});
+	
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			console.error('Erreur lors de la connexion:', error);
+			return false;
+		}
+	}
+	
+	async function anonymiseUser(userData6) {
+		// console.log(getCookie("csrf", 'csrftoken'));
+		try {
+			const response = await fetch('/api/edit/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(userData6),
+			});
+	
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			console.error('Erreur lors de la connexion:', error);
+			return false;
+		}
+	}
+	
+	// async function postUserDB(userData) {
+	// 	// console.log(getCookie("csrf", 'csrftoken'));
+	// 	try {
+	// 		const response = await fetch('/api/postusername/', {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Content-Type': 'application/json',
+	// 			},
+	// 			body: JSON.stringify(userData),
+	// 		});
+	
+	// 		if (response.ok) {
+	// 			const data = await response.json();
+	// 			return data;
+	// 		} else {
+	// 			return false;
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Erreur lors de la connexion:', error);
+	// 		return false;
+	// 	}
+	// }
+	
+	async function getUserDB() {
+		console.log("el famoso token de connection: " + localStorage.getItem('authToken'));
+		try {
+			const response = await fetch('/api/getUserInfo/', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': 'Token ' + localStorage.getItem('authToken')
+				},
+			});
+	
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			console.error('Erreur lors de la connexion:', error);
+			return false;
+		}
+	}
+
 });

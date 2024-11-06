@@ -52,7 +52,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ('username', 'email', 'firstname', 'lastname', 'password')
+        fields = ( 'id', 'username', 'email', 'firstname', 'lastname', 'password')
 
     def validate_username(self, value):
         if Player.objects.filter(username=value).exists():
