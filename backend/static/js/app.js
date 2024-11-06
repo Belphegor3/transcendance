@@ -385,27 +385,50 @@ document.addEventListener('DOMContentLoaded', () => {
 	`;
 
     const fontSizeSliderTemplate = `
-        <div class="font-size-slider">
-            <label for="fontSizeSlider">Adjust Font Size:</label>
-            <input type="range" id="fontSizeSlider" min="10" max="30" value="16">
+        <div class="font-size-slider" style="position: fixed; top: 10px; right: 10px; z-index: 1000; background: rgba(255, 255, 255, 0.9); padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <label for="fontSizeSlider" style="display: block; margin-bottom: 5px; font-size: 14px;">Font Size:</label>
+            <input type="range" id="fontSizeSlider" min="10" max="30" value="16" style="width: 100px;">
+            <span id="fontSizeValue" style="margin-left: 5px; font-size: 14px;">16px</span>
         </div>
     `;
 
 	app.innerHTML = fontSizeSliderTemplate + tournamentTemplate + playingTemplate + loginModalTemplate + registerModalTemplate + profileModalTemplate + mainContentTemplate + vsBotTemplate + vsPlayerTemplate + multiTemplate; //  + gameOptionsModalTemplate;
 
 	const fontSizeSlider = document.getElementById('fontSizeSlider');
+    const fontSizeValue = document.getElementById('fontSizeValue');
 
-	const savedFontSize = localStorage.getItem('fontSize');
+    // Debounce function
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Update font size with debouncing
+    const updateFontSize = debounce((fontSize) => {
+        rootElement.style.fontSize = `${fontSize}px`;
+        localStorage.setItem('fontSize', fontSize);
+    }, 50);
+
+    fontSizeSlider.addEventListener('input', (event) => {
+        const fontSize = event.target.value;
+        fontSizeValue.textContent = `${fontSize}px`;
+        updateFontSize(fontSize);
+    });
+
+    // Initialize with saved font size
+    const savedFontSize = localStorage.getItem('fontSize');
     if (savedFontSize) {
         rootElement.style.fontSize = `${savedFontSize}px`;
         fontSizeSlider.value = savedFontSize;
+        fontSizeValue.textContent = `${savedFontSize}px`;
     }
-
-	fontSizeSlider.addEventListener('input', (event) => {
-        const fontSize = event.target.value;
-        rootElement.style.fontSize = `${fontSize}px`;
-        localStorage.setItem('fontSize', fontSize);
-    });
 
 	const loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
 		backdrop: 'static',
