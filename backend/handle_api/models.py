@@ -19,13 +19,16 @@ class Player(AbstractUser):
     Modèle utilisateur personnalisé pour étendre le modèle de base avec des informations spécifiques.
     """
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-    username = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=50)
     wins = models.IntegerField(default=0)
     losses = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
+
+    USERNAME_FIELD = 'email'  # Utiliser l'email comme champ d'identifiant principal
+    REQUIRED_FIELDS = ['username', 'firstname', 'lastname']
 
     def __str__(self):
         return self.username

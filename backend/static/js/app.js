@@ -100,10 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
 								<label data-translate="username" for="editUserName">User Name</label>
 								<input type="text" class="form-control" id="editUserName" required>
 							</div>
-							<div class="form-group">
-								<label data-translate="email" for="editEmail">Email Address</label>
-								<input type="email" class="form-control" id="editEmail" required>
-							</div>
 							<button data-translate="save" type="submit" class="btn btn-primary">Save Changes</button>
 						</form>
 					</div>
@@ -490,39 +486,41 @@ document.addEventListener('DOMContentLoaded', () => {
 		loginModal.show();
 	});
 
-	loginForm.addEventListener('submit', (e) => {
+	loginForm.addEventListener('submit', async (e) => {
 		e.preventDefault();
 		const email = document.getElementById('email').value;
 		const password = document.getElementById('password').value;
-		// if (validateUser(email, password)) {
-		// 	const userData = JSON.parse(sessionStorage.getItem(email));
-		// 	console.log(userData);
-		// 	profileFirst.textContent = userData.firstName;
-		// 	profileLast.textContent = userData.lastName;
-		// 	profileUserName.textContent = userData.userName;
-		// 	profileEmail.textContent = userData.email;
-		// 	loginModal.hide();
-		// 	mainContent.style.display = 'block';
-		// 	showSection('home');
-		// } else {
-		// 	alert('Invalid email address or password');
-		// }
 		const userData3 = {
 			email: email,
 			password: password,
 		};
 
 		const loginResult = await loginUserDB(userData3);
-	
+		console.log("valeur de registrationResult: " + loginResult);
 		if (loginResult) {
+			const user = loginResult.user;
+			profileFirst.textContent = user.firstname;
+			profileLast.textContent = user.lastname;
+			profileUserName.textContent = user.username;
+			profileEmail.textContent = user.email;
+			console.log("je me connecte et je veux set les valeurs de firstname: " + user.firstname);
+			// sessionStorage.setItem(email, JSON.stringify({ user }));
+			// sessionStorage.setItem(email, JSON.stringify({
+			// 	firstname: user.firstname,
+			// 	lastname: user.lastname,
+			// 	username: user.username,
+			// 	email: user.email
+			// }));
+
+		
 			registerModal.hide();
 			loginModal.hide();
 			mainContent.style.display = 'block';
 			showSection('home');
 		} else {
-			// alert('Échec de l\'inscription, veuillez réessayer.'); // Alerte en cas d'échec
-			;
+			alert('Échec de la connexion, veuillez réessayer.');
 		}
+		
 	});
 
 	
@@ -540,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const lastName = document.getElementById('lastName').value;
 		const userName = document.getElementById('userName').value;
 		const email = document.getElementById('registerEmail').value;
-	
+		sessionStorage.setItem(email, JSON.stringify({ firstName, lastName, userName, email }));
 		const userData2 = {
 			firstname: firstName,
 			lastname: lastName,
@@ -549,13 +547,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			password: password,
 		};
 		const registrationResult = await registerUserDB(userData2);
-	
+		console.log("valeur de registrationResult: " + registrationResult);
 		if (registrationResult) {
 			registerModal.hide();
 			loginModal.show();
 		} else {
-			// alert('Échec de l\'inscription, veuillez réessayer.'); // Alerte en cas d'échec
-			;
+			alert('Inscription failed noob');
 		}
 	});
 
@@ -579,7 +576,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.getElementById('editFirstName').value = userData.firstName;
 		document.getElementById('editLastName').value = userData.lastName;
 		document.getElementById('editUserName').value = userData.userName;
-		document.getElementById('editEmail').value = userData.email;
 		profileModal.show();
 	});
 
@@ -598,23 +594,28 @@ document.addEventListener('DOMContentLoaded', () => {
 		showSection('tournament');
 	});
 
-	editProfileForm.addEventListener('submit', (e) => {
+	editProfileForm.addEventListener('submit', async (e) => {
 		e.preventDefault();
 		const firstName = document.getElementById('editFirstName').value;
 		const lastName = document.getElementById('editLastName').value;
 		const userName = document.getElementById('editUserName').value;
-		const email = document.getElementById('editEmail').value;
-		const userData = JSON.parse(sessionStorage.getItem(profileEmail.textContent));
-		userData.firstName = firstName;
-		userData.lastName = lastName;
-		userData.userName = userName;
-		userData.email = email;
-		sessionStorage.setItem(email, JSON.stringify(userData));
+
 		profileFirst.textContent = firstName;
 		profileLast.textContent = lastName;
 		profileUserName.textContent = userName;
-		profileEmail.textContent = email;
-		profileModal.hide();
+		sessionStorage.setItem(email, JSON.stringify({ firstName, lastName, userName, email }));
+		const userData4 = {
+			firstname: firstName,
+			lastname: lastName,
+			username: userName,
+			email: sessionStorage.getItem('email')
+		};
+
+		const editResult = await editUserDB(userData4);
+		if (editResult)
+			profileModal.hide();
+		else
+			alert("a malibu");
 	});
 
 	const login42Button = document.getElementById('login42Button');

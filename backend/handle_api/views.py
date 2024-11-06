@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import GameOptions
-# from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework import status
 from rest_framework.views import APIView
@@ -10,6 +10,7 @@ from .serializers import UserRegisterSerializer
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password
+from .models import Player
 
 @api_view(['POST'])
 def save_game_options(request):
@@ -59,19 +60,45 @@ class RegisterUserView(APIView):
             return Response({"message": "Utilisateur créé avec succès"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# @method_decorator(csrf_exempt, name='dispatch')
+class EditUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email")
+        firstname = request.data.get("firstname")
+        username = request.data.get("username")
+        lastname = request.data.get("lastname")
+        # user = Player.objects.get(email=email)
+        try:
+            user = Player.objects.get(email=email)
+        except Player.DoesNotExist:
+            return Response({"error": "lilian a tord "}, status=status.HTTP_404_NOT_FOUND)
+        user.lastname = lastname
+        user.firstname = firstname
+        serializer= UserRegisterSerializer(data=request.data)
+        if serializer.validate_username(username):
+            user.username = username
+        user.save()
+        return Response({
+            "message": "Utilisateur authentifié avec succès",
+            "user": {
+                "username": user.username,
+                "email": user.email,
+                "firstname": user.firstname,
+                "lastname": user.lastname,
+            }
+        }, status=status.HTTP_200_OK)
+    
 class LoginUserView(APIView):
-    def get(self, request, *args, **kwargs):
-        email = request.query_params.get("email")
-        password = request.query_params.get("password")
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email")
+        password = request.data.get("password")
 
         if not email or not password:
             return Response({"error": "Email et mot de passe requis"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            # Récupérer l'utilisateur à partir de l'email
-            user = User.objects.get(email=email)
+            user = Player.objects.get(email=email)
             
-            # Vérifier si le mot de passe fourni correspond au mot de passe haché de l'utilisateur
             if check_password(password, user.password):
                 return Response({
                     "message": "Utilisateur authentifié avec succès",
@@ -79,11 +106,11 @@ class LoginUserView(APIView):
                         "username": user.username,
                         "email": user.email,
                         "firstname": user.firstname,
-                        "lastname": user.last_name,
+                        "lastname": user.lastname,
                     }
                 }, status=status.HTTP_200_OK)
             else:
                 return Response({"error": "Mot de passe incorrect"}, status=status.HTTP_401_UNAUTHORIZED)
 
-        except User.DoesNotExist:
+        except Player.DoesNotExist:
             return Response({"error": "Utilisateur non trouvé"}, status=status.HTTP_404_NOT_FOUND)
