@@ -4,6 +4,6 @@
  */
  function setLanguage(lang) {
     sessionStorage.setItem('selectedLanguage', lang);
-    console.log('after setLanguage', sessionStorage.getItem('selectedLanguage'));
+    // console.log('after setLanguage', sessionStorage.getItem('selectedLanguage'));
     fetchTranslations(lang);
 }

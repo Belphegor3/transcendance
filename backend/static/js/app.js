@@ -394,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		keyboard: true
 	});
 
+	const navbarToggle = document.querySelector('.navbar-toggler');
 	const mainContent = document.getElementById('mainContent');
 	const optionsPlayerContent = document.getElementById('pongOptionsPSection');
 	const optionsBotContent = document.getElementById('pongOptionsBSection');
@@ -419,6 +420,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	const vsPlayerButton = document.getElementById('vsPlayerButton');
 	const vsBotButton = document.getElementById('vsBotButton');
 	const tournamentButton = document.getElementById('tournamentButton');
+
+	function collapseNavbar() {
+		const navbar = document.getElementById('navbarNav');
+		if (navbar.classList.contains('show')) {
+			navbarToggle.click();
+		}
+	}
 
     const urlParams = new URLSearchParams(window.location.search);
     const from42 = urlParams.get('from');
@@ -666,7 +674,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	async function getget(){
 		const getgetResult = await getUserDB();
-		console.log("dans mon getget j ai: " + getgetResult.firstname);
 		// sessionStorage.setItem('email', getCoookie('user_email'))
 		// sessionStorage.setItem('username', getCoookie('user_username'))
 		// sessionStorage.setItem('firstname', getCoookie('user_firstname'))
@@ -983,11 +990,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	const csrftoken = getCookie('csrftoken');
-	console.log('CSRF Token:', csrftoken);
+	// console.log('CSRF Token:', csrftoken);
 	sessionStorage.setItem('csrftoken', csrftoken);
 	
 	async function registerUserDB(userData2) {
-		console.log("Données envoyées: ", JSON.stringify(userData2));
+		// console.log("Données envoyées: ", JSON.stringify(userData2));
 		// const csrftoken = getCookie('csrftoken');
 		try {
 			const response = await fetch('/api/register/', {
@@ -1000,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 			if (!response.ok) {
 				const errorData = await response.json();
-				console.log('Erreur:' + errorData);
+				// console.log('Erreur:' + errorData);
 				let errorMessage = 'Erreur lors de l\'inscription:\n';
 				for (const [key, value] of Object.entries(errorData)) {
 					errorMessage += `${key}: ${value.join(', ')}\n`;
@@ -1012,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			sessionStorage.setItem('firstname', userData2.firstname);
 			sessionStorage.setItem('lastname', userData2.lastname);
 			sessionStorage.setItem('email', userData2.email);
-			console.log('CSRF Token:', csrftoken);
+			// console.log('CSRF Token:', csrftoken);
 			return true;
 		} catch (error) {
 			return false;
@@ -1045,9 +1052,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	async function editUserDB(userData3) {
 		// const csrftoken = getCookie('csrftoken');
-		console.log("test 1 du csrf token: " + getCookie('csrftoken'));
-		console.log("test 2 du csrf token: " + csrftoken);
-		console.log("test 3 du csrf token: " + sessionStorage.getItem('csrftoken'));
+		// console.log("test 1 du csrf token: " + getCookie('csrftoken'));
+		// console.log("test 2 du csrf token: " + csrftoken);
+		// console.log("test 3 du csrf token: " + sessionStorage.getItem('csrftoken'));
 		try {
 			const response = await fetch('/api/edit/', {
 				method: 'POST',
@@ -1102,6 +1109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					'X-CSRFToken': csrftoken,
 				},
 				body: JSON.stringify(userData6),
 			});
@@ -1142,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// }
 	
 	async function getUserDB() {
-		console.log("el famoso token de connection: " + localStorage.getItem('authToken'));
+		// console.log("el famoso token de connection: " + localStorage.getItem('authToken'));
 		try {
 			const response = await fetch('/api/getUserInfo/', {
 				method: 'GET',

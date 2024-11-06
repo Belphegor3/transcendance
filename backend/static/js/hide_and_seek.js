@@ -7,7 +7,7 @@ function togglePlayerName() {
         return;
     }
     
-    console.log('Selected game mode:', gameMode.value);
+    // console.log('Selected game mode:', gameMode.value);
     
     if (gameMode.value === 'player') {
         secondPlayer.classList.remove('d-none');

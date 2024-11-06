@@ -289,20 +289,8 @@ def login_or_create_user(request, user_data):
     }
 
     # Initialiser le serializer avec les données utilisateur
-    serializer = UserRegisterSerializer(data=data)
-    
-    # Vérifier si les données sont valides
-    if serializer.is_valid():
-        # Sauvegarder l'utilisateur si tout est valide
-        user = serializer.save()
-
-        # Connecter l'utilisateur pour initialiser la session
-        login(request, user)
-
-        # Créer une réponse de redirection avec un cookie contenant l'email
+    if Player.objects.filter(email=user_data.get('email')).exists():
         response = redirect("https://localhost:4443/?from=42")
-        
-        # Ajouter un cookie pour stocker l'email de l'utilisateur (modifiable selon vos besoins)
         response.set_cookie(
             'user_email',                # Nom du cookie
             user_data.get('email'),      # Valeur du cookie (ici, l'email de l'utilisateur)
@@ -335,6 +323,53 @@ def login_or_create_user(request, user_data):
             secure=True
         )
         return response
+    else:
+        serializer = UserRegisterSerializer(data=data)
+        
+        # Vérifier si les données sont valides
+        if serializer.is_valid():
+            # Sauvegarder l'utilisateur si tout est valide
+            user = serializer.save()
+
+            # Connecter l'utilisateur pour initialiser la session
+            login(request, user)
+
+            # Créer une réponse de redirection avec un cookie contenant l'email
+            response = redirect("https://localhost:4443/?from=42")
+            
+            # Ajouter un cookie pour stocker l'email de l'utilisateur (modifiable selon vos besoins)
+            response.set_cookie(
+                'user_email',                # Nom du cookie
+                user_data.get('email'),      # Valeur du cookie (ici, l'email de l'utilisateur)
+                max_age=3600,                # Durée de vie en secondes (ici, 1 heure)
+                httponly=True,               # Empêche l'accès en JavaScript (plus sécurisé)
+                secure=True                  # Envoie le cookie uniquement en HTTPS
+            )
+            
+            response.set_cookie(
+                'user_lastname',             # Nom du cookie pour le nom de famille
+                user_data.get('last_name'),  # Valeur du cookie
+                max_age=3600,
+                httponly=True,
+                secure=True
+            )
+            
+            response.set_cookie(
+                'user_firstname',            # Nom du cookie pour le prénom
+                user_data.get('first_name'), # Valeur du cookie
+                max_age=3600,
+                httponly=True,
+                secure=True
+            )
+            
+            response.set_cookie(
+                'user_username',             # Nom du cookie pour le nom d'utilisateur
+                user_data.get('login'),      # Valeur du cookie
+                max_age=3600,
+                httponly=True,
+                secure=True
+            )
+            return response
 
 class GetUserInfo(APIView):
     permission_classes = [IsAuthenticated]
