@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="mb-3 form-group">
 					<label id="points" data-translate="pointstowin" for="gamePoints" class="form-label">Points to win:</label>
 					<select id="gamePoints" class="form-select">
-						<option value="1">5</option>
+						<option value="5">5</option>
 						<option value="6">6</option>
 						<option value="7">7</option>
 						<option value="8">8</option>
@@ -313,7 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
 						<p><strong data-translate="pmail">Email:</strong> <span id="profileEmail"></span></p>
 					</div>
 					<button class="btn btn-secondary mt-3 w-100" id="editProfileButton" data-translate="editp">Edit Profile</button>
-					<button class="btn btn-secondary mt-3 w-100" id="changePasswordButton" data-translate="changepass">Change Password</button>
 					<button class="btn btn-danger mt-3 w-100" id="deleteAccountButton" data-translate="delacc">Delete Account</button>
 					<button class="btn btn-warning mt-3 w-100" id="anonymizeUserButton" data-translate="anonymise">Anonymize Data</button>
 				</div>
@@ -526,43 +525,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			email: email,
 			password: password,
 		};
-
-		const userData2 = { email, password };
-		const response = await fetch('/api/token/', {
-			method: 'POST',  // Méthode POST pour l'authentification
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(userData2),
-		});
-	
-		if (!response.ok) {
-			const errorData = await response.json();
-			console.error('Erreur:', errorData);
-			alert('Erreur lors de la connexion.');
-			return;
-		}
-	
-		const data = await response.json();
-	
-		if (data.token)
-			sessionStorage.setItem('authToken', data.token);
 		const loginResult = await loginUserDB(userData3);
 		if (loginResult) {
 			const user = loginResult.user;
 			profileFirst.textContent = user.firstname;
 			profileLast.textContent = user.lastname;
 			profileUserName.textContent = user.username;
-			profileEmail.textContent = user.email;
-			// sessionStorage.setItem(email, JSON.stringify({ user }));
-			// sessionStorage.setItem(email, JSON.stringify({
-			// 	firstname: user.firstname,
-			// 	lastname: user.lastname,
-			// 	username: user.username,
-			// 	email: user.email
-			// }));
-
-		
+			profileEmail.textContent = user.email;		
 			registerModal.hide();
 			loginModal.hide();
 			mainContent.style.display = 'block';
