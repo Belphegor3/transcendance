@@ -5,8 +5,8 @@ game.keycode = {
     KEYUP : 38,
     KEY_R : 82,
     KEY_F : 70,
-    KEY_P : 80,
-    KEY_M : 186,
+    KEY_P : 79,
+    KEY_M : 76,
     KEY_IA : 188,
     KEY_Space : 32,
 }

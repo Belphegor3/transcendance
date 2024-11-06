@@ -594,8 +594,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	const login42Button = document.getElementById('login42Button');
-	login42Button.addEventListener('click', (e) => {
-		e.preventDefault();
+	login42Button.addEventListener('click', ()=> {
+		// e.preventDefault();
 		window.location.href = "/api/oauth/redirect";
 	});
 

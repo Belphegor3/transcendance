@@ -66,7 +66,9 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 import os
 import requests
-import logging
+from django.http import JsonResponse
+import logging, logging.config
+import sys
 
 # Désactiver la protection CSRF pour cette vue
 @api_view(['POST'])
@@ -110,8 +112,6 @@ def get_latest_game_options(request):
 
     return Response(options)
 
-logger = logging.getLogger(__name__)
-
 def redirect42Oauth(request):
     client_id = os.getenv('CLIENT_ID')
     redirect_uri = os.getenv('REDIRECT_URI')
@@ -121,7 +121,6 @@ def redirect42Oauth(request):
         f"redirect_uri={redirect_uri}&"
         "response_type=code"
     )
-    print("token récupéré :")
     return redirect(oauth_url)
 
 def callback42Oauth(request):
@@ -148,7 +147,6 @@ def callback42Oauth(request):
         token_json = token_response.json()
         access_token = token_json.get('access_token')
         
-
         if not access_token:
             return JsonResponse({'error': 'Access token not found'}, status=400)
 
@@ -159,7 +157,7 @@ def callback42Oauth(request):
         return login_or_create_user(request, user_data)
         
     except requests.exceptions.RequestException as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        return JsonResponse({'erroooor': str(e)}, status=500)
 
 def get_42_user_data(access_token):
     api_url = 'https://api.intra.42.fr/v2/me'
@@ -177,12 +175,25 @@ def login_or_create_user(request, user_data):
     first_name = user_data.get('first_name')
     last_name = user_data.get('last_name')
     email = user_data.get('email')
-    if not username or not first_name or not last_name or not email:
-        logger.error("Erreur : certaines informations utilisateur sont manquantes.")
-        return redirect("https://localhost:4443/game")
-    logger.debug(f"Utilisateur récupéré : {username}, {first_name} {last_name}, {email}")
+    
 
-    return redirect("https://localhost:4443/")
+    # LOGGING = {
+    #     'version': 1,
+    #     'handlers': {
+    #         'console': {
+    #             'class': 'logging.StreamHandler',
+    #             'stream': sys.stdout,
+    #         }
+    #     },
+    #     'root': {
+    #         'handlers': ['console'],
+    #         'level': 'INFO'
+    #     }
+    # }
+
+    # logging.config.dictConfig(LOGGING)
+    # logging.info(f"email: {email} \nlogin: {username}\nfirst_name: {first_name}\nlast_name: {last_name}")
+    return redirect("https://localhost:4443/admin")
 
 
 class RegisterUserView(APIView):
